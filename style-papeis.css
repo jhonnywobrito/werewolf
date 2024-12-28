@@ -1,0 +1,295 @@
+* {
+    margin: 0;
+    border: 0;
+    padding: 0;
+}
+
+.righteous-regular {
+    font-family: "Righteous", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+body {
+    font-family: "Righteous", sans-serif;
+    background-color: #000000;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 1)), url('img/fundo.png');
+    background-position: center center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    height: 120vh;
+    max-height: 100vh;
+    color: #fff;
+}
+
+h2 {
+    color: #fff;
+}
+
+header {
+    position: relative;
+    text-align: center;
+    background: linear-gradient(rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0));
+    width: 100%;
+    padding: 14px 0px;
+}
+
+nav {
+    margin: 14px 12px 12px 12px;
+    text-align: center;
+    font-size: 1rem;
+    word-spacing: 55px;
+    padding-bottom: 2px;
+}
+
+button {
+    padding: 12px;
+    font-family: "Righteous", sans-serif;
+    background-color: #3f1132;
+    color: white;
+    border: none;
+    border-radius: 24px;
+    cursor: pointer;
+    margin: 2px;
+    font-size: 1rem;
+    box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.333);
+}
+
+.login {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+}
+
+button:hover {
+    background-color: #6e5fe2;
+}
+
+a {
+    text-decoration: none;
+    color: #fff;
+}
+
+a:hover {
+    color: #6e5fe2;
+}
+
+.logo {
+    width: 90%;
+}
+
+p {
+    color: white;
+    text-shadow: 2px 2px 3px rgb(0, 0, 0);
+    font-size: 1.6rem;
+}
+
+.container {
+    margin-top: 22vh;
+}
+
+.container-tabela {
+    margin-top: 22vh;
+    max-width: 1200px;
+    margin: auto;
+    text-align: center;
+    overflow-x: auto;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    grid-gap: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.grid div {
+    text-align: center;
+    padding: 10px;
+}
+
+.logo {
+    max-width: 100%;
+}
+
+.grid .conteudo {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: left;
+}
+
+.botao-conteudo {
+    margin-top: 20px;
+}
+
+footer {
+    margin-top: 100px;
+    position: relative;
+    margin-bottom: 5px;
+    width: 100%;
+    text-align: center;
+}
+
+h5 {
+    font-family: Arial;
+}
+
+@media (max-width: 800px){
+    nav {
+        word-spacing: 42px;
+        margin-right: 0px
+    }
+    .container {
+        margin-top: 0;
+    }
+    .container-tabela {
+        margin: 0;
+    }
+    table th, table td {
+        font-size: 0.9rem;
+    }
+    form button {
+        font-size: 1rem;
+    }
+    table a{ 
+        flex-direction: column;
+        padding-left: 0;
+    }
+    table th:nth-child(1), table td:nth-child(1) {
+        display: none;
+    }
+}
+
+h1 {
+    font-size: 2.6rem;
+    color: #ffffff;
+    text-shadow: 3px 3px 4px black;
+}
+
+h2 {
+    margin: 30px 0px;
+    font-size: 2rem;
+    color: #ffffff;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 20px auto;
+    border-radius: 10px;
+    box-sizing: border-box;
+    color: #ffffff;
+    text-align: left;
+    max-width: 800px;
+    width: 100%;
+}
+
+form label {
+    display: block;
+    align-self: baseline;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+form input {
+    width: 100%;
+    color: white;
+    background-color: #333;
+    padding: 10px 0;
+    margin-bottom: 15px;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+}
+
+form button:hover {
+    background-color: #4b40b1;
+}
+
+table {
+    width: 100%;
+    margin: auto;
+    border-collapse: collapse;
+    background-color: #222;
+    color: #ffffff;
+    border-radius: 8px;
+    overflow: auto;
+}
+
+table th, table td {
+    padding: 6px;
+    text-align: left;
+}
+
+table th {
+    background-color: rgba(63, 17, 50);
+    font-weight: bold;
+    color: #ffffff;
+}
+
+.registros:hover {
+    background-color: #333;
+    transition: background-color 0.3s ease-in-out;
+}
+
+table a {
+    color: #6e5fe2;
+    text-decoration: none;
+    margin-right: 10px;
+    transition: color 0.3s ease-in-out;
+}
+
+table a:hover {
+    color: #4b40b1;
+}
+
+.delete-button {
+    color: #ff6b6b;
+}
+
+.delete-button:hover {
+    color: #ff4b4b;
+}
+
+label {
+    font-size: 2rem;
+}
+
+.papeis {
+    background-color: #352A51;
+    text-shadow: none;
+    border-radius: 4px;
+}
+
+.form-papeis {
+    background-color: #14233B;
+}
+
+.form-papeis p {
+    font-size: 1.2rem;
+    text-shadow: none;
+}
+
+input[type=checkbox]
+{
+  -ms-transform: scale(2);
+  -moz-transform: scale(2);
+  -webkit-transform: scale(2);
+  -o-transform: scale(2);
+  transform: scale(2);
+  padding: 5px;
+}
+
+.label-form {
+    color: #00763E;
+    background-color: #352A51;
+    font-size: 1.4rem;
+    padding: 40px;
+    border-radius: 4px;
+}
