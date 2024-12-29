@@ -7,64 +7,319 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Righteous&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style-papeis.css">
+    <link rel="stylesheet" href="style.css">
     <link rel="shortcut icon" href="img/mini-logo.png" type="image/x-icon">
     <script src="https://kit.fontawesome.com/8b0455432d.js" crossorigin="anonymous"></script>
 </head>
 <body>
-    <div class="container-tabela">
-        <h2>Seleção de Papéis de Jogo</h2>
-        <h3>Escolha os papéis para a sessão</h3>
-        <section class="conteudo-grid" id="grid-conteudo">
+    <header id="header">
+        <nav>
+            <a href="index.html"><i class="fa-solid fa-house"></i></a>
+            <a href="cadastro.html"><i class="fa-solid fa-image-portrait"></i></a>
+            <a href="papeis.html"><i class="fa-solid fa-list-check"></i></a>
+        </nav>
+    </header>
+    <div id="section-papeis">
+        <h2>Papéis de Jogo</h2>
+        <section >
             <form id="form-papeis">
-            <div class="grid">
-                <div><label class="label-form"><input type="checkbox" name="papel" value="aldeão"> Aldeão<p>Durante o dia, você discute com a aldeia sobre quem pode ser o lobisomem e decide alguém para matar.</p></label><br></div>
-                <div><label class="label-form"><input type="checkbox" name="papel" value="vidente"> Vidente</label></div>
-                <div><label class="label-form"><input type="checkbox" name="papel" value="médico"> Médico</label></div>
-                <div><label class="label-form"><input type="checkbox" name="papel" value="caçador"> Caçador</label></div>
-                <div><label class="label-form"><input type="checkbox" name="papel" value="bruxa"> Bruxa</label></div>
-                <div><label class="label-form"><input type="checkbox" name="papel" value="aprendiz de vidente"> Aprendiz de Vidente</label></div>
-                <div><label class="label-form"><input type="checkbox" name="papel" value="pacifista"> Pacifista</label></div>
-                <div><label class="label-form"><input type="checkbox" name="papel" value="sacerdote"> Sacerdote</label></div>
-                <div><label class="label-form"><input type="checkbox" name="papel" value="prefeito"> Prefeito</label></div>
-                <div><label class="label-form"><input type="checkbox" name="papel" value="guarda-costas"> Guarda-Costas</label></div>
-                <div><label class="label-form"><input type="checkbox" name="papel" value="detetive"> Detetive</label></div>
-                <div><label class="label-form"><input type="checkbox" name="papel" value="portador do amuleto"> Portador do Amuleto</label></div>
-                <div><label class="label-form"><input type="checkbox" name="papel" value="vidente de aura"> Vidente de Aura</label></div>
-                <div><label class="label-form"><input type="checkbox" name="papel" value="príncipe bonitão"> Príncipe Bonitão</label></div>
-                <div><label class="label-form"><input type="checkbox" name="papel" value="maçom"> Maçom</label></div>
-                <div><label class="label-form"><input type="checkbox" name="papel" value="menininha"> Menininha</label></div>
-                <div><label class="label-form"><input type="checkbox" name="papel" value="cientista maluco"> Cientista Maluco</label></div>
-                <div><label class="label-form"><input type="checkbox" name="papel" value="caçador de cabeças"> Caçador de Cabeças</label></div>
-                <div><label class="label-form"><input type="checkbox" name="papel" value="humano leproso"> Humano Leproso</label></div>
-                <div><label class="label-form"><input type="checkbox" name="papel" value="valentão"> Valentão</label></div>
-                <div><label class="label-form"><input type="checkbox" name="papel" value="menino travesso"> Menino Travesso</label></div>
-                <div><label class="label-form"><input type="checkbox" name="papel" value="prostituta"> Prostituta</label></div>
-                <div><label class="label-form"><input type="checkbox" name="papel" value="vovó zangada"> Vovó Zangada</label></div>
-                <div><label class="label-form"><input type="checkbox" name="papel" value="bêbado"> Bêbado</label></div>
-                <div><label class="label-form"><input type="checkbox" name="papel" value="idiota"> Idiota</label></div>
-                <div><label class="label-form"><input type="checkbox" name="papel" value="pistoleiro"> Pistoleiro</label></div>
-                <div><label class="label-form"><input type="checkbox" name="papel" value="presidente"> Presidente</label></div>
-                <div><label class="label-form"><input type="checkbox" name="papel" value="lobisomem"> Lobisomem</label></div>
-                <div><label class="label-form"><input type="checkbox" name="papel" value="lobo solitário"> Lobo Solitário</label></div>
-                <div><label class="label-form"><input type="checkbox" name="papel" value="filhote de lobisomem"> Filhote de Lobisomem</label></div>
-                <div><label class="label-form"><input type="checkbox" name="papel" value="humano amaldiçoado"> Humano Amaldiçoado</label></div>
-                <div><label class="label-form"><input type="checkbox" name="papel" value="feiticeira"> Feiticeira</label></div>
-                <div><label class="label-form"><input type="checkbox" name="papel" value="lobo alfa"> Lobo Alfa</label></div>
-                <div><label class="label-form"><input type="checkbox" name="papel" value="assassino em série"> Assassino em Série</label></div>
-                <div><label class="label-form"><input type="checkbox" name="papel" value="inquisidor"> Inquisidor</label></div>
-                <div><label class="label-form"><input type="checkbox" name="papel" value="sósia"> Sósia</label></div>
-                <div><label class="label-form"><input type="checkbox" name="papel" value="líder de seita"> Líder de Seita</label></div>
-                <div><label class="label-form"><input type="checkbox" name="papel" value="cupido"> Cupido</label></div>
-                <div><label class="label-form"><input type="checkbox" name="papel" value="depressivo"> Depressivo</label></div>
-                <div><label class="label-form"><input type="checkbox" name="papel" value="necromante"> Necromante</label></div>
-                <div><label class="label-form"><input type="checkbox" name="papel" value="piromaníaco"> Piromaníaco</label></div>
-                <button type="submit" class="cadastrar">Começar jogo</button>
-                <a href="index.html"><button class="botao-conteudo">Voltar</button></a>
+            <div>
+                <h2>Aldeões</h2>
+                <div class="label-form">
+                    <label>
+                      <img src="img/aldeao.png" alt="">
+                      <input type="checkbox" name="papel" value="aldeão"> Aldeão
+                    </label>
+                    <p>Durante o dia, você discute com a aldeia sobre quem pode ser o lobisomem e decide alguém para matar.</p>
+                  </div>
+                  <div class="label-form">
+                    <label>
+                      <img src="img/vidente.png" alt="">
+                      <input type="checkbox" name="papel" value="vidente"> Vidente
+                    </label>
+                    <p>Toda noite você poderá descobrir o papel de outro jogador.</p>
+                  </div>
+                  <div class="label-form">
+                    <label>
+                      <img src="img/medico.png" alt="">
+                      <input type="checkbox" name="papel" value="médico"> Médico
+                    </label>
+                    <p>Durante a noite, você acorda e seleciona um jogador que não poderá ser morto pelos lobisomens naquela noite. Você não poderá proteger o mesmo jogador duas noites seguidas.</p>
+                  </div>
+                  <div class="label-form">
+                    <label>
+                      <img src="img/cacador.png" alt="">
+                      <input type="checkbox" name="papel" value="caçador"> Caçador
+                    </label>
+                    <p>Quando você morrer poderá escolher outra pessoa para morrer com você.</p>
+                  </div>
+                  <div class="label-form">
+                    <label>
+                      <img src="img/bruxa.png" alt="">
+                      <input type="checkbox" name="papel" value="bruxa"> Bruxa
+                    </label>
+                    <p>Você tem duas opções que podem ser usadas durante a noite: uma que irá salvar outro jogador de ser morto pelos lobisomens e um veneno que irá matar outro jogador.</p>
+                  </div>
+                  <div class="label-form">
+                    <label>
+                      <img src="img/aprendiz-de-vidente.png" alt="">
+                      <input type="checkbox" name="papel" value="aprendiz de vidente"> Aprendiz de Vidente
+                    </label>
+                    <p>Se o vidente morrer, você tomará seu lugar e começará a procurar por lobisomens.</p>
+                  </div>
+                  <div class="label-form">
+                    <label>
+                      <img src="img/pacifista.png" alt="">
+                      <input type="checkbox" name="papel" value="pacifista"> Pacifista
+                    </label>
+                    <p>Uma vez por jogo você pode revelar o papel de um jogador para todos e evitar qualquer pessoa de votar durante aquele dia.</p>
+                  </div>
+                  <div class="label-form">
+                    <label>
+                      <img src="img/sacerdote.png" alt="">
+                      <input type="checkbox" name="papel" value="sacerdote"> Sacerdote
+                    </label>
+                    <p>Você poderá usar a água benta em outro jogador. Se esse jogador for um lobisomem, ele morre. Se não, você morre. Só pode ser usada uma única vez.</p>
+                  </div>
+                  <div class="label-form">
+                    <label>
+                      <img src="img/prefeito.png" alt="">
+                      <input type="checkbox" name="papel" value="prefeito"> Prefeito
+                    </label>
+                    <p>Se você revelar seu papel para a aldeia, seu voto conta duas vezes durante o dia.</p>
+                  </div>
+                  <div class="label-form">
+                    <label>
+                      <img src="img/guarda-costas.png" alt="">
+                      <input type="checkbox" name="papel" value="guarda-costas"> Guarda-Costas
+                    </label>
+                    <p>Durante a noite, você poderá selecionar um jogador para proteger. Se os lobisomens tentarem matar esse jogador, você morre no lugar.</p>
+                  </div>
+                  <div class="label-form">
+                    <label>
+                      <img src="img/detetive.png" alt="">
+                      <input type="checkbox" name="papel" value="detetive"> Detetive
+                    </label>
+                    <p>Cada noite você pode selecionar dois jogadores para ver se eles pertencem ao mesmo time.</p>
+                  </div>
+                  <div class="label-form">
+                    <label>
+                      <img src="img/portador-do-amuleto.png" alt="">
+                      <input type="checkbox" name="papel" value="portador do amuleto"> Portador do Amuleto
+                    </label>
+                    <p>Você não poderá ser morto por lobisomens durante a noite.</p>
+                  </div>
+                  <div class="label-form">
+                    <label>
+                      <img src="img/vidente-de-aura.png" alt="">
+                      <input type="checkbox" name="papel" value="vidente de aura"> Vidente de Aura
+                    </label>
+                    <p>Toda noite você seleciona um jogador para saber se ele é o lobisomem.</p>
+                  </div>
+                  <div class="label-form">
+                    <label>
+                      <img src="img/principe-bonitao.png" alt="">
+                      <input type="checkbox" name="papel" value="príncipe bonitão"> Príncipe Bonitão
+                    </label>
+                    <p>A primeira vez que a aldeia tentar te matar na votação, você mostra seu papel e sobrevive.</p>
+                  </div>
+                  <div class="label-form">
+                    <label>
+                      <img src="img/macom.png" alt="">
+                      <input type="checkbox" name="papel" value="maçom"> Maçom
+                    </label>
+                    <p>Você pode ver quem são os outros maçons.</p>
+                  </div>
+                  <div class="label-form">
+                    <label>
+                      <img src="img/menininha.png" alt="">
+                      <input type="checkbox" name="papel" value="menininha"> Menininha
+                    </label>
+                    <p>Se você abrir seus olhos, há 20% de chance de detectar um lobisomem; mas também há 5% de chance dos lobisomens te encontrarem e te matarem.</p>
+                  </div>
+                  <div class="label-form"> 
+                    <label>
+                      <img src="img/cientista-maluco.png" alt="">
+                      <input type="checkbox" name="papel" value="cientista maluco"> Cientista Maluco
+                    </label>
+                    <p>Você é um aldeão normal, exceto que quando você morrer uma substância tóxica será liberada e ela irá matar as duas pessoas ao seu lado.</p>
+                  </div>
+                  <div class="label-form"> 
+                    <label>
+                      <img src="img/cacador-de-cabecas.png" alt="">
+                      <input type="checkbox" name="papel" value="caçador de cabeças"> Caçador de Cabeças
+                    </label>
+                    <p>Seu objetivo é fazer seu alvo ser linchado pela vila durante o dia. Se o seu alvo morrer de outra maneira, você irá virar um aldeão normal.</p>
+                  </div>
+                  <div class="label-form"> 
+                    <label>
+                      <img src="img/humano-leproso.png" alt="">
+                      <input type="checkbox" name="papel" value="humano leproso"> Humano Leproso
+                    </label>
+                    <p>Quando você é morto pelos lobisomens, eles não serão capazes de matar na próxima noite.</p>
+                  </div>
+                  <div class="label-form"> 
+                    <label>
+                      <img src="img/valentao.png" alt="">
+                      <input type="checkbox" name="papel" value="valentão"> Valentão
+                    </label>
+                    <p>Quando atacado pelos lobisomens, você sobrevive até o próximo dia.</p>
+                  </div>
+                  <div class="label-form"> 
+                    <label>
+                      <img src="img/menino-travesso.png" alt="">
+                      <input type="checkbox" name="papel" value="menino travesso"> Menino Travesso
+                    </label>
+                    <p>Apenas uma vez por jogo você pode trocar os papéis de dois jogadores.</p>
+                  </div>
+                  <div class="label-form"> 
+                    <label>
+                      <img src="img/prostituta.png" alt="">
+                      <input type="checkbox" name="papel" value="prostituta"> Prostituta
+                    </label>
+                    <p>Durante a noite você pode ficar na casa de outro jogador. Se esse jogador for um lobisomem ou for morto por um, você também morrerá. Se os lobisomens tentarem te matar e você estiver na casa de outra pessoa, você sobrevive.</p>
+                  </div>
+                  <div class="label-form"> 
+                    <label>
+                      <img src="img/vovo-zangada.png" alt="">
+                      <input type="checkbox" name="papel" value="vovó zangada"> Vovó Zangada
+                    </label>
+                    <p>Todo dia você escolhe algum jogador que não poderá votar durante o dia.</p>
+                  </div>
+                  <div class="label-form"> 
+                    <label>
+                      <img src="img/bebado.png" alt="">
+                      <input type="checkbox" name="papel" value="bêbado"> Bêbado
+                    </label>
+                    <p>Você está constantemente bêbado e não deve falar durante o jogo.</p>
+                  </div>
+                  <div class="label-form"> 
+                    <label>
+                      <img src="img/idiota.png" alt="">
+                      <input type="checkbox" name="papel" value="idiota"> Idiota
+                    </label>
+                    <p>Se a aldeia tentar te matar na votação, você não morrrerá, mas perderá seu direito de votar.</p>
+                  </div>
+                  <div class="label-form"> 
+                    <label>
+                      <img src="img/pistoleiro.png" alt="">
+                      <input type="checkbox" name="papel" value="pistoleiro"> Pistoleiro
+                    </label>
+                    <p>Você têm duas balas que podem ser usadas para matar alguém. Os tiros são muito barulhentos, seu papel será revelado logo depois do primeiro tiro.</p>
+                  </div>
+                  <h2>Lobisomens</h2>
+                  <div class="label-form"> 
+                    <label>
+                      <img src="img/lobisomem.png" alt="">
+                      <input type="checkbox" name="papel" value="lobisomem"> Lobisomem
+                    </label>
+                    <p>Durante a noite, você acorda junto com seus amigos lobisomens e decide uma vítima para matar. Durante o dia, tenta parecer um aldeão comum para não ser morto.</p>
+                  </div>
+                  <div class="label-form"> 
+                    <label>
+                      <img src="img/lobo-solitario.png" alt="">
+                      <input type="checkbox" name="papel" value="lobo solitário"> Lobo Solitário
+                    </label>
+                    <p>Você é um lobisomem comum, exceto que você só ganhará se for o último lobisomem vivo.</p>
+                  </div>
+                  <div class="label-form"> 
+                    <label>
+                      <img src="img/filhote-de-lobisomem.png" alt="">
+                      <input type="checkbox" name="papel" value="filhote de lobisomem"> Filhote de Lobisomem
+                    </label>
+                    <p>Você é um lobisomem normal, exceto que, se você morrer, os lobisomens matarão duas pessoas na próxima noite.</p>
+                  </div>
+                  <div class="label-form"> 
+                    <label>
+                      <img src="img/humano-amaldicoado.png" alt="">
+                      <input type="checkbox" name="papel" value="humano amaldiçoado"> Humano Amaldiçoado
+                    </label>
+                    <p>Você é um aldeão normal até os lobisomens tentarem te matar. Caso aconteça, você se torna um lobisomem.</p>
+                  </div>
+                  <div class="label-form"> 
+                    <label>
+                      <img src="img/feiticeira.png" alt="">
+                      <input type="checkbox" name="papel" value="feiticeira"> Feiticeira
+                    </label>
+                    <p>A cada noite você seleciona um jogador para ver se ele é o vidente ou um lobisomem.</p>
+                  </div>
+                  <div class="label-form"> 
+                    <label>
+                      <img src="img/lobo-alfa.png" alt="">
+                      <input type="checkbox" name="papel" value="lobo alfa"> Lobo Alfa
+                    </label>
+                    <p>Apenas uma vez por jogo, você pode morder um jogador para ele virar um lobisomem.</p>
+                  </div>
+                  <h2>Papéis especiais</h2>
+                  <div class="label-form"> 
+                    <label>
+                      <img src="img/assassino-em-serie.png" alt="">
+                      <input type="checkbox" name="papel" value="assassino em série"> Assassino em Série
+                    </label>
+                    <p>A cada noite você pode matar outro jogador. Se você for o último jogador vivo, você vence.</p>
+                  </div>
+                  <div class="label-form"> 
+                    <label>
+                      <img src="img/inquisidor.png" alt="">
+                      <input type="checkbox" name="papel" value="inquisidor"> Inquisidor
+                    </label>
+                    <p>Cada noite você pode selecionar um jogador. Se ele é o líder da seita ou parte de uma seita, o jogador morrerá.</p>
+                  </div>
+                  <div class="label-form"> 
+                    <label>
+                      <img src="img/sosia.png" alt="">
+                      <input type="checkbox" name="papel" value="sósia"> Sósia
+                    </label>
+                    <p>Na primeira noite você seleciona um jogador. Se esse jogador morrer, você tomará o seu papel.</p>
+                  </div>
+                  <div class="label-form"> 
+                    <label>
+                      <img src="img/lider-de-seita.png" alt="">
+                      <input type="checkbox" name="papel" value="líder de seita"> Líder de Seita
+                    </label>
+                    <p>Toda noite você escolhe alguém para unir à sua seita. Quando todos os jogadores se unirem, você vence.</p>
+                  </div>
+                  <div class="label-form"> 
+                    <label>
+                      <img src="img/cupido.png" alt="">
+                      <input type="checkbox" name="papel" value="cupido"> Cupido
+                    </label>
+                    <p>Durante a primeira noite, você seleciona duas pessoas para formarem um casal. Esse casal só ganhará se eles forem as duas últimas pessoas vivas. Se uma pessoa do casal morrer em qualquer momento, a outra também morrerá.</p>
+                  </div>
+                  <div class="label-form"> 
+                    <label>
+                      <img src="img/depressivo.png" alt="">
+                      <input type="checkbox" name="papel" value="depressivo"> Depressivo
+                    </label>
+                    <p>Você está muito triste. Seu objetivo é ser morto pela aldeia. Se você for linchado pela aldeia, você vence.</p>
+                  </div>
+                  <div class="label-form"> 
+                    <label>
+                      <img src="img/necromante.png" alt="">
+                      <input type="checkbox" name="papel" value="necromante"> Necromante
+                    </label>
+                    <p>Uma vez por jogo, você poderá reviver um jogador morto.</p>
+                  </div>
+                  <div class="label-form"> 
+                    <label>
+                      <img src="img/piromaniaco.png" alt="">
+                      <input type="checkbox" name="papel" value="piromaníaco"> Piromaníaco
+                    </label>
+                    <p>Toda noite você seleciona dois jogadores para encharcar com gasolina ou queimar todos os jogadores já encharcados. Você ganha se você for o último jogador vivo. Você não pode ser morto pelos lobisomens.</p>
+                  </div>
+                  <div class="label-form"> 
+                    <label>
+                      <img src="img/presidente.png" alt="">
+                      <input type="checkbox" name="papel" value="presidente"> Presidente
+                    </label>
+                    <p>Você é o presidente! Todo mundo sabe quem você é. Se você morrer, a aldeia perderá.</p>
+                  </div>
+                <a href="jogo.html"><button type="submit" class="cadastrar" id="comecar-jogo">Começar jogo</button></a>
             </div>
             </form>
             <div class="navegacao">
-                
+                <a href="cadastro.html"><button class="botao-conteudo">Lista de jogadores</button></a>
+                <a href="#header"><button class="botao-conteudo">Voltar ao topo</button></a>
             </div>
         </section>
 

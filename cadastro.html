@@ -12,23 +12,29 @@
     <script src="https://kit.fontawesome.com/8b0455432d.js" crossorigin="anonymous"></script>
 </head>
 <body>
+    <header>
+        <nav>
+            <a href="index.html"><i class="fa-solid fa-house"></i></a>
+            <a href="cadastro.html"><i class="fa-solid fa-image-portrait"></i></a>
+            <a href="papeis.html"><i class="fa-solid fa-list-check"></i></a>
+        </nav>
+    </header>
     <div class="container-tabela">
         <section class="conteudo-grid" id="grid-conteudo">
             <div class="grid">
                 <div>
-                    <h2>Cadastrar jogador</h2>
+                    <h2>Novo jogador</h2>
 
                     <form action="" method="">
                         <label for="nome">Nome:</label>
                         <input type="text" id="nome" name="nome" required>
                         <hr>
-                        <button class="cadastrar" type="submit">Cadastrar</button>
+                        <button class="cadastrar" type="submit">Adicionar</button>
                     </form>
                 </div>
 
                 <div>
                     <h2>Jogadores</h2>
-                    <a href="#footer"><button>Final da lista</button></a>
                     <a href="" id="deletar-todos"><button>Deletar todos</button></a>
                     <table>
                         <thead>
@@ -45,7 +51,7 @@
         </section>
         <div class="navegacao">
         <a href="index.html"><button class="botao-conteudo">Voltar</button></a>
-        <a href="papeis.html"><button class="botao-conteudo">Continuar</button></a>
+        <a href="papeis.html"><button class="botao-conteudo" id="comecar-jogo">Continuar</button></a>
         </div>
     </div>
     <footer class="footer">

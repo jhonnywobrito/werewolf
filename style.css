@@ -10,17 +10,16 @@
     font-style: normal;
 }
 
-body {
+body, html {
     font-family: "Righteous", sans-serif;
-    background-color: #000000;
-    background: linear-gradient(to top, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 1)), url('img/fundo.png');
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 1)), url('img/fundo.png');
     background-position: center center;
     background-size: cover;
     background-repeat: no-repeat;
-    background-attachment: fixed;
     height: 120vh;
     max-height: 100vh;
     color: #fff;
+    background-color: #000000;
 }
 
 h2 {
@@ -46,12 +45,13 @@ nav {
 button {
     padding: 12px;
     font-family: "Righteous", sans-serif;
-    background-color: #3f1132;
+    background-color: #14233B;
     color: white;
     border: none;
     border-radius: 24px;
     cursor: pointer;
     margin: 2px;
+    margin-bottom: 10px;
     font-size: 1rem;
     box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.333);
 }
@@ -81,7 +81,7 @@ a:hover {
 
 p {
     color: white;
-    text-shadow: 2px 2px 3px rgb(0, 0, 0);
+    text-shadow: 1px 1px 2px rgb(0, 0, 0);
     font-size: 1.6rem;
 }
 
@@ -177,7 +177,7 @@ h1 {
 }
 
 h2 {
-    margin: 30px 0px;
+    margin: 30px 6px;
     font-size: 2rem;
     color: #ffffff;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
@@ -200,13 +200,12 @@ form label {
     display: block;
     align-self: baseline;
     margin-bottom: 10px;
-    font-weight: bold;
 }
 
-form input {
+#nome {
     width: 100%;
-    color: white;
-    background-color: #333;
+    color: rgb(0, 0, 0);
+    background-color: #ffffff;
     padding: 10px 0;
     margin-bottom: 15px;
     border: none;
@@ -234,7 +233,7 @@ table th, table td {
 }
 
 table th {
-    background-color: rgba(63, 17, 50);
+    background-color: #ffffff00;
     font-weight: bold;
     color: #ffffff;
 }
@@ -244,21 +243,68 @@ table th {
     transition: background-color 0.3s ease-in-out;
 }
 
-table a {
-    color: #6e5fe2;
-    text-decoration: none;
+#form-papeis {
+    display: flex;
+    flex-direction: row;
+}
+
+#form-papeis p {
+    font-size: 1rem;
+}
+
+#form-papeis label {
+    display: flex;
+    align-items: center;
+    margin: 10px;
+    gap: 10px;
+}
+
+.label-form{
+    background-color: #352A51;
+    padding: 10px;
+    border-radius: 4px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+    margin: 5px;
+}
+
+#section-papeis {
+    text-align: center;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+label img {
+    width: 50px;
     margin-right: 10px;
-    transition: color 0.3s ease-in-out;
 }
 
-table a:hover {
-    color: #4b40b1;
+#comecar-jogo {
+    position: fixed; 
+    bottom: 20px; 
+    right: 20px;    
+    z-index: 1000;  
+    padding: 10px 20px;
+    background-color: #E18902; 
+    color: white;  
+    border: none;   
+    border-radius: 20px;
+    font-size: 16px;
+    cursor: pointer; 
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-.delete-button {
-    color: #ff6b6b;
+#comecar-jogo:hover {
+    background-color: #b7720c; 
 }
 
-.delete-button:hover {
-    color: #ff4b4b;
+::-webkit-scrollbar-track {
+    background-color: #ffffff00;
+}
+::-webkit-scrollbar {
+    width: 1px;
+    background: #000000;
+}
+::-webkit-scrollbar-thumb {
+    background: #ffffff;
 }
