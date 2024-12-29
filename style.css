@@ -13,7 +13,7 @@
 body, html {
     font-family: "Righteous", sans-serif;
     background: linear-gradient(to bottom, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 1)), url('img/fundo.png');
-    background-position: center center;
+    background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
     height: 120vh;
@@ -165,9 +165,6 @@ h5 {
         flex-direction: column;
         padding-left: 0;
     }
-    table th:nth-child(1), table td:nth-child(1) {
-        display: none;
-    }
 }
 
 h1 {
@@ -221,7 +218,7 @@ table {
     width: 100%;
     margin: auto;
     border-collapse: collapse;
-    background-color: #222;
+    background-color: #22222200;
     color: #ffffff;
     border-radius: 8px;
     overflow: auto;
@@ -236,6 +233,10 @@ table th {
     background-color: #ffffff00;
     font-weight: bold;
     color: #ffffff;
+}
+
+table th:nth-child(1), table td:nth-child(1) {
+    display: none;
 }
 
 .registros:hover {
