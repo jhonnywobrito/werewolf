@@ -16,8 +16,8 @@ body, html {
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
-    height: 120vh;
-    max-height: 100vh;
+    height: 100%;
+    max-height: 99vh;
     color: #fff;
     background-color: #000000;
 }
@@ -27,7 +27,7 @@ h2 {
 }
 
 header {
-    position: relative;
+    position: fixed;
     text-align: center;
     background: linear-gradient(rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0));
     width: 100%;
@@ -56,11 +56,6 @@ button {
     box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.333);
 }
 
-.login {
-    position: absolute;
-    top: 15px;
-    right: 20px;
-}
 
 button:hover {
     background-color: #6e5fe2;
@@ -86,11 +81,11 @@ p {
 }
 
 .container {
-    margin-top: 22vh;
+    padding-top: 30vh;
 }
 
 .container-tabela {
-    margin-top: 22vh;
+    padding-top: 22vh;
     max-width: 1200px;
     margin: auto;
     text-align: center;
@@ -136,35 +131,6 @@ footer {
 
 h5 {
     font-family: Arial;
-}
-
-@media (max-width: 800px){
-    .login {
-        position: static;
-    }
-    .grid {
-        grid-template-columns: 1fr;
-    }
-    nav {
-        word-spacing: 42px;
-        margin-right: 0px
-    }
-    .container {
-        margin-top: 0;
-    }
-    .container-tabela {
-        margin: 0;
-    }
-    table th, table td {
-        font-size: 0.9rem;
-    }
-    form button {
-        font-size: 1rem;
-    }
-    table a{ 
-        flex-direction: column;
-        padding-left: 0;
-    }
 }
 
 h1 {
@@ -215,7 +181,7 @@ form button:hover {
 }
 
 table {
-    width: 100%;
+    width: 90%;
     margin: auto;
     border-collapse: collapse;
     background-color: #22222200;
@@ -251,6 +217,9 @@ table th:nth-child(1), table td:nth-child(1) {
 
 #form-papeis p {
     font-size: 1rem;
+    background-color: rgb(40, 31, 61);
+    padding: 10px;
+    border-radius: 6px;
 }
 
 #form-papeis label {
@@ -258,10 +227,13 @@ table th:nth-child(1), table td:nth-child(1) {
     align-items: center;
     margin: 10px;
     gap: 10px;
+    text-shadow: none;
+    font-size: 1.4rem;
 }
 
 .label-form{
-    background-color: #352A51;
+    background: linear-gradient(to top, rgba(53, 42, 81,1), rgba(44, 35, 66,1));
+    background-color: rgb(53, 42, 81);
     padding: 10px;
     border-radius: 4px;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
@@ -269,6 +241,7 @@ table th:nth-child(1), table td:nth-child(1) {
 }
 
 #section-papeis {
+    padding-top: 10vh;
     text-align: center;
     display: flex;
     align-items: center;
@@ -280,7 +253,7 @@ label img {
     margin-right: 10px;
 }
 
-#comecar-jogo {
+#salvar-sessao {
     position: fixed; 
     bottom: 20px; 
     right: 20px;    
@@ -295,8 +268,46 @@ label img {
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-#comecar-jogo:hover {
+#salvar-sessao-ut {
+    position: fixed; 
+    bottom: 20px; 
+    right: 20px;    
+    z-index: 1000;  
+    padding: 10px 20px;
+    background-color: #E18902; 
+    color: white;  
+    border: none;   
+    border-radius: 20px;
+    font-size: 16px;
+    cursor: pointer; 
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+#salvar-sessao:hover {
     background-color: #b7720c; 
+}
+
+#salvar-sessao-ut:hover {
+    background-color: #b7720c; 
+}
+
+#comecar-jogo {
+    position: fixed;
+    bottom: 70px; 
+    right: 20px;    
+    z-index: 1000;  
+    padding: 10px 20px;
+    background-color: #00763E; 
+    color: white;  
+    border: none;   
+    border-radius: 20px;
+    font-size: 16px;
+    cursor: pointer; 
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+#comecar-jogo:hover {
+    background-color: #026738; 
 }
 
 ::-webkit-scrollbar-track {
@@ -308,4 +319,88 @@ label img {
 }
 ::-webkit-scrollbar-thumb {
     background: #ffffff;
+}
+
+#mestre-jogo {
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+        justify-content: center;
+        margin: 8px auto;
+        background-color: #1d1a38;
+        border-radius: 12px;
+        width: 40%;
+        height: 95vh;
+        max-height: 100%;
+        box-sizing: border-box; 
+}
+
+#mestre-jogo img {
+    width: 100px;
+    background-color: #ffffff;
+    padding: 12px 60px;
+    border-radius: 12px;
+    margin: 12px;
+}
+
+#mestre-jogo button {
+    width: 60%;
+    align-items: center;
+    margin: 4px;
+}
+
+.nome-pessoa {
+    background-color: #026738;
+    padding: 4px;
+    font-weight: normal;
+}
+
+.espaco {
+    background-color: #02502b;
+    padding: 4px;
+}
+
+.espaco p {
+    text-shadow: none;
+    font-size: 1.2rem;
+}
+
+@media (max-width: 890px){
+    .login {
+        position: static;
+    }
+    .grid {
+        grid-template-columns: 1fr;
+    }
+    nav {
+        word-spacing: 42px;
+        margin-right: 0px
+    }
+    .container {
+        margin-top: 0;
+        padding-top: 12vh;
+    }
+    .container-tabela {
+        margin: 0;
+        padding-top: 10vh;
+    }
+    table th, table td {
+        font-size: 0.9rem;
+    }
+    form button {
+        font-size: 1rem;
+    }
+    table a{ 
+        flex-direction: column;
+        padding-left: 0;
+    }
+    #mestre-jogo {
+        margin: 12px auto;
+        border-radius: 12px;
+        width: 90%;
+        height: 90%;
+        max-height: 100%;
+        max-width: 100%;
+        box-sizing: border-box; 
+    }
 }

@@ -12,15 +12,16 @@
     <script src="https://kit.fontawesome.com/8b0455432d.js" crossorigin="anonymous"></script>
 </head>
 <body>
-    <header id="header">
+    <header>
         <nav>
             <a href="index.html"><i class="fa-solid fa-house"></i></a>
             <a href="cadastro.html"><i class="fa-solid fa-user"></i></a>
             <a href="papeis.html"><i class="fa-solid fa-layer-group"></i></a>
         </nav>
     </header>
+
     <div id="section-papeis">
-        <h2>Papéis de Jogo</h2>
+        <h2 id="topo">Papéis de Jogo</h2>
         <section >
             <form id="form-papeis">
             <div>
@@ -314,38 +315,53 @@
                     </label>
                     <p>Você é o presidente! Todo mundo sabe quem você é. Se você morrer, a aldeia perderá.</p>
                   </div>
-                <a href="jogo.html"><button type="submit" class="cadastrar" id="comecar-jogo">Começar jogo</button></a>
+                <button type="submit" class="cadastrar" id="salvar-sessao-ut">Salvar papéis para sessão</button>
             </div>
             </form>
             <div class="navegacao">
                 <a href="cadastro.html"><button class="botao-conteudo">Lista de jogadores</button></a>
-                <a href="#header"><button class="botao-conteudo">Voltar ao topo</button></a>
+                <a href="#topo"><button class="botao-conteudo">Voltar ao topo</button></a>
+                <a href="mestre.html"><button id="comecar-jogo">Começar jogo</button></a>
             </div>
         </section>
 
         
     </div>
-
+    
     <footer class="footer">
         <h5>Todos os direitos reservados © 2024</h5>
     </footer>
-
+    
     <script>
-        document.getElementById('form-papeis').addEventListener('submit', function (event) {
-            event.preventDefault();
-
-            // Captura os papéis selecionados
-            const papeisSelecionados = [];
-            const checkboxes = document.querySelectorAll('input[name="papel"]:checked');
-            checkboxes.forEach(checkbox => {
-                papeisSelecionados.push(checkbox.value);
-            });
-
-            // Armazenar os papéis selecionados na localStorage
-            localStorage.setItem('papeisSessao', JSON.stringify(papeisSelecionados));
-
-            alert('Papéis selecionados salvos!');
-        });
+      document.getElementById('comecar-jogo').addEventListener('click', function (event) {
+          const papeisSelecionados = JSON.parse(localStorage.getItem('papeisSessao')) || [];
+      
+          if (papeisSelecionados.length < 2) {
+              event.preventDefault();
+              alert('Selecione e salve na sessão ao menos 2 papéis para começar o jogo.');
+          }
+      });
+      
+      document.getElementById('form-papeis').addEventListener('submit', function (event) {
+          event.preventDefault();
+      
+          const papeisSelecionados = [];
+          const checkboxes = document.querySelectorAll('input[name="papel"]:checked');
+          checkboxes.forEach(checkbox => {
+              papeisSelecionados.push(checkbox.value);
+          });
+      
+          if (papeisSelecionados.length < 2) {
+              alert('Selecione ao menos 2 papéis para essa sessão.');
+          } else {
+              localStorage.setItem('papeisSessao', JSON.stringify(papeisSelecionados));
+              alert('Papéis selecionados salvos! Clique "Começar jogo" para iniciar a sessão com essas configurações.');
+          }
+      });
+    
     </script>
-</body>
-</html>
+
+    
+    </body>
+    </html>
+    

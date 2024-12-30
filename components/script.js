@@ -22,6 +22,14 @@ document.addEventListener('DOMContentLoaded', () => {
             tabelaCorpo.appendChild(novaLinha);
         });
     };
+
+    document.getElementById('salvar-sessao-ut').addEventListener('click', () => {
+            const jogadores = JSON.parse(localStorage.getItem('jogadores')) || [];
+            if (jogadores.length < 2) {
+                event.preventDefault();
+                alert('Adicione ao menos 2 jogadores na sessão.')
+            };
+        });
     
     carregarJogadores();
 
@@ -47,4 +55,6 @@ document.addEventListener('DOMContentLoaded', () => {
             deletarJogadores();
         }
     });
+
+
 });
