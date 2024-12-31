@@ -16,7 +16,7 @@ body, html {
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
-    height: 100%;
+    height: 99%;
     max-height: 99vh;
     color: #fff;
     background-color: #000000;
@@ -89,7 +89,6 @@ p {
     max-width: 1200px;
     margin: auto;
     text-align: center;
-    overflow-x: auto;
 }
 
 .grid {
@@ -321,43 +320,58 @@ label img {
     background: #ffffff;
 }
 
+#pai-mestre-jogo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;  /* Centraliza horizontalmente */
+    justify-content: center; /* Centraliza verticalmente */
+    margin: 0px auto;  /* Remove margens adicionais e centraliza a div */
+    padding: 12rem 0px;  /* Ajuste o padding conforme necessário */
+    background-color: #000000;
+    width: 100%;  /* 50% da largura da tela */
+    height: 100%; /* Ocupa 100% da altura da tela */
+    max-width: 100%;
+    box-sizing: border-box;  /* Garante que o padding não aumente a largura total */
+}
+
 #mestre-jogo {
-        display: flex;
-        flex-direction: column;
-        text-align: center;
-        justify-content: center;
-        margin: 8px auto;
-        background-color: #1d1a38;
-        border-radius: 12px;
-        width: 40%;
-        height: 95vh;
-        max-height: 100%;
-        box-sizing: border-box; 
+    background: linear-gradient(to top, rgba(53, 42, 81,1), rgba(44, 35, 66,1));
+    border-radius: 12px;
+    margin-top: 2rem;
+    padding: 0;
 }
 
 #mestre-jogo img {
     width: 100px;
     background-color: #ffffff;
     padding: 12px 60px;
-    border-radius: 12px;
-    margin: 12px;
+    border-radius: 20px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.5);
 }
 
-#mestre-jogo button {
-    width: 60%;
-    align-items: center;
-    margin: 4px;
+#pai-mestre-jogo button {
+    background-color: rgb(31, 24, 46);
+}
+
+.imagem-papel h2{
+    background-color: rgb(31, 24, 46);
+    border-radius: 4px;
 }
 
 .nome-pessoa {
     background-color: #026738;
-    padding: 4px;
+    padding: 8px;
     font-weight: normal;
+}
+
+.nome-pessoa h3 {
+    margin: 4px;
 }
 
 .espaco {
     background-color: #02502b;
     padding: 4px;
+    margin-bottom: 6px;
 }
 
 .espaco p {
@@ -365,7 +379,7 @@ label img {
     font-size: 1.2rem;
 }
 
-@media (max-width: 890px){
+@media (max-width: 600px){
     .login {
         position: static;
     }
@@ -395,12 +409,6 @@ label img {
         padding-left: 0;
     }
     #mestre-jogo {
-        margin: 12px auto;
-        border-radius: 12px;
-        width: 90%;
-        height: 90%;
-        max-height: 100%;
-        max-width: 100%;
-        box-sizing: border-box; 
+        margin-top: 5.6rem;
     }
 }

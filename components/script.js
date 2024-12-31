@@ -2,6 +2,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const form = document.querySelector('form');
     const nomeInput = document.getElementById('nome');
     const tabelaCorpo = document.querySelector('table tbody');
+    const carregarPapeis = () => JSON.parse(localStorage.getItem('papeisSessao')) || [];
 
     const deletarJogadores = () => {
         localStorage.removeItem('jogadores');
@@ -55,6 +56,5 @@ document.addEventListener('DOMContentLoaded', () => {
             deletarJogadores();
         }
     });
-
 
 });
