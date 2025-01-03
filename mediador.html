@@ -14,41 +14,42 @@
 <body data-page="mediador">
     <!-- Modal -->
     <div id="modal" class="modal">
-        <div id="pai-mestre-jogo" class="container-tabela">
+        <div id="pai-mestre-jogo">
             <div id="mestre-jogo">
-                <div class="grid">
-                    <img src="img/mestre.png" id="mestre-icone" alt="">
+                <div>
                     <div class="nome-pessoa">
-                        <div class="espaco">
+                        <div class="papel-jogador">
                             <p>O Mestre do Jogo diz:</p>
                         </div>
-                        <p class="comando"></p>
+                        <div class="espaco">
+                            <p class="comando"></p>
+                        </div>
                     </div>
                 </div>
+                <div class="navegacao">
+                    <button id="continuar-btn">Continuar</button>
+                </div>
             </div>
-            <div class="navegacao">
-                <button id="continuar-btn">Continuar</button>
-            </div>
+            
         </div>
     </div>
 
-    <!-- Conteúdo da página -->
+    <!-- Página -->
     <div id="pagina-mediador">
         <div id="mestre-jogo">
             <div class="grid" id="papel">
+                <p id="nome-jogador">WEREWOLF</p>
+                <img src="img/mestre.png" id="imagem-jogador" alt="Imagem do Jogador">
                 
-                <h2>WEREWOLF</h2>
-                <img src="img/mestre.png" id="imagem-jogador" alt="">
-                <div class="nome-pessoa">
-                    <div class="espaco">
-                        <p id="papel-jogador"></p>
-                    </div>
-                    <p class="comando" id="nome-jogador"></p>
-                </div>
+            </div>
+            <div class="nome-pessoa">
+                <p id="papel-jogador">Papel: Papel do Jogador</p>
+                <p id="descricao-papel" class="espaco">Descrição do papel aparecerá aqui.</p>
             </div>
             <div class="navegacao">
                 <a href="mediador.html"><button id="botao-conteudo">Continuar</button></a>
             </div>
+        </div>
     </div>
 
     <script src="components/script.js"></script>

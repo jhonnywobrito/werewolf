@@ -20,6 +20,7 @@ body, html {
     max-height: 100vh;
     color: #fff;
     background-color: #000000;
+
 }
 
 h2 {
@@ -96,8 +97,34 @@ p {
     grid-template-columns: 1fr 1fr;
     grid-gap: 20px;
     max-width: 1200px;
-    margin: 0 auto;
+    margin: auto;
     padding: 20px;
+}
+
+#pai-mestre-jogo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #000000;
+    width: 100%;
+    min-height: 100vh;
+    box-sizing: border-box;
+    flex-grow: 1;
+    padding: 0 4px;
+}
+
+#pagina-mediador {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #000000;
+    width: 100%;
+    min-height: 100vh;
+    box-sizing: border-box;
+    flex-grow: 1;
+    padding: 0 4px;
 }
 
 .grid div {
@@ -114,10 +141,6 @@ p {
     flex-direction: column;
     justify-content: center;
     text-align: left;
-}
-
-.botao-conteudo {
-    margin-top: 20px;
 }
 
 footer {
@@ -353,9 +376,10 @@ label img {
     justify-content: center;
     background-color: #000000;
     width: 100%;
-    min-height: 100vh; /* Garante que ocupe toda a altura da tela */
+    min-height: 100vh;
     box-sizing: border-box;
-    flex-grow: 1; /* Faz o conteúdo ocupar o espaço disponível */
+    flex-grow: 1;
+    padding: 0 4px;
 }
 
 #pai-mestre-jogo {
@@ -364,8 +388,8 @@ label img {
     align-items: center;
     justify-content: center;
     margin: auto;
-    background-color: #000000;
     width: 100%;
+    padding: 0;
     max-width: 100%;
     box-sizing: border-box;
 }
@@ -397,36 +421,57 @@ label img {
     margin: auto;
 }
 
-#papel h2{
+#papel #nome-jogador {
     background-color: rgb(31, 24, 46);
     border-radius: 4px;
     text-shadow: none;
     text-align: center;
+    padding: 6px;
+    margin: auto 0;
 }
 
+.imagem-papel p {
+    margin: 12px;
+    font-size: 1rem;
+    background-color: #E18902;
+    padding: 4px;
+    border-radius: 4px;
+}
 
-.nome-pessoa {
-    background-color: #026738;
+.imagem-papel #nome-jogador {
+    background-color: rgb(31, 24, 46);
+    border-radius: 4px;
+    text-shadow: none;
+    text-align: center;
+    padding: 6px;
+    margin: 12px;
+    font-size: 1.6rem;
+}
+
+.imagem-papel {
+    margin: auto;
+}
+
+#papel-jogador, .papel-jogador, .nome-pessoa h3 {
+    background-color: #02502b;
     padding: 8px;
     font-weight: normal;
+    text-align: center;
 }
 
 .nome-pessoa p {
     text-shadow: none;
-}
-
-.nome-pessoa h3 {
-    margin: 4px;
+    font-size: 1.3rem;
 }
 
 #mestre-icone {
     margin: auto;
 }
 
-.espaco {
-    background-color: #02502b;
+.espaco, .nome-pessoa  {
+    background-color: #026738;
     padding: 4px;
-    margin-bottom: 6px;
+    margin-bottom: 10px;
 }
 
 .espaco p {
@@ -434,12 +479,18 @@ label img {
     font-size: 1.2rem;
 }
 
+#descricao-papel {
+    font-size: 1.2rem;
+}
+
+
 @media (max-width: 600px){
     .login {
         position: static;
     }
     .grid {
         grid-template-columns: 1fr;
+        grid-gap: 10px;
     }
     nav {
         word-spacing: 42px;
@@ -463,9 +514,12 @@ label img {
         flex-direction: column;
         padding-left: 0;
     }
+    .nome-pessoa  {
+        margin: 20px 0;
+    }
 }
 
-.modal {
+#modal #pai-mestre-jogo {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -478,27 +532,18 @@ label img {
     z-index: 1000;
 }
 
-.modal-content {
-    background: linear-gradient(to top, rgba(53, 42, 81, 1), rgba(44, 35, 66, 1));
+#modal #pai-mestre-jogo #mestre-jogo {
     color: white;
-    padding: 2rem;
-    border-radius: 12px;
-    text-align: center;
-    max-width: 500px;
-    width: 90%;
+    margin: 10px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
+    background: #026738;
 }
 
-.modal-content h1 {
-    font-size: 2.4rem;
-    margin-bottom: 1rem;
-    text-shadow: 3px 3px 4px black;
-}
-
-.modal-content p {
-    font-size: 1.6rem;
-    margin-bottom: 2rem;
-    text-shadow: 1px 1px 2px black;
+#modal #pai-mestre-jogo #mestre-jogo button{
+    color: white;
+    margin: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    background: #034e2b;
 }
 
 #continuar-btn {
