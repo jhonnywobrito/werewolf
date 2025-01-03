@@ -457,6 +457,11 @@ label img {
     padding: 8px;
     font-weight: normal;
     text-align: center;
+    border-radius: 12px;
+}
+
+.nome-pessoa {
+    border-radius: 12px;
 }
 
 .nome-pessoa p {
@@ -490,7 +495,6 @@ label img {
     }
     .grid {
         grid-template-columns: 1fr;
-        grid-gap: 10px;
     }
     nav {
         word-spacing: 42px;
@@ -515,7 +519,8 @@ label img {
         padding-left: 0;
     }
     .nome-pessoa  {
-        margin: 20px 0;
+        border-radius: 12px;
+        padding: 12px;
     }
 }
 
