@@ -16,8 +16,8 @@ body, html {
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
-    height: 99%;
-    max-height: 99vh;
+    height: 100%;
+    max-height: 100vh;
     color: #fff;
     background-color: #000000;
 }
@@ -234,7 +234,7 @@ table th:nth-child(1), table td:nth-child(1) {
     background: linear-gradient(to top, rgba(53, 42, 81,1), rgba(44, 35, 66,1));
     background-color: rgb(53, 42, 81);
     padding: 10px;
-    border-radius: 4px;
+    border-radius: 8px;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
     margin: 5px;
 }
@@ -320,26 +320,66 @@ label img {
     background: #ffffff;
 }
 
+#pai-cadastro {
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+    justify-content: center;
+    margin: 0px auto;
+    padding: 8rem 0px;
+    background: linear-gradient(to bottom, rgba(53, 42, 81,1), rgb(0, 0, 0));
+    width: 100%;
+    max-height: fit-content;
+    max-width: 100%;
+}
+
+.pai-papeis {
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+    justify-content: center;
+    margin: 0px auto;
+    padding: 8rem 0px;
+    background: linear-gradient(to bottom, rgb(31, 25, 46), rgb(0, 0, 0));
+    width: 100%;
+    max-height: fit-content;
+    max-width: 100%;
+}
+
+#pagina-mediador {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #000000;
+    width: 100%;
+    min-height: 100vh; /* Garante que ocupe toda a altura da tela */
+    box-sizing: border-box;
+    flex-grow: 1; /* Faz o conteúdo ocupar o espaço disponível */
+}
+
 #pai-mestre-jogo {
     display: flex;
     flex-direction: column;
-    align-items: center;  /* Centraliza horizontalmente */
-    justify-content: center; /* Centraliza verticalmente */
-    margin: 0px auto;  /* Remove margens adicionais e centraliza a div */
-    padding: 12rem 0px;  /* Ajuste o padding conforme necessário */
+    align-items: center;
+    justify-content: center;
+    margin: auto;
     background-color: #000000;
-    width: 100%;  /* 50% da largura da tela */
-    height: 100%; /* Ocupa 100% da altura da tela */
+    width: 100%;
     max-width: 100%;
-    box-sizing: border-box;  /* Garante que o padding não aumente a largura total */
+    box-sizing: border-box;
 }
 
 #mestre-jogo {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    margin: auto;
     background: linear-gradient(to top, rgba(53, 42, 81,1), rgba(44, 35, 66,1));
     border-radius: 12px;
-    margin-top: 2rem;
     padding: 0;
 }
+
 
 #mestre-jogo img {
     width: 100px;
@@ -353,10 +393,17 @@ label img {
     background-color: rgb(31, 24, 46);
 }
 
-.imagem-papel h2{
+#imagem-jogador {
+    margin: auto;
+}
+
+#papel h2{
     background-color: rgb(31, 24, 46);
     border-radius: 4px;
+    text-shadow: none;
+    text-align: center;
 }
+
 
 .nome-pessoa {
     background-color: #026738;
@@ -364,8 +411,16 @@ label img {
     font-weight: normal;
 }
 
+.nome-pessoa p {
+    text-shadow: none;
+}
+
 .nome-pessoa h3 {
     margin: 4px;
+}
+
+#mestre-icone {
+    margin: auto;
 }
 
 .espaco {
@@ -408,7 +463,57 @@ label img {
         flex-direction: column;
         padding-left: 0;
     }
-    #mestre-jogo {
-        margin-top: 5.6rem;
-    }
 }
+
+.modal {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    z-index: 1000;
+}
+
+.modal-content {
+    background: linear-gradient(to top, rgba(53, 42, 81, 1), rgba(44, 35, 66, 1));
+    color: white;
+    padding: 2rem;
+    border-radius: 12px;
+    text-align: center;
+    max-width: 500px;
+    width: 90%;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
+}
+
+.modal-content h1 {
+    font-size: 2.4rem;
+    margin-bottom: 1rem;
+    text-shadow: 3px 3px 4px black;
+}
+
+.modal-content p {
+    font-size: 1.6rem;
+    margin-bottom: 2rem;
+    text-shadow: 1px 1px 2px black;
+}
+
+#continuar-btn {
+    margin-top: 18px;
+    padding: 12px 24px;
+    font-size: 1.2rem;
+    background-color: #14233B;
+    color: white;
+    border: none;
+    border-radius: 24px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+#continuar-btn:hover {
+    background-color: #6e5fe2;
+}
+
