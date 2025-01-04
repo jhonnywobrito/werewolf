@@ -337,11 +337,7 @@ label img {
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-#salvar-sessao:hover {
-    background-color: #b7720c; 
-}
-
-#salvar-sessao-ut:hover {
+#salvar-sessao:hover, #salvar-sessao-ut:hover{
     background-color: #b7720c; 
 }
 
@@ -462,9 +458,10 @@ label img {
 .imagem-papel p {
     margin: 12px;
     font-size: 1rem;
-    background-color: #E18902;
+    background-color: #8f6603;
     padding: 4px;
     border-radius: 4px;
+    text-shadow: none;
 }
 
 .imagem-papel #nome-jogador {
