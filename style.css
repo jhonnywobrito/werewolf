@@ -10,17 +10,31 @@
     font-style: normal;
 }
 
-body, html {
+body,html {
+    background: linear-gradient(to bottom, rgb(31, 25, 46), rgb(0, 0, 0));
     font-family: "Righteous", sans-serif;
-    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 1)), url('img/fundo.png');
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
     height: 100%;
-    max-height: 100vh;
+    margin: 0;
     color: #fff;
-    background-color: #000000;
+}
 
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center; 
+    align-items: center; 
+    height: 100%;
+    margin: 0;
+}
+
+#index {
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 1)), url('img/fundo.png');
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
 }
 
 h2 {
@@ -57,7 +71,6 @@ button {
     box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.333);
 }
 
-
 button:hover {
     background-color: #6e5fe2;
 }
@@ -81,24 +94,13 @@ p {
     font-size: 1.6rem;
 }
 
-.container {
-    padding-top: 30vh;
-}
-
-.container-tabela {
-    padding-top: 22vh;
-    max-width: 1200px;
-    margin: auto;
-    text-align: center;
-}
-
 .grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-gap: 20px;
     max-width: 1200px;
     margin: auto;
-    padding: 20px;
+    padding: 20px 2px;
 }
 
 #pai-mestre-jogo {
@@ -129,7 +131,6 @@ p {
 
 .grid div {
     text-align: center;
-    padding: 10px;
 }
 
 .logo {
@@ -141,14 +142,6 @@ p {
     flex-direction: column;
     justify-content: center;
     text-align: left;
-}
-
-footer {
-    margin-top: 100px;
-    position: relative;
-    margin-bottom: 5px;
-    width: 100%;
-    text-align: center;
 }
 
 h5 {
@@ -203,28 +196,48 @@ form button:hover {
 }
 
 table {
-    width: 90%;
-    margin: auto;
+    width: 100%;
     border-collapse: collapse;
-    background-color: #22222200;
-    color: #ffffff;
-    border-radius: 8px;
-    overflow: auto;
+    table-layout: fixed;
 }
 
-table th, table td {
-    padding: 6px;
+table th, 
+table td {
+    padding: 10px;
     text-align: left;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
-table th {
-    background-color: #ffffff00;
-    font-weight: bold;
-    color: #ffffff;
+table thead th {
+    position: sticky;
+    top: 0; 
+    background-color: #14233B;
+    z-index: 1;
 }
 
-table th:nth-child(1), table td:nth-child(1) {
-    display: none;
+table tbody {
+    display: block;
+    max-height: 150px;
+    overflow-y: auto;
+}
+
+table thead, 
+table tbody tr {
+    display: table;
+    width: 100%;
+    table-layout: fixed;
+}
+
+table th:first-child,
+table td:first-child {
+    width: 20px;
+}
+
+table th:last-child,
+table td:last-child {
+    width: auto;
 }
 
 .registros:hover {
@@ -290,6 +303,25 @@ label img {
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
 }
 
+#voltar-cadastro {
+    position: fixed; 
+    bottom: 20px; 
+    left: 20px;    
+    z-index: 1000;  
+    padding: 10px 20px;
+    background-color: #14233B; 
+    color: white;  
+    border: none;   
+    border-radius: 20px;
+    font-size: 16px;
+    cursor: pointer; 
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+#voltar-cadastro:hover {
+    background-color: #6e5fe2;
+}
+
 #salvar-sessao-ut {
     position: fixed; 
     bottom: 20px; 
@@ -346,14 +378,11 @@ label img {
 #pai-cadastro {
     display: flex;
     flex-direction: column;
-    align-items: center; 
+    align-items: center;
     justify-content: center;
-    margin: 0px auto;
-    padding: 8rem 0px;
-    background: linear-gradient(to bottom, rgba(53, 42, 81,1), rgb(0, 0, 0));
+    background: linear-gradient(to bottom, rgb(31, 25, 46), rgb(0, 0, 0));
     width: 100%;
-    max-height: fit-content;
-    max-width: 100%;
+    min-height: 100vh;
 }
 
 .pai-papeis {
@@ -479,48 +508,47 @@ label img {
     margin-bottom: 10px;
 }
 
-.espaco p {
+.espaco {
     text-shadow: none;
-    font-size: 1.2rem;
+    font-size: 2rem;
+    text-align: center;
 }
 
 #descricao-papel {
     font-size: 1.2rem;
 }
 
+@media (max-height: 360px){
+    #pai-cadastro {
+        padding: 12rem 0;
+    }
+}
 
 @media (max-width: 600px){
-    .login {
-        position: static;
-    }
     .grid {
         grid-template-columns: 1fr;
+        grid-gap:0;
     }
     nav {
-        word-spacing: 42px;
+        word-spacing: 50px;
         margin-right: 0px
     }
-    .container {
-        margin-top: 0;
-        padding-top: 12vh;
-    }
-    .container-tabela {
-        margin: 0;
-        padding-top: 10vh;
-    }
+    
     table th, table td {
         font-size: 0.9rem;
     }
     form button {
         font-size: 1rem;
     }
-    table a{ 
-        flex-direction: column;
-        padding-left: 0;
-    }
     .nome-pessoa  {
         border-radius: 12px;
         padding: 12px;
+    }
+    #mestre-jogo #papel {
+        grid-gap: 20px;
+    }
+    #pai-cadastro {
+        padding: 8rem 0;
     }
 }
 

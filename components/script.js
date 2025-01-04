@@ -486,7 +486,9 @@ if (page === 'mediador') {
     
         const exibirJogadorModal = () => {
             const jogadorAtual = jogadores[posicaoAtual] || 'Nenhum jogador encontrado.';
-            document.querySelector('.nome-pessoa .comando').textContent = `Passe o aparelho para: ${jogadorAtual}`;
+            document.querySelector('.nome-pessoa .comando').textContent = `Passe o aparelho para:`;
+            document.querySelector('.nome-pessoa .espaco').textContent = `${jogadorAtual}`;
+            
         };
 
         const proximoJogador = () => {
