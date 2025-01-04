@@ -193,9 +193,9 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     const chancesEspeciais = {
-        'lobo alfa': 4,
-        'lobo solitário': 8,
-        'filhote de lobisomem': 8,
+        'lobo alfa': 1,
+        'lobo solitário': 2,
+        'filhote de lobisomem': 2,
     };
 
     const processarLobisomens = () => {
