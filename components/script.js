@@ -37,6 +37,19 @@ document.addEventListener('DOMContentLoaded', () => {
     const deletarJogadores = () => {
         localStorage.removeItem('jogadores');
     };
+    
+    const calcularSorteio = (chances, excluir = []) => {
+        const chancesFiltradas = Object.entries(chances).filter(([papel]) => !excluir.includes(papel));
+        const total = chancesFiltradas.reduce((sum, [, chance]) => sum + chance, 0);
+        const random = Math.random() * total;
+        let acumulado = 0;
+        for (const [papel, chance] of chancesFiltradas) {
+            acumulado += chance;
+            if (random <= acumulado) {
+                return papel;
+            }
+        }
+    };
 
     const calcularSorteioLobisomem = (chances) => {
         const total = Object.values(chances).reduce((sum, chance) => sum + chance, 0);
@@ -450,6 +463,11 @@ if (page === 'mestre') {
             const papelSorteado = calcularSorteio(chancesPapeis);
             resultados.push({ jogador, papel: papelSorteado });
         });
+        
+        const jogadoresStatus = jogadores.map(jogador => ({ nome: jogador, status: 'vivo'
+        }));
+    
+        localStorage.setItem('jogadoresStatus', JSON.stringify(jogadoresStatus));
 
         localStorage.setItem('resultadoSorteio', JSON.stringify(resultados));
         processarLobisomens();
@@ -470,7 +488,25 @@ if (page === 'mediador') {
         const jogadores = JSON.parse(localStorage.getItem('jogadores')) || [];
         let posicaoAtual = JSON.parse(localStorage.getItem('posicaoAtual')) || 0;
         const resultadoSorteio = JSON.parse(localStorage.getItem('resultadoSorteio')) || [];
-    
+        
+        function atualizarStatusJogador(nomeJogador, novoStatus) {
+    // Carrega a lista de jogadores vivos do localStorage
+                const jogadoresVivos = JSON.parse(localStorage.getItem('jogadoresVivos')) || [];
+
+    // Encontra o jogador na lista e atualiza o status
+                const jogadorIndex = jogadoresVivos.findIndex(jogador => jogador.nome === nomeJogador);
+                if (jogadorIndex !== -1) {
+                    jogadoresVivos[jogadorIndex].status = novoStatus;
+                } else {
+                    console.warn(`Jogador "${nomeJogador}" não encontrado na lista.`);
+                        return;
+                }
+
+    // Salva a lista atualizada no localStorage
+            localStorage.setItem('jogadoresVivos', JSON.stringify(jogadoresVivos));
+            console.log(`Status do jogador "${nomeJogador}" atualizado para "${novoStatus}".`);
+        }
+        
         const exibirJogadorModal = () => {
             const jogadorAtual = jogadores[posicaoAtual] || 'Nenhum jogador encontrado.';
             document.querySelector('.nome-pessoa .comando').textContent = `Passe o aparelho para:`;
