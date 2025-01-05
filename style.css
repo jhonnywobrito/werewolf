@@ -99,7 +99,7 @@ p {
     grid-template-columns: 1fr 1fr;
     grid-gap: 20px;
     max-width: 1200px;
-    margin: auto;
+    margin: auto 4px;
     padding: 20px 2px;
 }
 
@@ -142,6 +142,13 @@ p {
     flex-direction: column;
     justify-content: center;
     text-align: left;
+}
+
+#tabela-registro {
+    background: linear-gradient(to top, rgba(53, 42, 81,1), rgba(44, 35, 66,1));
+    padding: 4px;
+    box-sizing: border-box;
+    border-radius: 4px;
 }
 
 h5 {
@@ -221,6 +228,8 @@ table tbody {
     display: block;
     max-height: 150px;
     overflow-y: auto;
+    border-radius: 4px;
+    background-color: #14233B;
 }
 
 table thead, 
@@ -546,6 +555,9 @@ label img {
     }
     #pai-cadastro {
         padding: 8rem 0;
+    }
+    #tabela-registro {
+        margin-top: 40px;
     }
 }
 

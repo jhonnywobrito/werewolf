@@ -38,19 +38,6 @@ document.addEventListener('DOMContentLoaded', () => {
         localStorage.removeItem('jogadores');
     };
 
-    const calcularSorteio = (chances, excluir = []) => {
-        const chancesFiltradas = Object.entries(chances).filter(([papel]) => !excluir.includes(papel));
-        const total = chancesFiltradas.reduce((sum, [, chance]) => sum + chance, 0);
-        const random = Math.random() * total;
-        let acumulado = 0;
-        for (const [papel, chance] of chancesFiltradas) {
-            acumulado += chance;
-            if (random <= acumulado) {
-                return papel;
-            }
-        }
-    };
-
     const calcularSorteioLobisomem = (chances) => {
         const total = Object.values(chances).reduce((sum, chance) => sum + chance, 0);
         const random = Math.random() * total;
