@@ -490,10 +490,8 @@ if (page === 'mediador') {
         const resultadoSorteio = JSON.parse(localStorage.getItem('resultadoSorteio')) || [];
         
         function atualizarStatusJogador(nomeJogador, novoStatus) {
-    // Carrega a lista de jogadores vivos do localStorage
                 const jogadoresVivos = JSON.parse(localStorage.getItem('jogadoresVivos')) || [];
 
-    // Encontra o jogador na lista e atualiza o status
                 const jogadorIndex = jogadoresVivos.findIndex(jogador => jogador.nome === nomeJogador);
                 if (jogadorIndex !== -1) {
                     jogadoresVivos[jogadorIndex].status = novoStatus;
@@ -502,21 +500,25 @@ if (page === 'mediador') {
                         return;
                 }
 
-    // Salva a lista atualizada no localStorage
             localStorage.setItem('jogadoresVivos', JSON.stringify(jogadoresVivos));
             console.log(`Status do jogador "${nomeJogador}" atualizado para "${novoStatus}".`);
         }
         
         const exibirJogadorModal = () => {
-            const jogadorAtual = jogadores[posicaoAtual] || 'Nenhum jogador encontrado.';
+            const jogadorAtual = jogadores[posicaoAtual] || 'Mestre do Jogo';
             document.querySelector('.nome-pessoa .comando').textContent = `Passe o aparelho para:`;
             document.querySelector('.nome-pessoa .espaco').textContent = `${jogadorAtual}`;
             
         };
 
         const proximoJogador = () => {
-            posicaoAtual = (posicaoAtual + 1) % jogadores.length;
-            localStorage.setItem('posicaoAtual', posicaoAtual);
+            posicaoAtual = (posicaoAtual + 1);
+        
+            if (posicaoAtual > jogadores.length) {
+                window.location.href = 'relatorio.html';
+            } else {
+                localStorage.setItem('posicaoAtual', posicaoAtual);
+            }
         };
     
         continuarBtnModal.addEventListener('click', () => {
@@ -531,29 +533,129 @@ if (page === 'mediador') {
         });
     
         const atualizarJogadorInfo = () => {
+            const jogadores = JSON.parse(localStorage.getItem('jogadores')) || [];
+            const resultadoSorteio = JSON.parse(localStorage.getItem('resultadoSorteio')) || [];
+            const posicaoAtual = JSON.parse(localStorage.getItem('posicaoAtual')) || 0;
+        
             const jogadorAtual = jogadores[posicaoAtual];
+            if (!jogadorAtual) {
+                console.warn('Nenhum jogador atual encontrado.');
+                return;
+            }
+        
             const papelAtual = resultadoSorteio.find(jogador => jogador.jogador === jogadorAtual)?.papel || 'Sem papel definido';
-            
-            nomeJogador.textContent = `${jogadorAtual}`;
-            papelJogador.textContent = `${papelAtual}`;
-
-            const descricao = descricaoPorPapel[papelAtual.toLowerCase()] || 'Nenhuma descrição disponível para este papel.';
+        
+            document.getElementById('nome-jogador').textContent = jogadorAtual;
+            document.getElementById('papel-jogador').textContent = `Papel: ${papelAtual}`;
+        
+            const descricao = descricaoPorPapel?.[papelAtual.toLowerCase()] || 'Nenhuma descrição disponível para este papel.';
             document.getElementById('descricao-papel').textContent = descricao;
-            
-            setTimeout(() => {
-                const imagemPapel = imagemPorPapel[papelAtual.toLowerCase()] || 'img/mestre.png';
-                imagemJogador.src = imagemPapel; 
-            
-            }, 50); 
-            
+        
+            const imagemPapel = imagemPorPapel?.[papelAtual.toLowerCase()] || 'img/mestre.png';
+            document.getElementById('imagem-jogador').src = imagemPapel;
+        
+            const navegacaoDiv = document.getElementById('navegacao');
+            navegacaoDiv.innerHTML = ''; // Limpa os botões existentes
+        
+            const botaoContinuar = document.createElement('button');
+            botaoContinuar.id = 'botao-conteudo';
+            botaoContinuar.textContent = 'Continuar';
+            botaoContinuar.addEventListener('click', () => {
+                window.location.href = 'mediador.html';
+            });
+            navegacaoDiv.appendChild(botaoContinuar);
+        
+            if (papelAtual.toLowerCase() === 'lobisomem') {
+                const botaoAtaque = document.createElement('button');
+                botaoAtaque.textContent = 'Atacar';
+                botaoAtaque.addEventListener('click', () => abrirJanelaAtaque(jogadorAtual));
+                navegacaoDiv.appendChild(botaoAtaque);
+        
+                const botaoEstrategia = document.createElement('button');
+                botaoEstrategia.textContent = 'Planejar estratégia';
+                botaoEstrategia.addEventListener('click', () => {
+                    alert(`Jogador "${jogadorAtual}" está planejando uma estratégia!`);
+                });
+                navegacaoDiv.appendChild(botaoEstrategia);
+            }
         };
+        
+        // Função para abrir a janela/modal de ataque
+        const abrirJanelaAtaque = (jogadorAtual) => {
+
+            const modalAtaque = document.createElement('div');
+            modalAtaque.className = 'modal-ataque';
+        
+            const jogadoresStatus = JSON.parse(localStorage.getItem('jogadoresStatus')) || [];
+            const jogadoresVivos = jogadoresStatus.filter(jogador => jogador.status === 'vivo' && jogador.nome !== jogadorAtual);
+        
+            modalAtaque.innerHTML = `
+                <div class="modal-content">
+                    <h2>Escolha um jogador para atacar</h2>
+                    <ul class="lista-jogadores">
+                        ${jogadoresVivos.map(jogador => `
+                            <li>
+                                <input type="radio" name="jogador" value="${jogador.nome}" id="jogador-${jogador.nome}">
+                                <label for="jogador-${jogador.nome}">${jogador.nome}</label>
+                            </li>
+                        `).join('')}
+                    </ul>
+                    
+                    <button id="cancelar-ataque">Cancelar</button>
+                    <button id="confirmar-ataque">Confirmar</button>
+                </div>
+            `;
+        
+            // Adiciona o modal à página
+            document.body.appendChild(modalAtaque);
+        
+            // Botão para confirmar o ataque
+            document.getElementById('confirmar-ataque').addEventListener('click', () => {
+                const jogadorSelecionado = document.querySelector('input[name="jogador"]:checked');
+                if (jogadorSelecionado) {
+                    const nomeSelecionado = jogadorSelecionado.value;
+                    console.log(`Jogador atacado: ${nomeSelecionado}`);
+                    atualizarStatusJogador(nomeSelecionado, 'condenado');
+                    alert(`Você atacou o jogador: ${nomeSelecionado}`);
+                    window.location.href = 'mediador.html';
+                } else {
+                    alert('Selecione um jogador para continuar.');
+                }
+            });
+        
+            // Botão para cancelar o ataque
+            document.getElementById('cancelar-ataque').addEventListener('click', () => {
+                modalAtaque.remove();
+            });
+        };
+        
+        function atualizarStatusJogador(nomeJogador, novoStatus) {
+            const jogadoresStatus = JSON.parse(localStorage.getItem('jogadoresStatus')) || [];
+            const jogadorIndex = jogadoresStatus.findIndex(jogador => jogador.nome === nomeJogador);
+        
+            if (jogadorIndex !== -1) {
+                jogadoresStatus[jogadorIndex].status = novoStatus;
+                localStorage.setItem('jogadoresStatus', JSON.stringify(jogadoresStatus));
+                console.log(`Status do jogador "${nomeJogador}" atualizado para "${novoStatus}".`);
+            } else {
+                console.warn(`Jogador "${nomeJogador}" não encontrado na lista.`);
+            }
+        }
     
         exibirJogadorModal();
         
     }
-    
-    
 
+    
+    //--------------------------------------
+
+if (page === 'relatorio') {    
+    const jogadoresStatus = JSON.parse(localStorage.getItem('jogadoresStatus')) || [];
+    posicaoAtual = 0;
+
+    localStorage.setItem('posicaoAtual', posicaoAtual);
+
+}
 
 });
 
