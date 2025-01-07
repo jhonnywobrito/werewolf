@@ -560,6 +560,9 @@ if (page === 'mestre') {
     
             const navegacaoDiv = document.getElementById('navegacao');
             navegacaoDiv.innerHTML = '';
+            
+            const idConfirmar = `confirmar-${Date.now()}`;
+            const idCancelar = `cancelar-${Date.now()}`;
     
             const botaoContinuar = document.createElement('button');
             botaoContinuar.id = 'botao-conteudo';
@@ -571,9 +574,11 @@ if (page === 'mestre') {
     
             if (papelAtual.toLowerCase() === 'lobisomem') {
                 const botaoAtaque = document.createElement('button');
-                botaoAtaque.textContent = 'Atacar';
-                botaoAtaque.addEventListener('click', () => abrirJanelaAtaque(jogadorAtual.nome));
-                navegacaoDiv.appendChild(botaoAtaque);
+                idAtaque = idConfirmar + 'ataque'
+                idConfirmar = idAtaque;
+                idConfirmar.textContent = 'Atacar';
+                idConfirmar.addEventListener('click', () => abrirJanela(jogadorAtual.nome));
+                navegacaoDiv.appendChild(idConfirmar);
     
                 const botaoEstrategia = document.createElement('button');
                 botaoEstrategia.textContent = 'Estratégia';
@@ -582,51 +587,94 @@ if (page === 'mestre') {
                 });
                 navegacaoDiv.appendChild(botaoEstrategia);
             }
+
+            if (papelAtual.toLowerCase() === 'médico') {
+                const botaoProtecao = document.createElement('button');
+                botaoProtecao.textContent = 'Proteger';
+                botaoProtecao.addEventListener('click', () => abrirJanela(jogadorAtual.nome));
+                botaoProtecao.id = 'confirmar-protecao'
+                navegacaoDiv.appendChild(botaoProtecao);
+    
+            }
         };
     
-        const abrirJanelaAtaque = (jogadorAtual) => {
+        const abrirJanela = (jogadorAtual) => {
             const modalAtaque = document.createElement('div');
             modalAtaque.className = 'modal-ataque';
     
             const jogadoresVivos = jogadoresStatus.filter(jogador => jogador.status !== 'morto' && jogador.nome !== jogadorAtual);
-    
+
             modalAtaque.innerHTML = `
-                <div class="modal-content">
-                    <h2>Escolha um jogador para atacar</h2>
-                    <ul class="lista-jogadores">
-    ${jogadoresVivos.map(jogador => 
-        `<li>
-            <label for="jogador-${jogador.nome}" class="item-jogador">
-                <input type="radio" name="jogador" value="${jogador.nome}" id="jogador-${jogador.nome}">
-                <span>${jogador.nome}</span>
-            </label>
-        </li>`
-    ).join('')}
+    <div class="modal-content">
+        <h2>Escolha um jogador</h2>
+        <ul class="lista-jogadores">
+${jogadoresVivos.map(jogador => 
+    `<li>
+        <label for="jogador-${jogador.nome}" class="item-jogador">
+            <input type="radio" name="jogador" value="${jogador.nome}" id="jogador-${jogador.nome}">
+            <span>${jogador.nome}</span>
+        </label>
+    </li>`
+).join('')}
 </ul>
-                    <button id="cancelar-ataque">Cancelar</button>
-                    <button id="confirmar-ataque">Confirmar</button>
-                </div>
-            `;
-    
+        <button id="${idCancelar}">Cancelar</button>
+        <button id="${idConfirmar}">Confirmar</button>
+    </div>
+`;
             document.body.appendChild(modalAtaque);
     
             document.getElementById('confirmar-ataque').addEventListener('click', () => {
                 const jogadorSelecionado = document.querySelector('input[name="jogador"]:checked');
+                const jogadoresProtegidos = jogadoresStatus.filter(jogador => jogador.status === 'protegido');
+            
                 if (jogadorSelecionado) {
                     const nomeSelecionado = jogadorSelecionado.value;
-                    console.log(`Jogador atacado: ${nomeSelecionado}`);
-                    atualizarStatusJogador(nomeSelecionado, 'condenado');
-                    alert(`Você atacou o jogador: ${nomeSelecionado}`);
-                    window.location.href = 'mediador.html';
+                    const jogadorEstaProtegido = jogadoresProtegidos.some(jogador => jogador.nome === nomeSelecionado);
+            
+                    if (jogadorEstaProtegido) {
+                        window.location.href = 'mediador.html';
+                    } else {
+                        console.log(`Jogador atacado: ${nomeSelecionado}`);
+                        atualizarStatusJogador(nomeSelecionado, 'condenado');
+                        window.location.href = 'mediador.html';
+                    }
                 } else {
                     alert('Selecione um jogador para continuar.');
                 }
             });
     
-            document.getElementById('cancelar-ataque').addEventListener('click', () => {
+            document.getElementById('cancelar').addEventListener('click', () => {
+                modalAtaque.remove();
+            });
+
+            // -----------------
+
+            document.getElementById('confirmar-protecao').addEventListener('click', () => {
+                const jogadorSelecionado = document.querySelector('input[name="jogador"]:checked');
+                const jogadoresProtegidos = jogadoresStatus.filter(jogador => jogador.status === 'protegido');
+            
+                if (jogadorSelecionado) {
+                    const nomeSelecionado = jogadorSelecionado.value;
+                    const jogadorEstaProtegido = jogadoresProtegidos.some(jogador => jogador.nome === nomeSelecionado);
+            
+                    if (jogadorEstaProtegido) {
+                        window.location.href = 'mediador.html';
+                    } else {
+                        console.log(`Jogador protegido: ${nomeSelecionado}`);
+                        atualizarStatusJogador(nomeSelecionado, 'protegido');
+                        window.location.href = 'mediador.html';
+                    }
+                } else {
+                    alert('Selecione um jogador para continuar.');
+                }
+            });
+    
+            document.getElementById('cancelar-protecao').addEventListener('click', () => {
                 modalAtaque.remove();
             });
         };
+
+        
 
         function atualizarStatusJogador(nomeJogador, novoStatus) {
             const jogadoresStatus = JSON.parse(localStorage.getItem('jogadoresStatus')) || [];
@@ -636,7 +684,9 @@ if (page === 'mestre') {
                 jogadoresStatus[jogadorIndex].status = novoStatus;
                 localStorage.setItem('jogadoresStatus', JSON.stringify(jogadoresStatus));
                 console.log(`Status do jogador "${nomeJogador}" atualizado para "${novoStatus}".`);
-            } else {
+            } 
+            
+            else {
                 console.warn(`Jogador "${nomeJogador}" não encontrado na lista.`);
             }
         }
@@ -713,13 +763,16 @@ if (page === 'mestre') {
         const descricoes = [
             'Essa vila fica mais perigosa a cada noite...',
             'Pelo menos não foi eu.',
-            'Cara, ainda bem que eu não sou você.'
+            'Cara, ainda bem que eu não sou você.',
+            'Quem com ferro fere, com ferro ferido ferro.',
+            'Eu sei quem foi...',
+            'A vida dá dessas'
         ];
     
         const numero = Math.floor(Math.random() * descricoes.length);
     
         nomeJogador.textContent = `${jogadorSorteado ? jogadorSorteado.nome + ' foi morto durante a noite.' : 'Nenhum jogador morreu.'}`;
-        descricaoRelatorio.textContent = descricoes[numero];
+        descricaoRelatorio.textContent = 'Antes de morrer, disse: ' + descricoes[numero];
     
         const divRelatorio = document.getElementById('relatorio');
         divRelatorio.style.display = 'block';

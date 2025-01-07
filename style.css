@@ -625,7 +625,7 @@ label img {
     padding: 20px;
     width: 100%;
     height: 100%;
-    border-radius: 8px;
+    border-radius: 12px;
 }
 
 .modal-content {
@@ -633,6 +633,7 @@ label img {
     align-items: center;
     align-content: center;
     padding: 12px;
+    margin: auto;
 }
 
 .modal-content h2 {
