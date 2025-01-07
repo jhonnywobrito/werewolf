@@ -265,11 +265,13 @@ table td:last-child {
     font-size: 1.4rem;
 }
 
-.label-form{
-    background: linear-gradient(to top, rgba(53, 42, 81,1), rgba(44, 35, 66,1));
-    background-color: rgb(53, 42, 81);
+.label-form {
+    background: linear-gradient( rgb(66, 53, 101), rgba(44, 35, 66,1));
     padding: 10px;
-    border-radius: 8px;
+    border-style: solid;
+    border-width: 3px;
+    border-color: #fff;
+    border-radius: 10px;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
     margin: 5px;
 }
@@ -423,11 +425,13 @@ label img {
     align-items: center;
     flex-direction: column;
     margin: auto;
-    background: linear-gradient(to top, rgba(53, 42, 81,1), rgba(44, 35, 66,1));
+    border-style: solid;
+    border-width: 4px;
+    border-color: #fff;
+    background: linear-gradient(rgba(53, 42, 81,1), rgba(44, 35, 66,1));
     border-radius: 12px;
     padding: 0;
 }
-
 
 #mestre-jogo img {
     width: 100px;
@@ -551,6 +555,17 @@ label img {
     }
 }
 
+
+#navegacao button {
+    background-color: rgb(31, 24, 46);
+}
+
+
+#botao-conteudo {
+    background: #034e2b;
+}
+
+
 #modal #pai-mestre-jogo {
     display: flex;
     justify-content: center;
@@ -562,6 +577,10 @@ label img {
     height: 100%;
     background: rgba(0, 0, 0, 0.8);
     z-index: 1000;
+}
+
+#modal #mestre-jogo {
+    border-width: 0px;
 }
 
 #modal #pai-mestre-jogo #mestre-jogo {
@@ -595,21 +614,25 @@ label img {
 }
 
 .modal-ataque {
+    display: flex;
+    margin: auto;
     position: fixed;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background-color: rgb(0, 0, 0);
-    border: 2px solid #000;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    background-color: rgba(31, 24, 46,0.95);
     z-index: 1000;
     padding: 20px;
-    width: 300px;
+    width: 100%;
+    height: 100%;
     border-radius: 8px;
 }
 
 .modal-content {
     text-align: center;
+    align-items: center;
+    align-content: center;
+    padding: 12px;
 }
 
 .modal-content h2 {
@@ -620,14 +643,73 @@ label img {
     list-style: none;
     padding: 0;
     margin: 0;
+    max-height: 300px; 
+    overflow-y: auto; 
+    background-color: rgb(22, 18, 38); 
+    border-radius: 8px;
+    padding: 8px;
 }
 
 .lista-jogadores li {
-    margin: 10px 0;
+    font-size: 1.6rem;
+    margin: 8px auto;
+    padding: 0;
+}
+
+.item-jogador {
+    display: block;
+    text-align: center;
+    background-color: rgb(31, 24, 46);
+    padding: 12px;
+    border-radius: 24px;
+    color: #fff;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.item-jogador input {
+    display: none;
+}
+
+.item-jogador:hover {
+    background-color: #3c2f58;
+}
+
+.item-jogador input:checked + span {
+    font-weight: bold;
+    color: #E18902; 
+    background-color: #2c1d40;
+    border-radius: 24px;
+    padding: 12px;
+    display: inline-block;
 }
 
 .modal-content button {
     margin: 10px 5px;
     padding: 10px 20px;
     cursor: pointer;
+    border: none;
+    border-radius: 24px;
+    background-color: #034e2b;
+    color: #fff;
+    font-size: 1rem;
+    transition: background-color 0.3s ease;
+}
+
+.modal-content button:hover {
+    background-color: #45a049;
+}
+
+.lista-jogadores::-webkit-scrollbar {
+    width: 8px; 
+}
+
+.lista-jogadores::-webkit-scrollbar-track {
+    background: #222;
+}
+
+.lista-jogadores::-webkit-scrollbar-thumb {
+    background-color: #555; 
+    border-radius: 4px; 
+    border: 2px solid #222; 
 }

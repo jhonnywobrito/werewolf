@@ -293,6 +293,7 @@ if (page === 'cadastro') {
     //--------------------------------------
 
 if (page === 'mestre') {
+    localStorage.removeItem('ordemDeJogo');
     let contador = parseInt(localStorage.getItem("contadorMestre")) || 0;
 
     contador += 1;
@@ -426,11 +427,6 @@ if (page === 'mestre') {
             return;
         }
 
-        if (!papeisSelecionados.includes('lobisomem')) {
-            alert('O papel "lobisomem" deve estar entre os papéis selecionados.');
-            return;
-        }
-
         const chancesPapeis = Object.fromEntries(
             Object.entries(chancesPapeisConfig).filter(([papel]) =>
                 papeisSelecionados.includes(papel)
@@ -478,85 +474,93 @@ if (page === 'mestre') {
 
     //--------------------------------------
 
-if (page === 'mediador') {
+    if (page === 'mediador') {
         const modal = document.getElementById('modal');
         const continuarBtnModal = document.getElementById('continuar-btn');
         const conteudoPrincipal = document.getElementById('pagina-mediador');
         const nomeJogador = document.getElementById('nome-jogador');
         const papelJogador = document.getElementById('papel-jogador');
         const imagemJogador = document.getElementById('imagem-jogador');
-        const jogadores = JSON.parse(localStorage.getItem('jogadores')) || [];
+        
+        const jogadoresStatus = JSON.parse(localStorage.getItem('jogadoresStatus')) || [];
         let posicaoAtual = JSON.parse(localStorage.getItem('posicaoAtual')) || 0;
         const resultadoSorteio = JSON.parse(localStorage.getItem('resultadoSorteio')) || [];
-        
-        function atualizarStatusJogador(nomeJogador, novoStatus) {
-                const jogadoresVivos = JSON.parse(localStorage.getItem('jogadoresVivos')) || [];
 
-                const jogadorIndex = jogadoresVivos.findIndex(jogador => jogador.nome === nomeJogador);
-                if (jogadorIndex !== -1) {
-                    jogadoresVivos[jogadorIndex].status = novoStatus;
-                } else {
-                    console.warn(`Jogador "${nomeJogador}" não encontrado na lista.`);
-                        return;
-                }
+        const jogadorAtual = jogadoresStatus[posicaoAtual];
 
-            localStorage.setItem('jogadoresVivos', JSON.stringify(jogadoresVivos));
-            console.log(`Status do jogador "${nomeJogador}" atualizado para "${novoStatus}".`);
-        }
-        
+        let ordemDeJogo = JSON.parse(localStorage.getItem('ordemDeJogo')) || [];
+        localStorage.setItem('ordemDeJogo', JSON.stringify(ordemDeJogo));
+    
         const exibirJogadorModal = () => {
-            const jogadorAtual = jogadores[posicaoAtual] || 'Mestre do Jogo';
-            document.querySelector('.nome-pessoa .comando').textContent = `Passe o aparelho para:`;
-            document.querySelector('.nome-pessoa .espaco').textContent = `${jogadorAtual}`;
-            
-        };
+            let jogadorAtual = jogadoresStatus[posicaoAtual];
 
-        const proximoJogador = () => {
-            posicaoAtual = (posicaoAtual + 1);
-        
-            if (posicaoAtual > jogadores.length) {
-                window.location.href = 'relatorio.html';
-            } else {
-                localStorage.setItem('posicaoAtual', posicaoAtual);
+            if (!jogadorAtual || jogadorAtual.status === 'morto') {
+                proximoJogador();
+                jogadorAtual = jogadoresStatus[posicaoAtual];
             }
+    
+            document.querySelector('.nome-pessoa .comando').textContent = 'Passe o aparelho para:';
+            document.querySelector('.nome-pessoa .espaco').textContent = `${jogadorAtual?.nome || 'Mestre do Jogo'}`;
+        };
+    
+        const proximoJogador = () => {
+            const maxJogadores = jogadoresStatus.length;
+    
+            do {
+                posicaoAtual = (posicaoAtual + 1) % maxJogadores;
+                ordemDeJogo = JSON.parse(localStorage.getItem('ordemDeJogo')) || [];
+                
+                if (posicaoAtual >= maxJogadores) {
+                    window.location.href = 'relatorio.html';
+                    return;
+                }
+            } while (jogadoresStatus[posicaoAtual].status === 'morto');
+    
+            localStorage.setItem('posicaoAtual', posicaoAtual);
+            
         };
     
         continuarBtnModal.addEventListener('click', () => {
-            
             modal.style.display = 'none';
-    
+            
+            const jogadoresStatus = JSON.parse(localStorage.getItem('jogadoresStatus')) || [];
+            let ordemDeJogo = JSON.parse(localStorage.getItem('ordemDeJogo')) || [];
+            
+            jogadoresStatus.forEach(jogador => {
+                if (jogador.status === 'morto' && !ordemDeJogo.includes(jogador.nome)) {
+                    ordemDeJogo.push(jogador.nome); 
+                }
+            });
+        
+            localStorage.setItem('ordemDeJogo', JSON.stringify(ordemDeJogo));
+        
             setTimeout(() => {
                 atualizarJogadorInfo();
                 proximoJogador();
             }, 500);
-            
         });
     
         const atualizarJogadorInfo = () => {
-            const jogadores = JSON.parse(localStorage.getItem('jogadores')) || [];
-            const resultadoSorteio = JSON.parse(localStorage.getItem('resultadoSorteio')) || [];
-            const posicaoAtual = JSON.parse(localStorage.getItem('posicaoAtual')) || 0;
-        
-            const jogadorAtual = jogadores[posicaoAtual];
+            const jogadorAtual = jogadoresStatus[posicaoAtual];
             if (!jogadorAtual) {
                 console.warn('Nenhum jogador atual encontrado.');
                 return;
             }
-        
-            const papelAtual = resultadoSorteio.find(jogador => jogador.jogador === jogadorAtual)?.papel || 'Sem papel definido';
-        
-            document.getElementById('nome-jogador').textContent = jogadorAtual;
-            document.getElementById('papel-jogador').textContent = `Papel: ${papelAtual}`;
-        
+    
+            const papelAtual = resultadoSorteio.find(jogador => jogador.jogador === jogadorAtual.nome)?.papel || 'Sem papel definido';
+    
+            document.getElementById('nome-jogador').textContent = jogadorAtual.nome;
+            document.getElementById('papel-jogador').textContent = papelAtual;
+    
             const descricao = descricaoPorPapel?.[papelAtual.toLowerCase()] || 'Nenhuma descrição disponível para este papel.';
             document.getElementById('descricao-papel').textContent = descricao;
-        
+    
             const imagemPapel = imagemPorPapel?.[papelAtual.toLowerCase()] || 'img/mestre.png';
             document.getElementById('imagem-jogador').src = imagemPapel;
-        
+    
             const navegacaoDiv = document.getElementById('navegacao');
-            navegacaoDiv.innerHTML = ''; // Limpa os botões existentes
-        
+            navegacaoDiv.innerHTML = '';
+    
             const botaoContinuar = document.createElement('button');
             botaoContinuar.id = 'botao-conteudo';
             botaoContinuar.textContent = 'Continuar';
@@ -564,52 +568,48 @@ if (page === 'mediador') {
                 window.location.href = 'mediador.html';
             });
             navegacaoDiv.appendChild(botaoContinuar);
-        
+    
             if (papelAtual.toLowerCase() === 'lobisomem') {
                 const botaoAtaque = document.createElement('button');
                 botaoAtaque.textContent = 'Atacar';
-                botaoAtaque.addEventListener('click', () => abrirJanelaAtaque(jogadorAtual));
+                botaoAtaque.addEventListener('click', () => abrirJanelaAtaque(jogadorAtual.nome));
                 navegacaoDiv.appendChild(botaoAtaque);
-        
+    
                 const botaoEstrategia = document.createElement('button');
-                botaoEstrategia.textContent = 'Planejar estratégia';
+                botaoEstrategia.textContent = 'Estratégia';
                 botaoEstrategia.addEventListener('click', () => {
-                    alert(`Jogador "${jogadorAtual}" está planejando uma estratégia!`);
+                    alert(`Jogador "${jogadorAtual.nome}" está planejando uma estratégia!`);
                 });
                 navegacaoDiv.appendChild(botaoEstrategia);
             }
         };
-        
-        // Função para abrir a janela/modal de ataque
+    
         const abrirJanelaAtaque = (jogadorAtual) => {
-
             const modalAtaque = document.createElement('div');
             modalAtaque.className = 'modal-ataque';
-        
-            const jogadoresStatus = JSON.parse(localStorage.getItem('jogadoresStatus')) || [];
-            const jogadoresVivos = jogadoresStatus.filter(jogador => jogador.status === 'vivo' && jogador.nome !== jogadorAtual);
-        
+    
+            const jogadoresVivos = jogadoresStatus.filter(jogador => jogador.status !== 'morto' && jogador.nome !== jogadorAtual);
+    
             modalAtaque.innerHTML = `
                 <div class="modal-content">
                     <h2>Escolha um jogador para atacar</h2>
                     <ul class="lista-jogadores">
-                        ${jogadoresVivos.map(jogador => `
-                            <li>
-                                <input type="radio" name="jogador" value="${jogador.nome}" id="jogador-${jogador.nome}">
-                                <label for="jogador-${jogador.nome}">${jogador.nome}</label>
-                            </li>
-                        `).join('')}
-                    </ul>
-                    
+    ${jogadoresVivos.map(jogador => 
+        `<li>
+            <label for="jogador-${jogador.nome}" class="item-jogador">
+                <input type="radio" name="jogador" value="${jogador.nome}" id="jogador-${jogador.nome}">
+                <span>${jogador.nome}</span>
+            </label>
+        </li>`
+    ).join('')}
+</ul>
                     <button id="cancelar-ataque">Cancelar</button>
                     <button id="confirmar-ataque">Confirmar</button>
                 </div>
             `;
-        
-            // Adiciona o modal à página
+    
             document.body.appendChild(modalAtaque);
-        
-            // Botão para confirmar o ataque
+    
             document.getElementById('confirmar-ataque').addEventListener('click', () => {
                 const jogadorSelecionado = document.querySelector('input[name="jogador"]:checked');
                 if (jogadorSelecionado) {
@@ -622,13 +622,12 @@ if (page === 'mediador') {
                     alert('Selecione um jogador para continuar.');
                 }
             });
-        
-            // Botão para cancelar o ataque
+    
             document.getElementById('cancelar-ataque').addEventListener('click', () => {
                 modalAtaque.remove();
             });
         };
-        
+
         function atualizarStatusJogador(nomeJogador, novoStatus) {
             const jogadoresStatus = JSON.parse(localStorage.getItem('jogadoresStatus')) || [];
             const jogadorIndex = jogadoresStatus.findIndex(jogador => jogador.nome === nomeJogador);
@@ -641,21 +640,90 @@ if (page === 'mediador') {
                 console.warn(`Jogador "${nomeJogador}" não encontrado na lista.`);
             }
         }
-    
-        exibirJogadorModal();
-        
-    }
 
+        // ------------------- MAIN
+
+        jogadoresStatus.forEach(jogador => {
+            if (jogador.status === 'morto' && !ordemDeJogo.includes(jogador.nome)) {
+                ordemDeJogo.push(jogador.nome);
+            }
+        });
+        
+        localStorage.setItem('ordemDeJogo', JSON.stringify(ordemDeJogo));
+
+        if (ordemDeJogo.length >= jogadoresStatus.length) {
+            window.location.href = 'relatorio.html';
+        }
+        else {
+            exibirJogadorModal();
+            
+            let ordemDeJogo = JSON.parse(localStorage.getItem('ordemDeJogo')) || [];
+            ordemDeJogo.push(jogadorAtual.nome);
+            localStorage.setItem('ordemDeJogo', JSON.stringify(ordemDeJogo));
+        }
+    }
     
     //--------------------------------------
 
-if (page === 'relatorio') {    
-    const jogadoresStatus = JSON.parse(localStorage.getItem('jogadoresStatus')) || [];
-    posicaoAtual = 0;
+    if (page === 'relatorio') {
+        localStorage.removeItem('ordemDeJogo');
+        
+        let jogadoresStatus = JSON.parse(localStorage.getItem('jogadoresStatus')) || [];
+    
+        const jogadoresCondenados = jogadoresStatus.filter(jogador => jogador.status === 'condenado');
+    
+        let jogadorSorteado = null;
+    
+        if (jogadoresCondenados.length === 1) {
+            jogadorSorteado = jogadoresCondenados[0];
+            jogadorSorteado.status = 'morto';
+        } else if (jogadoresCondenados.length > 1) {
+            jogadorSorteado = jogadoresCondenados[Math.floor(Math.random() * jogadoresCondenados.length)];
+            jogadorSorteado.status = 'morto';
+        }
+    
+        jogadoresStatus = jogadoresStatus.map(jogador => {
+            if (jogador === jogadorSorteado) {
+                jogador.status = 'morto';
+            } else if (jogador.status === 'condenado') {
+                jogador.status = 'vivo';
+            }
+            return jogador;
+        });
+    
+        localStorage.setItem('jogadoresStatus', JSON.stringify(jogadoresStatus));
+    
+        const nomeJogador = document.getElementById('relatorio-jogador');
+        const descricaoRelatorio = document.getElementById('descricao-relatorio');
+    
+        const descricoes = [
+            'Essa vila fica mais perigosa a cada noite...',
+            'Pelo menos não foi eu.',
+            'Cara, ainda bem que eu não sou você.'
+        ];
+    
+        const numero = Math.floor(Math.random() * descricoes.length);
+    
+        nomeJogador.textContent = `${jogadorSorteado ? jogadorSorteado.nome + ' foi morto durante a noite.' : 'Nenhum jogador morto'}`;
+        descricaoRelatorio.textContent = descricoes[numero];
+    
+        const divRelatorio = document.getElementById('relatorio');
+        divRelatorio.style.display = 'block';
+    
+        posicaoAtual = 0;
+        localStorage.setItem('posicaoAtual', posicaoAtual);
+    
+        console.log(`Jogador sorteado: ${jogadorSorteado ? jogadorSorteado.nome : 'Nenhum jogador morto'}`);
+    }
+    
+    
+    
+    
 
-    localStorage.setItem('posicaoAtual', posicaoAtual);
+    //--------------------------------------
 
-}
+    if (page === 'noite') {
+        
+    }
 
 });
-
