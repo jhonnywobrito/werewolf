@@ -104,7 +104,7 @@ document.addEventListener('DOMContentLoaded', () => {
         'lobisomem': 'img/lobisomem.png',
         'lobo alfa': 'img/lobo-alfa.png',
         'lobo solitário': 'img/lobo-solitario.png',
-        'filhote de lobisomem': 'img/filhote-lobisomem.png'
+        'filhote de lobisomem': 'img/filhote-de-lobisomem.png'
     };
 
     const descricaoPorPapel = {
@@ -643,24 +643,38 @@ if (page === 'mestre') {
 
         // ------------------- MAIN
 
-        jogadoresStatus.forEach(jogador => {
-            if (jogador.status === 'morto' && !ordemDeJogo.includes(jogador.nome)) {
-                ordemDeJogo.push(jogador.nome);
-            }
-        });
-        
-        localStorage.setItem('ordemDeJogo', JSON.stringify(ordemDeJogo));
-
-        if (ordemDeJogo.length >= jogadoresStatus.length) {
-            window.location.href = 'relatorio.html';
-        }
-        else {
-            exibirJogadorModal();
+        function main() {
+            jogadoresStatus.forEach(jogador => {
+                if (jogador.status === 'morto' && !ordemDeJogo.includes(jogador.nome)) {
+                    ordemDeJogo.push(jogador.nome);
+                }
+            });
             
-            let ordemDeJogo = JSON.parse(localStorage.getItem('ordemDeJogo')) || [];
-            ordemDeJogo.push(jogadorAtual.nome);
             localStorage.setItem('ordemDeJogo', JSON.stringify(ordemDeJogo));
+    
+            if (ordemDeJogo.length >= jogadoresStatus.length) {
+                
+                document.querySelector('.nome-pessoa .comando').textContent = 'Passe o aparelho para:';
+                document.querySelector('.nome-pessoa .espaco').textContent = 'o Mestre do Jogo';
+
+                posicaoAtual = null;
+
+                continuarBtnModal.addEventListener('click', () => {
+                    window.location.href = 'relatorio.html';
+                });
+
+            }
+            else {
+                exibirJogadorModal();
+                
+                let ordemDeJogo = JSON.parse(localStorage.getItem('ordemDeJogo')) || [];
+                ordemDeJogo.push(jogadorAtual.nome);
+                localStorage.setItem('ordemDeJogo', JSON.stringify(ordemDeJogo));
+            }
         }
+
+        main();
+        
     }
     
     //--------------------------------------
@@ -704,7 +718,7 @@ if (page === 'mestre') {
     
         const numero = Math.floor(Math.random() * descricoes.length);
     
-        nomeJogador.textContent = `${jogadorSorteado ? jogadorSorteado.nome + ' foi morto durante a noite.' : 'Nenhum jogador morto'}`;
+        nomeJogador.textContent = `${jogadorSorteado ? jogadorSorteado.nome + ' foi morto durante a noite.' : 'Nenhum jogador morreu.'}`;
         descricaoRelatorio.textContent = descricoes[numero];
     
         const divRelatorio = document.getElementById('relatorio');
