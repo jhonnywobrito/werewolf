@@ -244,18 +244,21 @@ document.addEventListener('DOMContentLoaded', () => {
 
 if (page === 'index'){
     localStorage.removeItem('contadorMestre');
+    localStorage.removeItem('protecoesMedico');
 }
 
     //--------------------------------------
 
 if (page === 'papeis'){
     localStorage.removeItem('contadorMestre');
+    localStorage.removeItem('protecoesMedico');
 }
 
     //--------------------------------------
 
 if (page === 'cadastro') {
     localStorage.removeItem('contadorMestre');
+    localStorage.removeItem('protecoesMedico');
 
     document.getElementById('salvar-sessao-ut').addEventListener('click', (event) => {
         const jogadores = JSON.parse(localStorage.getItem('jogadores')) || [];
@@ -475,7 +478,6 @@ if (page === 'mestre') {
     //--------------------------------------
 
     if (page === 'mediador') {
-        // Inicializa o armazenamento de proteções se não existir
         if (!localStorage.getItem('protecoesMedico')) {
             localStorage.setItem('protecoesMedico', JSON.stringify({}));
         }
@@ -550,7 +552,6 @@ if (page === 'mestre') {
             const modalAtaque = document.createElement('div');
             modalAtaque.className = 'modal-ataque';
         
-            // Filtra os jogadores vivos, excluindo o jogador protegido anteriormente
             const jogadoresVivos = jogadoresStatus.filter(jogador => 
                 jogador.status !== 'morto' && 
                 jogador.nome !== nomeAtual && 
@@ -577,7 +578,6 @@ if (page === 'mestre') {
         
             document.body.appendChild(modalAtaque);
         
-            // Configura os eventos para os botões de cancelar e confirmar
             document.getElementById('confirmar').addEventListener('click', () => {
                 const jogadorSelecionado = document.querySelector('input[name="jogador"]:checked');
                 if (jogadorSelecionado) {
@@ -629,14 +629,13 @@ if (page === 'mestre') {
             
                 botaoAtaque.addEventListener('click', () => {
                     abrirJanela(jogadorAtual.nome, (nomeSelecionado) => {
-                        // Verifica se o jogador selecionado está protegido
                         const jogadorAlvo = jogadoresStatus.find(jogador => jogador.nome === nomeSelecionado);
                         
                         if (jogadorAlvo && jogadorAlvo.status === 'protegido') {
-                            window.location.href = 'mediador.html'; // Redireciona sem realizar o ataque
+                            window.location.href = 'mediador.html'; 
                         } else {
-                            atualizarStatusJogador(nomeSelecionado, 'condenado'); // Altera status para 'condenado'
-                            window.location.href = 'mediador.html'; // Redireciona após o ataque
+                            atualizarStatusJogador(nomeSelecionado, 'condenado'); 
+                            window.location.href = 'mediador.html'; 
                         }
                     });
                 });
@@ -654,16 +653,13 @@ if (page === 'mestre') {
                     const protecoesMedico = JSON.parse(localStorage.getItem('protecoesMedico')) || {};
             
                     abrirJanela(jogadorAtual.nome, (nomeSelecionado) => {
-                        // Atualiza a proteção armazenada para o médico atual
                         protecoesMedico[jogadorAtual.nome] = nomeSelecionado;
             
-                        // Salva as proteções atualizadas no localStorage
                         localStorage.setItem('protecoesMedico', JSON.stringify(protecoesMedico));
             
-                        // Atualiza o status do jogador protegido
                         atualizarStatusJogador(nomeSelecionado, 'protegido');
                         window.location.href = 'mediador.html';
-                    }, protecoesMedico[jogadorAtual.nome]); // Passa o jogador protegido anteriormente
+                    }, protecoesMedico[jogadorAtual.nome]);
                 });
             
                 navegacaoDiv.appendChild(botaoProtecao);
@@ -796,18 +792,15 @@ if (page === 'mestre') {
     //--------------------------------------
 
     if (page === 'noite') {
-        // Recupera a lista de jogadores do localStorage
         let jogadoresStatus = JSON.parse(localStorage.getItem('jogadoresStatus')) || [];
     
-        // Mapeia os jogadores e atualiza o status de 'protegido' para 'protegidoAntes'
         jogadoresStatus = jogadoresStatus.map(jogador => {
             if (jogador.status === 'protegido') {
-                return { ...jogador, status: 'vivo' }; // Atualiza o status
+                return { ...jogador, status: 'vivo' }; 
             }
-            return jogador; // Retorna sem alterações para os demais
+            return jogador;
         });
     
-        // Salva a lista atualizada no localStorage
         localStorage.setItem('jogadoresStatus', JSON.stringify(jogadoresStatus));
     
         console.log('Jogadores protegidos tiveram seu status alterado para "protegidoAntes".');
