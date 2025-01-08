@@ -715,8 +715,38 @@ label img {
     border: 2px solid #222; 
 }
 
-#relatorio-jogador {
-    background-color: #4c6c4f;
-    padding: 8px;
+#descricao-relatorio {
+    margin: 4px auto;
+    background-color: #688252;
     border-radius: 4px;
+}
+
+#pai-dia {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: auto;
+    width: 100%;
+    padding: 0;
+    height: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    background: linear-gradient(to bottom, rgba(221, 221, 221, 0.5), rgba(0, 0, 0, 0.23)), url('img/dia.jpg');
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+#mestre-dia {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    margin: auto;
+    border-style: solid;
+    border-width: 4px;
+    border-color: #fff;
+    background-color: rgb(61, 49, 84);
+    border-radius: 12px;
+    padding: 0;
 }
