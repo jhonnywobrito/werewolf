@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jogo - Werewolf</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Righteous&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="shortcut icon" href="img/mini-logo.png" type="image/x-icon">
+    <script src="https://kit.fontawesome.com/8b0455432d.js" crossorigin="anonymous"></script>
+</head>
+<body data-page="vitoria">
+    <div id="pai-mestre-jogo" class="container-tabela">
+        <div id="mestre-jogo">
+            <div class="grid">
+                <div class="imagem-papel">
+                    <h2 id="topo">Mestre do jogo</h2>
+                    <img id="imagem-papel" src="img/mestre.png" alt="Imagem do papel">
+                </div>
+
+                <div class="nome-pessoa">
+                    <h3 id="nome-jogador">ESTÁ DE NOITE</h3>
+                    <div class="espaco-vitoria">
+                        <p></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="navegacao">
+            <a href="mestre.html"><button class="botao-conteudo">Voltar</button></a>
+            <a href="index.html"><button class="botao-conteudo">Continuar</button></a>
+        </div>
+    </div>
+    <script>
+        // Recupera as informações de vitória
+        const vitoria = JSON.parse(localStorage.getItem('vitoria')) || {};
+
+        // Atualiza o título e o resumo
+        document.getElementById('topo').textContent = `${vitoria.vencedores} venceram!`;
+        document.getElementById('nome-jogador').textContent = 'Resumo do jogo';
+
+        // Gera o conteúdo para exibir os detalhes do jogo
+        const conteudo = `
+            <h5>Vivos:</h5>
+            ${vitoria.vivos.map(nome => `${nome}<br>`).join('')}
+            <h5>Mortos:</h5>
+            ${vitoria.mortos.map(nome => `${nome}<br>`).join('')}
+            <h5>Papéis:</h5>
+            ${vitoria.papeis.map(j => `${j.jogador}: ${j.papel}<br>`).join('')}
+        `;
+
+        // Atualiza o conteúdo da página
+        const container = document.querySelector('.espaco-vitoria');
+        container.innerHTML = conteudo;
+
+        // Atualiza a imagem de acordo com os vencedores
+        const imagemPapel = document.getElementById('imagem-papel');
+        if (vitoria.vencedores === 'Os Lobisomens') {
+            imagemPapel.src = 'img/lobisomem.png';
+            imagemPapel.alt = 'Imagem de Lobisomem';
+        } else if (vitoria.vencedores === 'A Vila') {
+            imagemPapel.src = 'img/aldeao.png';
+            imagemPapel.alt = 'Imagem de Aldeão';
+        }
+    </script>
+</body>
+</html>

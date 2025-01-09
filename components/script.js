@@ -243,6 +243,14 @@ document.addEventListener('DOMContentLoaded', () => {
     //--------------------------------------
 
 if (page === 'index'){
+    localStorage.removeItem('jogadoresStatus');
+    localStorage.removeItem('protecoesBruxa');
+    localStorage.removeItem('ataquesBruxa');
+    localStorage.removeItem('posicaoAtual');
+    localStorage.removeItem('contagemDia');
+    localStorage.removeItem('contagemNoite');
+    localStorage.removeItem('vitoria');
+    localStorage.removeItem('cacadasCacador');
     localStorage.removeItem('contadorMestre');
     localStorage.removeItem('protecoesMedico');
 }
@@ -250,6 +258,13 @@ if (page === 'index'){
     //--------------------------------------
 
 if (page === 'papeis'){
+    localStorage.removeItem('jogadoresStatus');
+    localStorage.removeItem('protecoesBruxa');
+    localStorage.removeItem('ataquesBruxa');
+    localStorage.removeItem('posicaoAtual');
+    localStorage.removeItem('contagemDia');
+    localStorage.removeItem('contagemNoite');
+    localStorage.removeItem('cacadasCacador');
     localStorage.removeItem('contadorMestre');
     localStorage.removeItem('protecoesMedico');
 }
@@ -257,6 +272,13 @@ if (page === 'papeis'){
     //--------------------------------------
 
 if (page === 'cadastro') {
+    localStorage.removeItem('jogadoresStatus');
+    localStorage.removeItem('protecoesBruxa');
+    localStorage.removeItem('ataquesBruxa');
+    localStorage.removeItem('posicaoAtual');
+    localStorage.removeItem('contagemDia');
+    localStorage.removeItem('contagemNoite');
+    localStorage.removeItem('cacadasCacador');
     localStorage.removeItem('contadorMestre');
     localStorage.removeItem('protecoesMedico');
 
@@ -296,8 +318,14 @@ if (page === 'cadastro') {
     //--------------------------------------
 
 if (page === 'mestre') {
+    localStorage.removeItem('jogadoresStatus');
+    localStorage.removeItem('protecoesBruxa');
+    localStorage.removeItem('ataquesBruxa');
+    localStorage.removeItem('posicaoAtual');
     localStorage.removeItem('ordemDeJogo');
+    localStorage.removeItem('cacadasCacador');
     let contador = parseInt(localStorage.getItem("contadorMestre")) || 0;
+
 
     contador += 1;
     localStorage.setItem("contadorMestre", contador);
@@ -554,8 +582,7 @@ if (page === 'mestre') {
         
             const jogadoresVivos = jogadoresStatus.filter(jogador => 
                 jogador.status !== 'morto' && 
-                jogador.nome !== nomeAtual && 
-                jogador.nome !== protegidoAnterior
+                jogador.nome !== nomeAtual
             );
         
             modalAtaque.innerHTML = `
@@ -631,11 +658,11 @@ if (page === 'mestre') {
                     abrirJanela(jogadorAtual.nome, (nomeSelecionado) => {
                         const jogadorAlvo = jogadoresStatus.find(jogador => jogador.nome === nomeSelecionado);
                         
-                        if (jogadorAlvo && jogadorAlvo.status === 'protegido') {
-                            window.location.href = 'mediador.html'; 
+                        if (jogadorAlvo && jogadorAlvo.status === 'protegido' || jogadorAlvo && jogadorAlvo.status === 'envenenado') {
+                            window.location.href = 'mediador.html';
                         } else {
                             atualizarStatusJogador(nomeSelecionado, 'condenado'); 
-                            window.location.href = 'mediador.html'; 
+                            window.location.href = 'mediador.html';
                         }
                     });
                 });
@@ -654,11 +681,19 @@ if (page === 'mestre') {
             
                     abrirJanela(jogadorAtual.nome, (nomeSelecionado) => {
                         protecoesMedico[jogadorAtual.nome] = nomeSelecionado;
+                        
+                        let status = jogadoresStatus.find(status => status.nome === nomeSelecionado && status.status === 'envenenado');
+
+                        if (status) {
+                            localStorage.setItem('protecoesMedico', JSON.stringify(protecoesMedico));
+                            atualizarStatusJogador(nomeSelecionado, 'envenenado');
+                            window.location.href = 'mediador.html';
+                        } else {
+                            localStorage.setItem('protecoesMedico', JSON.stringify(protecoesMedico));
+                            atualizarStatusJogador(nomeSelecionado, 'protegido');
+                            window.location.href = 'mediador.html';
+                        }
             
-                        localStorage.setItem('protecoesMedico', JSON.stringify(protecoesMedico));
-            
-                        atualizarStatusJogador(nomeSelecionado, 'protegido');
-                        window.location.href = 'mediador.html';
                     }, protecoesMedico[jogadorAtual.nome]);
                 });
             
@@ -669,6 +704,7 @@ if (page === 'mestre') {
             if (papelAtual.toLowerCase() === 'vidente') {
                 const botaoRevelar = document.createElement('button');
                 botaoRevelar.textContent = 'Revelar Identidade';
+
                 botaoRevelar.addEventListener('click', () => {
                     abrirJanela(jogadorAtual.nome, (nomeSelecionado) => {
                         const jogadorRevelado = jogadoresStatus.find(jogador => jogador.nome === nomeSelecionado);
@@ -682,6 +718,97 @@ if (page === 'mestre') {
                 });
                 navegacaoDiv.appendChild(botaoRevelar);
             }
+
+            if (papelAtual.toLowerCase() === 'caçador') {
+    
+                const botaoCacador = document.createElement('button');
+                botaoCacador.textContent = 'Caçar';
+            
+                botaoCacador.addEventListener('click', () => {
+                    const caçadasCaçador = JSON.parse(localStorage.getItem('cacadasCacador')) || {};
+            
+                    abrirJanela(jogadorAtual.nome, (nomeSelecionado) => {
+                        const jogadorAlvo = jogadoresStatus.find(jogador => jogador.nome === nomeSelecionado);
+                        caçadasCaçador[jogadorAtual.nome] = nomeSelecionado;
+                        localStorage.setItem('cacadasCacador', JSON.stringify(caçadasCaçador));
+                        window.location.href = 'mediador.html';
+                    }, caçadasCaçador[jogadorAtual.nome]);
+                });
+            
+                navegacaoDiv.appendChild(botaoCacador);
+            }
+
+
+            if (papelAtual.toLowerCase() === 'bruxa') {
+
+                const botaoAtaque = document.createElement('button');
+                botaoAtaque.textContent = 'Envenenar';
+                
+                const ataquesBruxa = JSON.parse(localStorage.getItem('ataquesBruxa')) || {};
+
+                if (ataquesBruxa[jogadorAtual.nome]) {
+                    botaoAtaque.disabled = true;
+                    botaoAtaque.textContent = 'Sem poção';
+                }
+
+                botaoAtaque.addEventListener('click', () => {
+                    abrirJanela(jogadorAtual.nome, (nomeSelecionado) => {
+                        let status = jogadoresStatus.find(status => status.nome === nomeSelecionado && status.status === 'envenenado');
+
+                        if (status) {
+                            ataquesBruxa[jogadorAtual.nome] = nomeSelecionado;
+                            localStorage.setItem('ataquesBruxa', JSON.stringify(ataquesBruxa));
+
+                            atualizarStatusJogador(nomeSelecionado, 'envenenado');
+                            window.location.href = 'mediador.html';
+                        } else {
+                            ataquesBruxa[jogadorAtual.nome] = nomeSelecionado;
+                            localStorage.setItem('ataquesBruxa', JSON.stringify(ataquesBruxa));
+            
+                            atualizarStatusJogador(nomeSelecionado, 'envenenado');
+                            window.location.href = 'mediador.html';
+                        }
+                    });
+                });
+
+                navegacaoDiv.appendChild(botaoAtaque);
+
+
+
+                const botaoProtecao = document.createElement('button');
+                botaoProtecao.textContent = 'Proteger';
+
+                const protecoesBruxa = JSON.parse(localStorage.getItem('protecoesBruxa')) || {};
+
+                if (protecoesBruxa[jogadorAtual.nome]) {
+                    botaoProtecao.disabled = true;
+                    botaoProtecao.textContent = 'Sem poção';
+                }
+
+                botaoProtecao.addEventListener('click', () => {
+                    abrirJanela(jogadorAtual.nome, (nomeSelecionado) => {
+                        let status = jogadoresStatus.find(status => status.nome === nomeSelecionado && status.status === 'envenenado');
+
+                        if (status) {
+                            protecoesBruxa[jogadorAtual.nome] = nomeSelecionado;
+                            localStorage.setItem('protecoesBruxa', JSON.stringify(protecoesBruxa));
+
+                            atualizarStatusJogador(nomeSelecionado, 'envenenado');
+                            window.location.href = 'mediador.html';
+                        } else {
+                            protecoesBruxa[jogadorAtual.nome] = nomeSelecionado;
+                            localStorage.setItem('protecoesBruxa', JSON.stringify(protecoesBruxa));
+            
+                            atualizarStatusJogador(nomeSelecionado, 'protegido');
+                            window.location.href = 'mediador.html';
+                        }
+                    });
+                });
+
+                navegacaoDiv.appendChild(botaoProtecao);
+
+            }
+            
         };
         
         function atualizarStatusJogador(nomeJogador, novoStatus) {
@@ -736,14 +863,57 @@ if (page === 'mestre') {
     //--------------------------------------
 
     if (page === 'relatorio') {
+
+        let contagemDia = JSON.parse(localStorage.getItem('contagemDia')) || 0;
+
+        contagemDia = contagemDia + 1;
+        const noite = document.getElementById('dia');
+        noite.textContent = contagemDia + 'ª DIA';
+        localStorage.setItem("contagemDia", contagemDia);
+
+        function atualizarStatusJogador(nomeJogador, novoStatus) {
+            const jogadoresStatus = JSON.parse(localStorage.getItem('jogadoresStatus')) || [];
+            const jogadorIndex = jogadoresStatus.findIndex(jogador => jogador.nome === nomeJogador);
+    
+            if (jogadorIndex !== -1) {
+                jogadoresStatus[jogadorIndex].status = novoStatus;
+                localStorage.setItem('jogadoresStatus', JSON.stringify(jogadoresStatus));
+                console.log(`Status do jogador "${nomeJogador}" atualizado para "${novoStatus}".`);
+            } else {
+                console.warn(`Jogador "${nomeJogador}" não encontrado na lista.`);
+            }
+        }
+    
         localStorage.removeItem('ordemDeJogo');
-        
+    
+        const nomeJogador = document.getElementById('relatorio-jogador');
+        const descricaoRelatorio = document.getElementById('descricao-relatorio');
         let jogadoresStatus = JSON.parse(localStorage.getItem('jogadoresStatus')) || [];
     
         const jogadoresCondenados = jogadoresStatus.filter(jogador => jogador.status === 'condenado');
+        const jogadoresEnvenenados = jogadoresStatus.filter(jogador => jogador.status === 'envenenado');
+    
+        const descricoes = [
+            'Essa vila fica mais perigosa a cada noite...',
+            'Pelo menos não foi eu.',
+            'Cara, ainda bem que eu não sou você.',
+            'Quem com ferro fere, com ferro ferido ferro.',
+            'Eu sei quem foi...',
+            'A vida dá dessas'
+        ];
+    
+        const numero = Math.floor(Math.random() * descricoes.length);
+    
+        jogadoresEnvenenados.forEach(jogador => {
+            nomeJogador.innerHTML += `${jogador.nome} morreu durante a noite.<br>`;
+        });
+    
+        const divRelatorio = document.getElementById('relatorio');
+        divRelatorio.style.display = 'block';
     
         let jogadorSorteado = null;
     
+        // Atualizar status de "condenado" para "morto"
         if (jogadoresCondenados.length === 1) {
             jogadorSorteado = jogadoresCondenados[0];
             jogadorSorteado.status = 'morto';
@@ -761,37 +931,67 @@ if (page === 'mestre') {
             return jogador;
         });
     
+        // Atualizar status de "envenenado" para "morto"
+        jogadoresStatus = jogadoresStatus.map(jogador => {
+            if (jogador.status === 'envenenado') {
+                jogador.status = 'morto';
+            }
+            return jogador;
+        });
+    
         localStorage.setItem('jogadoresStatus', JSON.stringify(jogadoresStatus));
     
-        const nomeJogador = document.getElementById('relatorio-jogador');
-        const descricaoRelatorio = document.getElementById('descricao-relatorio');
+        console.log("Todos os jogadores envenenados e condenados foram atualizados para 'morto'.");
     
-        const descricoes = [
-            'Essa vila fica mais perigosa a cada noite...',
-            'Pelo menos não foi eu.',
-            'Cara, ainda bem que eu não sou você.',
-            'Quem com ferro fere, com ferro ferido ferro.',
-            'Eu sei quem foi...',
-            'A vida dá dessas'
-        ];
+        // Verificar jogadores mortos (por qualquer motivo) e aplicar lógica do caçador
+        const jogadoresMortos = jogadoresStatus.filter(jogador => jogador.status === 'morto');
     
-        const numero = Math.floor(Math.random() * descricoes.length);
+        jogadoresMortos.forEach(jogadorMorto => {
+            const resultadoSorteio = JSON.parse(localStorage.getItem('resultadoSorteio')) || [];
+            const caçador = resultadoSorteio.find(resultado => resultado.papel === 'caçador' && resultado.jogador === jogadorMorto.nome);
     
-        nomeJogador.textContent = `${jogadorSorteado ? jogadorSorteado.nome + ' foi morto durante a noite.' : 'Nenhum jogador morreu.'}`;
-        descricaoRelatorio.textContent = jogadorSorteado ? 'Antes de morrer, disse: '+ "\n" + '"'+ descricoes[numero] + '"': '';
+            if (caçador) {
+                const cacadasCaçador = JSON.parse(localStorage.getItem('cacadasCacador')) || {};
+                const nomeCaçador = caçador.jogador.toLowerCase();
     
-        const divRelatorio = document.getElementById('relatorio');
-        divRelatorio.style.display = 'block';
+                const nomeJogadorCaca = Object.entries(cacadasCaçador).find(
+                    ([chave]) => chave.toLowerCase() === nomeCaçador
+                )?.[1];
+
+                const cacaMorta = jogadoresStatus.find(jogador => jogador.jogador === nomeJogadorCaca && jogador.status === 'morto');
+
+                if (cacaMorta) {
+                    if (nomeJogadorCaca) {
+                        atualizarStatusJogador(nomeJogadorCaca, 'morto');
+                        nomeJogador.innerHTML += `${nomeJogadorCaca} morreu durante a noite.<br>`;
+                    } else {
+                        console.warn(`Nenhuma caça encontrada para o caçador: ${caçador.jogador}`);
+                    }
+                }
+            }
+        });
     
-        posicaoAtual = 0;
-        localStorage.setItem('posicaoAtual', posicaoAtual);
-    
-        console.log(`Jogador sorteado: ${jogadorSorteado ? jogadorSorteado.nome : 'Nenhum jogador morto'}`);
+        if (jogadorSorteado) {
+            nomeJogador.innerHTML += `${jogadorSorteado.nome} foi morto durante a noite.<br>`;
+        }
+                descricaoRelatorio.textContent = `Mensagem do dia: "${descricoes[numero]}"`;
     }
+    
+
+    
 
     //--------------------------------------
 
     if (page === 'noite') {
+
+        let contagemNoite = JSON.parse(localStorage.getItem('contagemNoite')) || 0;
+
+        contagemNoite = contagemNoite + 1;
+        const noite = document.getElementById('noite');
+        noite.textContent = contagemNoite + 'ª NOITE';
+        localStorage.setItem("contagemNoite", contagemNoite);
+
+        localStorage.removeItem('cacadasCacador');
         let jogadoresStatus = JSON.parse(localStorage.getItem('jogadoresStatus')) || [];
     
         jogadoresStatus = jogadoresStatus.map(jogador => {
@@ -803,8 +1003,41 @@ if (page === 'mestre') {
     
         localStorage.setItem('jogadoresStatus', JSON.stringify(jogadoresStatus));
     
-        console.log('Jogadores protegidos tiveram seu status alterado para "protegidoAntes".');
+        // Recupera listas da localStorage
+        const resultadoSorteio = JSON.parse(localStorage.getItem('resultadoSorteio')) || [];
+        const jogadores = JSON.parse(localStorage.getItem('jogadores')) || [];
+    
+        // Determina jogadores vivos e mortos
+        const vivos = jogadoresStatus.filter(jogador => jogador.status === 'vivo');
+        const mortos = jogadoresStatus.filter(jogador => jogador.status === 'morto');
+    
+        // Determina papéis
+        const lobisomensVivos = resultadoSorteio
+            .filter(jogador => jogador.papel === 'lobisomem' && vivos.some(v => v.nome === jogador.jogador));
+        const aldeoesVivos = resultadoSorteio
+            .filter(jogador => jogador.papel !== 'lobisomem' && vivos.some(v => v.nome === jogador.jogador));
+    
+        // Condições de vitória
+        const vilaVence = lobisomensVivos.length === 0;
+        const lobisomensVencem = lobisomensVivos.length > aldeoesVivos.length;
+    
+        if (vilaVence || lobisomensVencem) {
+            // Cria informações para exibir na página de vitória
+            const vitoria = {
+                vencedores: vilaVence ? "A Vila" : "Os Lobisomens",
+                vivos: vivos.map(j => j.nome),
+                mortos: mortos.map(j => j.nome),
+                papeis: resultadoSorteio.map(j => ({ jogador: j.jogador, papel: j.papel }))
+            };
+    
+            // Armazena no localStorage para exibição em vitoria.html
+            localStorage.setItem('vitoria', JSON.stringify(vitoria));
+    
+            // Redireciona para a página de vitória
+            window.location.href = 'vitoria.html';
+        }
     }
+    
     
     
 
