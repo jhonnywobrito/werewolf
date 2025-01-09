@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resultado da Votação</title>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Recuperar votos do localStorage
+            const votos = JSON.parse(localStorage.getItem('votacao')) || {};
+
+            // Encontrar o jogador com mais votos
+            let vencedor = null;
+            let maxVotos = 0;
+            for (let jogador in votos) {
+                if (votos[jogador] > maxVotos) {
+                    vencedor = jogador;
+                    maxVotos = votos[jogador];
+                }
+            }
+
+            // Exibir o resultado
+            const resultadoDiv = document.getElementById('resultado');
+            resultadoDiv.textContent = vencedor ? `${vencedor} é o vencedor com ${maxVotos} votos!` : 'Não houve votação.';
+        });
+    </script>
+</head>
+<body>
+    <div id="resultado">
+        <!-- Resultado será exibido aqui -->
+    </div>
+</body>
+</html>

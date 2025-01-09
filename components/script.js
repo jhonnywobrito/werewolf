@@ -113,7 +113,7 @@ document.addEventListener('DOMContentLoaded', () => {
         "médico": "Durante a noite, você acorda e seleciona um jogador que não poderá ser morto pelos lobisomens naquela noite. Você não poderá proteger o mesmo jogador duas vezes seguidas.",
         "caçador": "Quando você morrer poderá escolher outra pessoa para morrer com você.",
         "bruxa": "Você tem duas poções que podem ser usadas durante a noite: uma que irá salvar outro jogador de ser morto pelos lobisomens e um veneno que irá matar outro jogador.",
-        "aprendiz de vidente": "Se o vidente morrer, você tomará seu lugar e começará a procurar por lobisomens.",
+        "aprendiz de vidente": "Você pode aprender vidência durante a noite. Se aprender por 3 noites seguidas, você se torna vidente.",
         "pacifista": "Uma vez por jogo você pode revelar o papel de um jogador para todos e evitar qualquer pessoa de votar durante aquele dia.",
         "sacerdote": "Você poderá usar a água benta em outro jogador. Se esse jogador for um lobisomem, ele morre. Se não, você morre. Só pode ser usada uma única vez.",
         "prefeito": "Se você revelar seu papel para a aldeia, seu voto conta duas vezes durante o dia.",
@@ -368,7 +368,6 @@ if (page === 'mestre') {
         document.body.appendChild(mensagem);
     }
 
-    localStorage.removeItem('posicaoAtual');
     const carregarJogadores = () => JSON.parse(localStorage.getItem('jogadores')) || [];
     const carregarPapeis = () => JSON.parse(localStorage.getItem('papeisSessao')) || [];
 
@@ -719,6 +718,30 @@ if (page === 'mestre') {
                 navegacaoDiv.appendChild(botaoRevelar);
             }
 
+            if (papelAtual.toLowerCase() === 'vidente de aura') {
+                const botaoRevelarAura = document.createElement('button');
+                botaoRevelarAura.textContent = 'Revelar Aura';
+            
+                botaoRevelarAura.addEventListener('click', () => {
+                    abrirJanela(jogadorAtual.nome, (nomeSelecionado) => {
+                        const jogadorRevelado = jogadoresStatus.find(jogador => jogador.nome === nomeSelecionado);
+                        if (jogadorRevelado) {
+                            const papelSelecionado = resultadoSorteio.find(j => j.jogador === nomeSelecionado)?.papel || 'Desconhecido';
+                            if (papelSelecionado.toLowerCase() === 'lobisomem') {
+                                alert(`${nomeSelecionado} é lobisomem.`);
+                            } else {
+                                alert(`${nomeSelecionado} não é lobisomem.`);
+                            }
+                        } else {
+                            alert('Jogador não encontrado.');
+                        }
+                        window.location.href = 'mediador.html';
+                    });
+                });
+                navegacaoDiv.appendChild(botaoRevelarAura);
+            }
+            
+
             if (papelAtual.toLowerCase() === 'caçador') {
     
                 const botaoCacador = document.createElement('button');
@@ -808,6 +831,73 @@ if (page === 'mestre') {
                 navegacaoDiv.appendChild(botaoProtecao);
 
             }
+
+            if (papelAtual.toLowerCase() === 'aprendiz de vidente') {
+                const botaoAprender = document.createElement('button');
+                botaoAprender.textContent = 'Aprender';
+            
+                botaoAprender.addEventListener('click', () => {
+                    const aprendizesDeVidente = JSON.parse(localStorage.getItem('aprendizesDeVidente')) || {};
+                    const resultadoSorteio = JSON.parse(localStorage.getItem('resultadoSorteio')) || [];
+            
+                    if (aprendizesDeVidente[jogadorAtual.nome]) {
+                        aprendizesDeVidente[jogadorAtual.nome]++;
+                    } else {
+                        aprendizesDeVidente[jogadorAtual.nome] = 1;
+                    }
+            
+                    localStorage.setItem('aprendizesDeVidente', JSON.stringify(aprendizesDeVidente));
+                    console.log(`Jogador "${jogadorAtual.nome}" aprendeu algo novo. Contador: ${aprendizesDeVidente[jogadorAtual.nome]}`);
+            
+                    if (aprendizesDeVidente[jogadorAtual.nome] === 3) {
+                        const jogadorIndex = resultadoSorteio.findIndex(jogador => jogador.jogador === jogadorAtual.nome);
+                        if (jogadorIndex !== -1) {
+                            resultadoSorteio[jogadorIndex].papel = 'vidente';
+                            localStorage.setItem('resultadoSorteio', JSON.stringify(resultadoSorteio));
+                            console.log(`Jogador "${jogadorAtual.nome}" agora é um vidente.`);
+                            alert(`Você agora é um vidente!`);
+                        } else {
+                            console.warn(`Jogador "${jogadorAtual.nome}" não encontrado na lista de sorteio.`);
+                        }
+            
+                        window.location.href = 'mediador.html';
+                    } else {
+                        alert(`Você está aprendendo. Nível atual: ${aprendizesDeVidente[jogadorAtual.nome]}`);
+                        window.location.href = 'mediador.html';
+                    }
+                });
+            
+                navegacaoDiv.appendChild(botaoAprender);
+            }
+
+            if (papelAtual.toLowerCase() === 'pacifista') {
+                const botaoPacifista = document.createElement('button');
+                botaoPacifista.textContent = 'Pacificar';
+            
+                const pacifistas = JSON.parse(localStorage.getItem('pacifistas')) || {};
+        
+                if (pacifistas[jogadorAtual.nome]) {
+                    botaoPacifista.disabled = true;
+                    botaoPacifista.textContent = 'Já pacificou';
+                }
+            
+                botaoPacifista.addEventListener('click', () => {
+                    abrirJanela(jogadorAtual.nome, (nomeSelecionado) => {
+                        pacifistas[jogadorAtual.nome] = nomeSelecionado;
+                        localStorage.setItem('pacifistas', JSON.stringify(pacifistas));
+            
+                        const listaDoPacifista = JSON.parse(localStorage.getItem('listaDoPacifista')) || [];
+                        listaDoPacifista.push({ jogador: nomeSelecionado, papel: resultadoSorteio.find(j => j.jogador === nomeSelecionado)?.papel || 'Desconhecido' });
+                        localStorage.setItem('listaDoPacifista', JSON.stringify(listaDoPacifista));
+            
+                        alert(`Habilidade usada em ${nomeSelecionado}.`);
+                        window.location.href = 'mediador.html';
+                    });
+                });
+            
+                navegacaoDiv.appendChild(botaoPacifista);
+            }
+            
             
         };
         
@@ -840,7 +930,7 @@ if (page === 'mestre') {
                 document.querySelector('.nome-pessoa .comando').textContent = 'Passe o aparelho para:';
                 document.querySelector('.nome-pessoa .espaco').textContent = 'o Mestre do Jogo';
 
-                posicaoAtual = null;
+                posicaoAtual = null;                    
 
                 continuarBtnModal.addEventListener('click', () => {
                     window.location.href = 'relatorio.html';
@@ -972,9 +1062,19 @@ if (page === 'mestre') {
         });
     
         if (jogadorSorteado) {
-            nomeJogador.innerHTML += `${jogadorSorteado.nome} foi morto durante a noite.<br>`;
+            nomeJogador.innerHTML += `${jogadorSorteado.nome} morreu durante a noite.<br>`;
         }
+        
+                const listaDoPacifista = JSON.parse(localStorage.getItem('listaDoPacifista')) || [];
+
+                listaDoPacifista.forEach(entry => {
+                    const { jogador, papel } = entry;
+                    nomeJogador.innerHTML += `O pacifista alerta: ${jogador} é ${papel}.<br>`;
+                });
+
                 descricaoRelatorio.textContent = `Mensagem do dia: "${descricoes[numero]}"`;
+
+        
     }
     
 
@@ -983,7 +1083,8 @@ if (page === 'mestre') {
     //--------------------------------------
 
     if (page === 'noite') {
-
+        localStorage.removeItem('posicaoAtual');
+        localStorage.removeItem('listaDoPacifista');
         let contagemNoite = JSON.parse(localStorage.getItem('contagemNoite')) || 0;
 
         contagemNoite = contagemNoite + 1;

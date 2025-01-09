@@ -38,11 +38,67 @@
             </div>
             
             <div class="navegacao">
-                <a href="noite.html"><button class="botao-conteudo" id="sortear">Continuar</button></a>
+                <button class="botao-conteudo" id="sortear">Continuar</button>
             </div> 
         </div>
     </div>
 
+    <div id="modal-reuniao" class="modal" style="display: none;">
+        <div id="pai-reuniao">
+            <div id="reuniao">
+                <h2>REUNIÃO</h2>
+                <div id="contador-container">
+                    <p id="contador">01:30</p>
+                    <button id="iniciar-contagem">Iniciar contagem</button>
+                </div>
+            </div>
+            <div class="navegacao">
+                <a href="votacao.html">
+                <button>Pular</button>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+document.addEventListener('DOMContentLoaded', () => {
+    const modal = document.getElementById('modal-reuniao');
+    const botaoContinuar = document.getElementById('sortear');
+    const contadorElemento = document.getElementById('contador');
+    const botaoIniciar = document.getElementById('iniciar-contagem');
+
+    let contadorInterval;
+
+    // Abrir o modal ao clicar no botão "Continuar"
+    botaoContinuar.addEventListener('click', () => {
+        modal.style.display = 'block';
+    });
+
+    // Iniciar o contador ao clicar no botão "Iniciar Contagem"
+    botaoIniciar.addEventListener('click', () => {
+        let tempoRestante = 89;
+
+        botaoIniciar.disabled = true; // Desabilitar o botão para evitar múltiplos cliques
+
+        contadorInterval = setInterval(() => {
+            const minutos = Math.floor(tempoRestante / 60);
+            const segundos = tempoRestante % 60;
+
+            contadorElemento.textContent =
+                `${minutos.toString().padStart(2, '0')}:${segundos.toString().padStart(2, '0')}`;
+
+            if (tempoRestante === 0) {
+                clearInterval(contadorInterval);
+                window.location.href = 'votacao.html'; // Redirecionar ao atingir 0
+            }
+
+            tempoRestante--;
+        }, 1000);
+    });
+});
+
+
+    </script>
     
 
     <script src="components/script.js"></script>

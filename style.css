@@ -695,7 +695,7 @@ label img {
     display: inline-block;
 }
 
-.modal-content button {
+.modal-content button, #modal-reuniao button {
     margin: 10px 5px;
     padding: 10px 20px;
     cursor: pointer;
@@ -707,7 +707,7 @@ label img {
     transition: background-color 0.3s ease;
 }
 
-.modal-content button:hover {
+.modal-content button:hover,  #modal-reuniao button:hover {
     background-color: #45a049;
 }
 
@@ -809,4 +809,34 @@ label img {
     background-color: #000000;
     margin: 4px;
     border-radius: 6px;
+}
+
+
+#modal-reuniao {
+    display: flex;
+    margin: auto;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(255, 255, 255, 0.95);
+    color: #000000;
+    z-index: 1000;
+    padding: 20px;
+    width: 100%;
+    height: 100%;
+    border-radius: 12px;
+}
+
+.modal {
+    text-align: center;
+    align-items: center;
+    align-content: center;
+    padding: 12px;
+    margin: auto;
+}
+
+#modal-reuniao p, #modal-reuniao h2 {
+    color: #000000;
+    text-shadow: none;
 }
