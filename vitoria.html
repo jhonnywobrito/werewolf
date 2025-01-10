@@ -35,35 +35,46 @@
     </div>
     <script>
         // Recupera as informações de vitória
-        const vitoria = JSON.parse(localStorage.getItem('vitoria')) || {};
+const vitoria = JSON.parse(localStorage.getItem('vitoria')) || {};
 
-        // Atualiza o título e o resumo
-        document.getElementById('topo').textContent = `${vitoria.vencedores} venceram!`;
-        document.getElementById('nome-jogador').textContent = 'Resumo do jogo';
+// Atualiza o título e o resumo
+const topo = document.getElementById('topo');
+const imagemPapel = document.getElementById('imagem-papel');
 
-        // Gera o conteúdo para exibir os detalhes do jogo
-        const conteudo = `
-            <h5>Vivos:</h5>
-            ${vitoria.vivos.map(nome => `${nome}<br>`).join('')}
-            <h5>Mortos:</h5>
-            ${vitoria.mortos.map(nome => `${nome}<br>`).join('')}
-            <h5>Papéis:</h5>
-            ${vitoria.papeis.map(j => `${j.jogador}: ${j.papel}<br>`).join('')}
-        `;
+if (vitoria.vivos.length === 0) {
+    topo.textContent = 'NINGUÉM VENCEU';
+    imagemPapel.src = 'img/mestre.png'; // Imagem do mestre
+    imagemPapel.alt = 'Imagem do Mestre';
+} else {
+    topo.textContent = `${vitoria.vencedores} venceram!`;
 
-        // Atualiza o conteúdo da página
-        const container = document.querySelector('.espaco-vitoria');
-        container.innerHTML = conteudo;
+    // Atualiza a imagem de acordo com os vencedores
+    if (vitoria.vencedores === 'Os Lobisomens') {
+        imagemPapel.src = 'img/lobisomem.png';
+        imagemPapel.alt = 'Imagem de Lobisomem';
+    } else if (vitoria.vencedores === 'A Vila') {
+        imagemPapel.src = 'img/aldeao.png';
+        imagemPapel.alt = 'Imagem de Aldeão';
+    }
+}
 
-        // Atualiza a imagem de acordo com os vencedores
-        const imagemPapel = document.getElementById('imagem-papel');
-        if (vitoria.vencedores === 'Os Lobisomens') {
-            imagemPapel.src = 'img/lobisomem.png';
-            imagemPapel.alt = 'Imagem de Lobisomem';
-        } else if (vitoria.vencedores === 'A Vila') {
-            imagemPapel.src = 'img/aldeao.png';
-            imagemPapel.alt = 'Imagem de Aldeão';
-        }
+document.getElementById('nome-jogador').textContent = 'Resumo do jogo';
+
+// Gera o conteúdo para exibir os detalhes do jogo
+const conteudo = `
+    <h5>Vivos:</h5>
+    ${vitoria.vivos.map(nome => `${nome}<br>`).join('')}
+    <h5>Mortos:</h5>
+    ${vitoria.mortos.map(nome => `${nome}<br>`).join('')}
+    <h5>Papéis:</h5>
+    ${vitoria.papeis.map(j => `${j.jogador}: ${j.papel}<br>`).join('')}
+`;
+
+// Atualiza o conteúdo da página
+const container = document.querySelector('.espaco-vitoria');
+container.innerHTML = conteudo;
+
+
     </script>
 </body>
 </html>

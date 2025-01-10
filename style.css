@@ -155,7 +155,7 @@ h1 {
 }
 
 h2 {
-    margin: 30px 6px;
+    margin: 20px 6px;
     font-size: 2rem;
     color: #ffffff;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
@@ -372,7 +372,7 @@ label img {
     background: #ffffff;
 }
 
-#pai-cadastro {
+#pai-cadastro, #dom-mestre-jogo-votacao {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -682,9 +682,6 @@ label img {
     display: none;
 }
 
-.item-jogador:hover {
-    background-color: #3c2f58;
-}
 
 .item-jogador input:checked + span {
     font-weight: bold;
@@ -839,4 +836,46 @@ label img {
 #modal-reuniao p, #modal-reuniao h2 {
     color: #000000;
     text-shadow: none;
+}
+
+#resultadoP {
+    font-size: 2rem;
+    margin: 8px;
+    padding: 1rem;
+    border-radius: 12px;
+    background: linear-gradient(rgb(41, 33, 62), rgb(29, 23, 44));
+    text-align: center;
+}
+
+#pai-mestre-jogo-votacao {
+    background: linear-gradient(rgb(41, 33, 62), rgb(29, 23, 44));
+    padding: 1.6rem;
+    border-style: solid;
+    border-width: 4px;
+    border-color: #fff;
+    border-radius: 12px;
+}
+
+#resultado {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: auto;
+    width: 100%;
+    max-width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+}
+
+#pai-mestre-jogo-votacao button {
+    background-color: rgb(22, 18, 38); 
+}
+
+#nome-jogador-votacao {
+    font-size: 1.6rem;
+    background-color: rgb(22, 18, 38); 
+    padding: 4px;
+    border-radius: 8px;
+    margin-top: 8px;
 }

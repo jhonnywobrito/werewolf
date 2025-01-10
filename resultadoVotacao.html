@@ -1,33 +1,108 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Resultado da Votação</title>
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            // Recuperar votos do localStorage
-            const votos = JSON.parse(localStorage.getItem('votacao')) || {};
-
-            // Encontrar o jogador com mais votos
-            let vencedor = null;
-            let maxVotos = 0;
-            for (let jogador in votos) {
-                if (votos[jogador] > maxVotos) {
-                    vencedor = jogador;
-                    maxVotos = votos[jogador];
-                }
-            }
-
-            // Exibir o resultado
-            const resultadoDiv = document.getElementById('resultado');
-            resultadoDiv.textContent = vencedor ? `${vencedor} é o vencedor com ${maxVotos} votos!` : 'Não houve votação.';
-        });
-    </script>
-</head>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Jogo - Votação</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Righteous&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="style.css">
+        <link rel="shortcut icon" href="img/mini-logo.png" type="image/x-icon">
+        <script src="https://kit.fontawesome.com/8b0455432d.js" crossorigin="anonymous"></script>
+    </head>
 <body>
-    <div id="resultado">
-        <!-- Resultado será exibido aqui -->
+
+    <div id="resultado"><p id="resultadoP">
+
+    </p></div>
+    
+    <div class="navegacao">
+        <a href="noite.html"><button class="botao-conteudo" id="salvar-sessao">Continuar</button></a>
     </div>
+
+    <script>
+document.addEventListener('DOMContentLoaded', () => {
+    // Função para atualizar o status do jogador
+    function atualizarStatusJogador(nomeJogador, novoStatus) {
+        const jogadoresStatus = JSON.parse(localStorage.getItem('jogadoresStatus')) || [];
+        const jogadorIndex = jogadoresStatus.findIndex(jogador => jogador.nome === nomeJogador);
+
+        if (jogadorIndex !== -1) {
+            jogadoresStatus[jogadorIndex].status = novoStatus;
+            localStorage.setItem('jogadoresStatus', JSON.stringify(jogadoresStatus));
+            console.log(`Status do jogador "${nomeJogador}" atualizado para "${novoStatus}".`);
+        } else {
+            console.warn(`Jogador "${nomeJogador}" não encontrado na lista.`);
+        }
+    }
+
+    // Recuperar votos do localStorage
+    const votos = JSON.parse(localStorage.getItem('votacao')) || {};
+    let maxVotos = 0;
+    let jogadoresComMaxVotos = [];
+
+    // Encontrar o máximo de votos e os jogadores com esse máximo
+    for (let jogador in votos) {
+        if (votos[jogador] > maxVotos) {
+            maxVotos = votos[jogador];
+            jogadoresComMaxVotos = [jogador];
+        } else if (votos[jogador] === maxVotos) {
+            jogadoresComMaxVotos.push(jogador);
+        }
+    }
+
+    // Atualizar o status do vencedor ou exibir empate
+    const resultadoP = document.getElementById('resultadoP');
+    if (jogadoresComMaxVotos.length > 1) {
+        resultadoP.textContent = 'Votos empatados! Ninguém morreu.';
+    } else if (jogadoresComMaxVotos.length === 1) {
+        const vencedor = jogadoresComMaxVotos[0];
+        atualizarStatusJogador(vencedor, 'morto');
+        resultadoP.textContent = `${vencedor} recebeu ${maxVotos} voto(s) e morreu pela vila.`;
+    } else {
+        resultadoP.textContent = 'Não houve votação.';
+    }
+
+    // Limpar dados temporários do localStorage
+    localStorage.removeItem('votacao');
+    localStorage.removeItem('ordemDeVotacao');
+
+            // Recupera listas da localStorage
+            const resultadoSorteio = JSON.parse(localStorage.getItem('resultadoSorteio')) || [];
+        const jogadores = JSON.parse(localStorage.getItem('jogadores')) || [];
+    
+        // Determina jogadores vivos e mortos
+        const vivos = jogadoresStatus.filter(jogador => jogador.status === 'vivo');
+        const mortos = jogadoresStatus.filter(jogador => jogador.status === 'morto');
+    
+        // Determina papéis
+        const lobisomensVivos = resultadoSorteio
+            .filter(jogador => jogador.papel === 'lobisomem' && vivos.some(v => v.nome === jogador.jogador));
+        const aldeoesVivos = resultadoSorteio
+            .filter(jogador => jogador.papel !== 'lobisomem' && vivos.some(v => v.nome === jogador.jogador));
+    
+        // Condições de vitória
+        const vilaVence = lobisomensVivos.length === 0;
+        const lobisomensVencem = lobisomensVivos.length > aldeoesVivos.length;
+    
+        if (vilaVence || lobisomensVencem) {
+            // Cria informações para exibir na página de vitória
+            const vitoria = {
+                vencedores: vilaVence ? "A Vila" : "Os Lobisomens",
+                vivos: vivos.map(j => j.nome),
+                mortos: mortos.map(j => j.nome),
+                papeis: resultadoSorteio.map(j => ({ jogador: j.jogador, papel: j.papel }))
+            };
+    
+            // Armazena no localStorage para exibição em vitoria.html
+            localStorage.setItem('vitoria', JSON.stringify(vitoria));
+    
+            // Redireciona para a página de vitória
+            window.location.href = 'vitoria.html';
+        }
+});
+
+    </script>
 </body>
 </html>
