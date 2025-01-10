@@ -12,8 +12,8 @@
     <script src="https://kit.fontawesome.com/8b0455432d.js" crossorigin="anonymous"></script>
 </head>
 <body data-page="vitoria">
-    <div id="pai-mestre-jogo" class="container-tabela">
-        <div id="mestre-jogo">
+    <div id="pai-mestre-jogo-vitoria">
+        <div id="mestre-jogo-vitoria">
             <div class="grid">
                 <div class="imagem-papel">
                     <h2 id="topo">Mestre do jogo</h2>
@@ -27,10 +27,11 @@
                     </div>
                 </div>
             </div>
-        </div>
+            
         <div class="navegacao">
             <a href="mestre.html"><button class="botao-conteudo">Voltar</button></a>
             <a href="index.html"><button class="botao-conteudo">Continuar</button></a>
+        </div>
         </div>
     </div>
     <script>
@@ -49,10 +50,10 @@ if (vitoria.vivos.length === 0) {
     topo.textContent = `${vitoria.vencedores} venceram!`;
 
     // Atualiza a imagem de acordo com os vencedores
-    if (vitoria.vencedores === 'Os Lobisomens') {
+    if (vitoria.vencedores === 'Os lobisomens') {
         imagemPapel.src = 'img/lobisomem.png';
         imagemPapel.alt = 'Imagem de Lobisomem';
-    } else if (vitoria.vencedores === 'A Vila') {
+    } else if (vitoria.vencedores === 'Os aldeões') {
         imagemPapel.src = 'img/aldeao.png';
         imagemPapel.alt = 'Imagem de Aldeão';
     }

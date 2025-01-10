@@ -159,6 +159,7 @@ h2 {
     font-size: 2rem;
     color: #ffffff;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+    font-weight: normal;
 }
 
 form {
@@ -433,7 +434,7 @@ label img {
     padding: 0;
 }
 
-#mestre-jogo img, #mestre-dia img {
+#mestre-jogo img, #mestre-dia img, #mestre-jogo-vitoria img {
     width: 100px;
     background-color: #ffffff;
     padding: 12px 60px;
@@ -477,7 +478,7 @@ label img {
     font-size: 1.6rem;
 }
 
-#dia {
+#dia, #topo {
     background-color: #151515;
     border-radius: 4px;
     text-shadow: none;
@@ -485,6 +486,7 @@ label img {
     padding: 6px;
     margin: 12px;
     font-size: 1.6rem;
+    font-weight: normal;
 }
 
 .imagem-papel {
@@ -623,7 +625,7 @@ label img {
     background-color: #6e5fe2;
 }
 
-.modal-ataque {
+.modal-ataque, .modal-detetive {
     display: flex;
     margin: auto;
     position: fixed;
@@ -654,15 +656,21 @@ label img {
     list-style: none;
     padding: 0;
     margin: 0;
-    max-height: 300px; 
+    max-height: 200px; 
+    max-width: 250px;
     overflow-y: auto; 
+    margin: auto;
     background-color: rgb(22, 18, 38); 
     border-radius: 8px;
     padding: 8px;
 }
 
+.coluna h3 {
+    margin: 4px 0;
+}
+
 .lista-jogadores li {
-    font-size: 1.6rem;
+    font-size: 1.4rem;
     margin: 8px auto;
     padding: 0;
 }
@@ -729,14 +737,14 @@ label img {
 }
 
 #pai-dia {
+    padding: 1rem;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     margin: auto;
     width: 100%;
-    padding: 0;
-    height: 100%;
+    height: 100vh;
     max-width: 100%;
     box-sizing: border-box;
     background: linear-gradient(to bottom, rgba(255, 255, 255, 1), rgba(77, 77, 77, 0.23));
@@ -745,7 +753,23 @@ label img {
     background-repeat: no-repeat;
 }
 
-#mestre-dia {
+#pai-mestre-jogo-vitoria {
+    padding: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: auto;
+    width: 100%;
+    height: 100vh;
+    max-width: 100%;
+    box-sizing: border-box;
+    background-color: #ffffff;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+#mestre-dia, #mestre-jogo-vitoria {
     display: flex;
     align-items: center;
     flex-direction: column;
@@ -771,14 +795,14 @@ label img {
     background-color: #9A7665;
 }
 
-#mestre-dia .nome-pessoa, #mestre-dia .nome-pessoa #relatorio {
+#mestre-dia .nome-pessoa, #mestre-dia .nome-pessoa #relatorio, #mestre-jogo-vitoria .nome-pessoa {
     background-color: #635A4C;
 }
 
-#mestre-dia .nome-pessoa #descricao-relatorio {
+#mestre-dia .nome-pessoa #descricao-relatorio, #mestre-jogo-vitoria h5 {
     background-color: #717070;
     padding: 4px;
-    margin: 0;
+    margin: 4px 0;
 }
 
 #relatorio {
@@ -789,25 +813,28 @@ label img {
     margin: 6px 0;
 }
 
-#mestre-dia .nome-pessoa .nome-jogador {
+#mestre-dia .nome-pessoa .nome-jogador, #mestre-jogo-vitoria .nome-pessoa #nome-jogador {
     background-color: #433B31;
 }
 
-#mestre-dia #sortear {
+#mestre-jogo-vitoria .nome-pessoa #nome-jogador {
+    margin-bottom: 16px;
+}
+
+#mestre-dia #sortear, #mestre-jogo-vitoria button {
     background-color: #030303;
 }
 
 .espaco-vitoria {
-    font-size: 1rem;
+    font-size: 1.2rem;
 }
 
 .espaco-vitoria h5 {
-    font-size: 1.4rem;
-    background-color: #000000;
+    font-size: 1.6rem;
     margin: 4px;
     border-radius: 6px;
+    margin-top: 20px;
 }
-
 
 #modal-reuniao {
     display: flex;
@@ -879,3 +906,4 @@ label img {
     border-radius: 8px;
     margin-top: 8px;
 }
+

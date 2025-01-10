@@ -26,7 +26,7 @@
                         </div>
                     </div>
                     <div class="modal-content">
-                        <h2>Escolha um jogador para votar</h2>
+                        <h2>Escolha um jogador para morrer</h2>
                         <ul class="lista-jogadores" id="lista-jogadores"></ul>
                     </div>
                     <div class="navegacao">
@@ -44,10 +44,9 @@
             localStorage.removeItem('ordemDeVotacao');
             const listaJogadores = document.getElementById('lista-jogadores');
             const continuarBtn = document.getElementById('continuar-btn');
-            const pularBtn = document.getElementById('pular-btn'); // Adicionando o botão de pular
+            const pularBtn = document.getElementById('pular-btn');
             const nomeJogadorAtual = document.getElementById('nome-jogador-votacao');
 
-            // Dados iniciais das listas
             const jogadoresStatus = JSON.parse(localStorage.getItem('jogadoresStatus')) || [];
             const ordemDeVotacao = JSON.parse(localStorage.getItem('ordemDeVotacao')) || [];
             const votacao = JSON.parse(localStorage.getItem('votacao')) || {};
@@ -55,19 +54,15 @@
             const jogadoresVivos = jogadoresStatus.filter(jogador => jogador.status !== 'morto');
 
             function atualizarModal() {
-                // Determina o jogador atual com base na ordem de votação
                 const jogadorAtual = jogadoresVivos.find(jogador => !ordemDeVotacao.includes(jogador.nome));
                 if (!jogadorAtual) {
                     alert('Votação concluída!');
-                    // Redireciona para a página de resultado
                     window.location.href = 'resultadoVotacao.html';
                     return;
                 }
 
-                // Atualiza o nome do jogador atual
                 nomeJogadorAtual.textContent = jogadorAtual.nome;
 
-                // Lista apenas jogadores vivos, excluindo o jogador atual
                 listaJogadores.innerHTML = '';
                 jogadoresVivos
                     .filter(jogador => jogador.nome !== jogadorAtual.nome)
@@ -107,35 +102,33 @@
                 const jogadorSelecionado = votoSelecionado.value;
                 const jogadorAtual = nomeJogadorAtual.textContent.replace('É a vez de: ', '');
 
-                // Incrementa o voto no jogador selecionado
-                votacao[jogadorSelecionado] = (votacao[jogadorSelecionado] || 0) + 1;
+                const prefeitos = JSON.parse(localStorage.getItem('prefeito')) || [];
 
-                // Salva no localStorage
+                const pesoDoVoto = prefeitos.includes(jogadorAtual) ? 2 : 1;
+
+                votacao[jogadorSelecionado] = (votacao[jogadorSelecionado] || 0) + pesoDoVoto;
+
                 localStorage.setItem('votacao', JSON.stringify(votacao));
 
-                // Adiciona o jogador atual à ordem de votação
                 ordemDeVotacao.push(jogadorAtual);
                 localStorage.setItem('ordemDeVotacao', JSON.stringify(ordemDeVotacao));
 
-                // Atualiza o modal para o próximo jogador
                 atualizarModal();
             }
+
 
             function pularVez() {
                 const jogadorAtual = nomeJogadorAtual.textContent.replace('É a vez de: ', '');
                 
-                // Adiciona o jogador atual à ordem de votação sem registrar voto
                 ordemDeVotacao.push(jogadorAtual);
                 localStorage.setItem('ordemDeVotacao', JSON.stringify(ordemDeVotacao));
 
-                // Atualiza o modal para o próximo jogador
                 atualizarModal();
             }
 
             continuarBtn.addEventListener('click', registrarVoto);
-            pularBtn.addEventListener('click', pularVez); // Evento para pular a vez
+            pularBtn.addEventListener('click', pularVez); 
 
-            // Inicializa a lista de votação
             atualizarModal();
         });
     </script>
