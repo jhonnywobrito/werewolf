@@ -1000,10 +1000,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 const botaoSosia = document.createElement('button');
                 botaoSosia.textContent = 'Escolher Jogador';
-            
+
                 botaoSosia.addEventListener('click', () => {
                     const sosias = JSON.parse(localStorage.getItem('sosia')) || {};
-            
+
                     abrirJanela(jogadorAtual.nome, (nomeSelecionado) => {
                         const jogadorSelecionado = jogadoresStatus.find(jogador => jogador.nome === nomeSelecionado);
                         if (jogadorSelecionado) {
@@ -1015,10 +1015,10 @@ document.addEventListener('DOMContentLoaded', () => {
                         }
                     }, sosias[jogadorAtual.nome]);
                 });
-            
+
                 navegacaoDiv.appendChild(botaoSosia);
             }
-            
+
 
             if (papelAtual.toLowerCase() === 'feiticeira') {
                 const botaoRevelarPapel = document.createElement('button');
@@ -1836,27 +1836,35 @@ document.addEventListener('DOMContentLoaded', () => {
         jogadoresMortos.forEach(jogadorMorto => {
             const resultadoSorteio = JSON.parse(localStorage.getItem('resultadoSorteio')) || [];
 
-            const sosia = resultadoSorteio.find(resultado => resultado.papel === 'sósia' && resultado.jogador === jogadorMorto.nome);
-            
+            const sosias = JSON.parse(localStorage.getItem('sosia')) || {};
 
-            if (sosia) {
-                let sosias = JSON.parse(localStorage.getItem('sosia')) || {};
+            const nomeJogadorMorto = jogadorMorto.nome.toLowerCase();
+            console.log('Jogador morto:', nomeJogadorMorto);
+            console.log('Sósias disponíveis:', sosias);
 
-                const nomeSosiaNormalizado = sosia.jogador.toLowerCase();
-                const nomeJogadorSosia = Object.entries(sosias).find(
-                    ([chave, valor]) => chave.toLowerCase() === nomeSosiaNormalizado
-                )?.[1];
+            // Busca o sósia onde o jogador morto é o valor no objeto
+            const nomeJogadorSosia = Object.entries(sosias).find(
+                ([_, valor]) => valor.toLowerCase() === nomeJogadorMorto
+            )?.[0]; // Retorna a chave (o sósia)
 
-                if (nomeJogadorSosia) {
-                    const jogadorSelecionado = resultadoSorteio.find(jogador => jogador.jogador === nomeJogadorSosia);
-                    if (jogadorSelecionado) {
-                        jogadorSelecionado.papel = resultadoSorteio.find(jogador => jogador.jogador === jogadorMorto.nome)?.papel || 'Desconhecido';
-                        atualizarStatusJogador(nomeJogadorSosia, 'vivo');
-                        console.log(`${nomeJogadorSosia} agora tem o papel de ${jogadorSelecionado.papel}`);
-                    }
+            console.log('Sósia encontrado:', nomeJogadorSosia);
+
+            if (nomeJogadorSosia) {
+                const jogadorSelecionado = resultadoSorteio.find(jogador => jogador.jogador === nomeJogadorSosia);
+
+                if (jogadorSelecionado) {
+                    const papelMorto = resultadoSorteio.find(jogador => jogador.jogador === jogadorMorto.nome);
+
+                    alert(papelMorto.papel)
+                    jogadorSelecionado.papel = papelMorto.papel;
+
+
+                    console.log(`${nomeJogadorSosia} agora tem o papel de ${papelMorto.papel}`);
                 } else {
-                    console.warn(`Nenhum sósia encontrado para: ${sosia.jogador}`);
+                    console.warn(`Jogador sósia ${nomeJogadorSosia} não encontrado no sorteio.`);
                 }
+            } else {
+                console.warn(`Nenhum sósia encontrado para o jogador ${jogadorMorto.nome}.`);
             }
 
             const caçador = resultadoSorteio.find(resultado => resultado.papel === 'caçador' && resultado.jogador === jogadorMorto.nome);
@@ -1915,6 +1923,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
 
             }
+
+            
 
 
 
