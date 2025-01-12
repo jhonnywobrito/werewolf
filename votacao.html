@@ -53,7 +53,7 @@
             const ordemDeVotacao = JSON.parse(localStorage.getItem('ordemDeVotacao')) || [];
             const votacao = JSON.parse(localStorage.getItem('votacao')) || {};
 
-            const jogadoresVivos = jogadoresStatus.filter(jogador => jogador.status !== 'morto');
+            const jogadoresVivos = jogadoresStatus.filter(jogador => jogador.status !== 'morto' && jogador.status !== 'ressuscitado');
 
             function atualizarModal() {
                 const jogadorAtual = jogadoresVivos.find(jogador => !ordemDeVotacao.includes(jogador.nome));

@@ -47,13 +47,13 @@ if (vitoria.vivos.length === 0) {
     imagemPapel.src = 'img/mestre.png'; // Imagem do mestre
     imagemPapel.alt = 'Imagem do Mestre';
 } else {
-    topo.textContent = `${vitoria.vencedores} venceram!`;
+    topo.textContent = `${vitoria.vencedores} venceu!`;
 
     // Atualiza a imagem de acordo com os vencedores
-    if (vitoria.vencedores === 'Os lobisomens') {
+    if (vitoria.vencedores === 'A alcateia') {
         imagemPapel.src = 'img/lobisomem.png';
         imagemPapel.alt = 'Imagem de Lobisomem';
-    } else if (vitoria.vencedores === 'Os aldeões') {
+    } else if (vitoria.vencedores === 'A vila') {
         imagemPapel.src = 'img/aldeao.png';
         imagemPapel.alt = 'Imagem de Aldeão';
     }
