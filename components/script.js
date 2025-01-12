@@ -19,39 +19,58 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    const criarBotaoChat = () => {
+    const papeisPerigosos = [
+        "bruxa",
+        "sacerdote",
+        "vovó zangada",
+        "pistoleiro",
+        "assassino em série",
+        "necromante",
+        "piromaníaco",
+        "lobisomem",
+        "lobo solitário",
+        "filhote de lobisomem",
+        "lobo alfa"
+    ]
+
+    const criarBotaoChat = (jogadorAtual) => {
         const botaoChat = document.createElement('button');
         botaoChat.id = 'botao-chat';
         botaoChat.textContent = 'Chat';
 
         botaoChat.addEventListener('click', () => {
-            abrirChatModal(jogadorAtual.nome);
+            abrirChatModal(jogadorAtual);
         });
 
         document.body.appendChild(botaoChat);
     };
 
-    // Abrir Modal de Chat
-    const abrirChatModal = (nomeAtual) => {
+    const abrirChatModal = (jogadorAtual) => {
         const modalChat = document.createElement('div');
         modalChat.className = 'modal-chat';
+        const jogadoresStatus = JSON.parse(localStorage.getItem('jogadoresStatus')) || [];
 
         const jogadoresVivos = jogadoresStatus.filter(jogador =>
-            jogador.status !== 'morto' && jogador.nome !== nomeAtual
+            jogador.status !== 'morto' && jogador.nome !== jogadorAtual
         );
 
         modalChat.innerHTML = `
             <div class="modal-content">
                 <h2>Enviar Mensagem</h2>
-                <label>Escolha o jogador:</label>
+                <div id="selecao-mensagem">
                 <select id="jogador-selecionado">
                     ${jogadoresVivos.map(jogador =>
             `<option value="${jogador.nome}">${jogador.nome}</option>`
         ).join('')}
                 </select>
+                </div>
+                <div>
                 <textarea id="mensagem-chat" placeholder="Digite sua mensagem..."></textarea>
+                </div>
+                <div>
                 <button id="enviar-chat">Enviar</button>
                 <button id="cancelar-chat">Cancelar</button>
+                </div>
             </div>
         `;
 
@@ -68,7 +87,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const chat = JSON.parse(localStorage.getItem('chat')) || [];
             chat.push({
-                remetente: nomeAtual,
+                remetente: jogadorAtual,
                 destinatario: jogadorSelecionado,
                 mensagem: mensagem.trim()
             });
@@ -83,10 +102,10 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     };
 
-    // Exibir Mensagens do Jogador Atual
-    const exibirMensagensRecebidas = (nomeAtual) => {
+    const exibirMensagensRecebidas = (jogadorAtual) => {
+
         const chatAgora = JSON.parse(localStorage.getItem('chatAgora')) || [];
-        const mensagensRecebidas = chatAgora.filter(mensagem => mensagem.destinatario === nomeAtual);
+        const mensagensRecebidas = chatAgora.filter(mensagem => mensagem.destinatario === jogadorAtual);
 
         if (mensagensRecebidas.length > 0) {
             const modalMensagens = document.createElement('div');
@@ -97,7 +116,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     <h2>Mensagens Recebidas</h2>
                     <ul>
                         ${mensagensRecebidas.map(mensagem =>
-                `<li><strong>${mensagem.remetente}:</strong> ${mensagem.mensagem}</li>`
+                `<p style="font-size: 1.4rem">${mensagem.mensagem}</p><br>`
             ).join('')}
                     </ul>
                     <button id="fechar-mensagens">Fechar</button>
@@ -363,10 +382,23 @@ document.addEventListener('DOMContentLoaded', () => {
             window.location.href = 'vitoria.html';
         }
 
+        const papeisPerigosos = [
+            "bruxa",
+            "sacerdote",
+            "vovó zangada",
+            "pistoleiro",
+            "assassino em série",
+            "necromante",
+            "piromaníaco"
+        ]
 
-        if (papeisUnicos.length === 1 & vivos.length === 1) {
+        const jogadoresComPapeisPerigosos = resultadoSorteio.filter(jogador => !papeisPerigosos.includes(jogador.papel));
+
+        if (papeisUnicos.length === 1 && vivos.length === 1 || vivos.length === 2 &&
+            vivos.every(jogador => !jogadoresComPapeisPerigosos.includes(jogador.jogador))) {
 
             const mortosAtualizados = jogadoresStatus.filter(jogador => jogador.status === 'morto');
+            alert('aaaaaaaaaaaaaaaaaaa')
             localStorage.setItem('vitoria', JSON.stringify({
                 vencedores: "NINGUÉM",
                 vivos: vivos.map(j => j.nome),
@@ -374,9 +406,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 papeis: resultadoSorteio.map(j => ({ jogador: j.jogador, papel: j.papel }))
             }));
 
-            setTimeout(window.location.href = 'vitoria.html', 100);
+            setTimeout(() => window.location.href = 'vitoria.html', 100);
             return;
         }
+
 
 
         if (page === "relatorio") {
@@ -565,7 +598,7 @@ document.addEventListener('DOMContentLoaded', () => {
         "inquisidor": "Cada noite você pode selecionar um jogador. Se ele é o líder da seita ou parte de uma seita, o jogador morrerá.",
         "sósia": "Você seleciona um jogador. Se esse jogador morrer, você tomará o seu papel.",
         "líder de seita": "Toda noite você escolhe alguém para unir à sua seita. Quando todos os jogadores se unirem, você vence.",
-        "cupido": "Você pode selecionar duas pessoas para formarem um casal. Se uma pessoa do casal morrer em qualquer momento, a outra também morrerá.",
+        "cupido": "Você pode selecionar duas pessoas para formarem um casal. Se uma pessoa do casal morrer em qualquer momento, a outra também morrerá. Se houverem 2 casais no jogo e um se desfazer, todos os casais serão desfeitos.",
         "depressivo": "Você está muito triste. Seu objetivo é ser morto pela aldeia. Se você for linchado pela aldeia, você vence.",
         "necromante": "Uma vez por jogo, você poderá reviver um jogador morto.",
         "piromaníaco": "Toda noite você seleciona dois jogadores para encharcar com gasolina ou queimar todos os jogadores já encharcados. Você ganha se você for o último jogador vivo. Você não pode ser morto pelos lobisomens.",
@@ -573,14 +606,13 @@ document.addEventListener('DOMContentLoaded', () => {
         "presidente": "Você é o presidente! Todo mundo sabe quem você é. Se você morrer, a aldeia perderá."
     };
 
-
     const chancesPapeisConfig = {
         'aldeão': 10,
         'vidente': 2,
         'médico': 2,
         'caçador': 2,
         'bruxa': 2,
-        'aprendiz de vidente': 1,
+        'aprendiz de vidente': 2,
         'pacifista': 2,
         'sacerdote': 1,
         'prefeito': 1,
@@ -665,6 +697,8 @@ document.addEventListener('DOMContentLoaded', () => {
     //--------------------------------------
 
     if (page === 'index') {
+        localStorage.removeItem('chatAgora');
+        localStorage.removeItem('chat');
         localStorage.removeItem('presidente');
         localStorage.removeItem('gasolina');
         localStorage.removeItem('casal');
@@ -701,6 +735,8 @@ document.addEventListener('DOMContentLoaded', () => {
     //--------------------------------------
 
     if (page === 'papeis') {
+        localStorage.removeItem('chatAgora');
+        localStorage.removeItem('chat');
         localStorage.removeItem('presidente');
         localStorage.removeItem('gasolina');
         localStorage.removeItem('casal');
@@ -762,6 +798,8 @@ document.addEventListener('DOMContentLoaded', () => {
     //--------------------------------------
 
     if (page === 'cadastro') {
+        localStorage.removeItem('chatAgora');
+        localStorage.removeItem('chat');
         localStorage.removeItem('presidente');
         localStorage.removeItem('gasolina');
         localStorage.removeItem('casal');
@@ -829,6 +867,8 @@ document.addEventListener('DOMContentLoaded', () => {
     //--------------------------------------
 
     if (page === 'mestre') {
+        localStorage.removeItem('chatAgora');
+        localStorage.removeItem('chat');
         localStorage.removeItem('presidente');
         localStorage.removeItem('gasolina');
         localStorage.removeItem('casal');
@@ -1322,10 +1362,9 @@ document.addEventListener('DOMContentLoaded', () => {
             navegacaoDiv.appendChild(botaoContinuar);
 
 
-            criarBotaoChat();
-
-            // Exibir mensagens recebidas para o jogadorAtual
             exibirMensagensRecebidas(jogadorAtual.nome);
+            criarBotaoChat(jogadorAtual.nome);
+
 
 
 
@@ -2002,10 +2041,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
             if (papelAtual.toLowerCase() === 'bruxa') {
 
+
+
                 const botaoAtaque = document.createElement('button');
                 botaoAtaque.textContent = 'Envenenar';
 
-                const ataquesBruxa = JSON.parse(localStorage.getItem('ataquesBruxa')) || {};
+                let ataquesBruxa = JSON.parse(localStorage.getItem('ataquesBruxa')) || {};
 
                 if (ataquesBruxa[jogadorAtual.nome]) {
                     botaoAtaque.disabled = true;
@@ -2020,11 +2061,35 @@ document.addEventListener('DOMContentLoaded', () => {
                             ataquesBruxa[jogadorAtual.nome] = nomeSelecionado;
                             localStorage.setItem('ataquesBruxa', JSON.stringify(ataquesBruxa));
 
+                            ataquesBruxa = JSON.parse(localStorage.getItem('ataquesBruxa')) || {};
+                            protecoesBruxa = JSON.parse(localStorage.getItem('protecoesBruxa')) || {};
+
+                            if (protecoesBruxa[jogadorAtual.nome] && ataquesBruxa[jogadorAtual.nome]) {
+                                const jogadorIndex = resultadoSorteio.findIndex(jogador => jogador.jogador === jogadorAtual.nome);
+                                if (jogadorIndex !== -1) {
+                                    resultadoSorteio[jogadorIndex].papel = 'aldeão';
+                                    localStorage.setItem('resultadoSorteio', JSON.stringify(resultadoSorteio));
+                                    alert(`Você agora é um aldeão.`);
+                                }
+                            }
+
                             atualizarStatusJogador(nomeSelecionado, 'envenenado');
                             window.location.href = 'mediador.html';
                         } else {
                             ataquesBruxa[jogadorAtual.nome] = nomeSelecionado;
                             localStorage.setItem('ataquesBruxa', JSON.stringify(ataquesBruxa));
+
+                            ataquesBruxa = JSON.parse(localStorage.getItem('ataquesBruxa')) || {};
+                            protecoesBruxa = JSON.parse(localStorage.getItem('protecoesBruxa')) || {};
+
+                            if (protecoesBruxa[jogadorAtual.nome] && ataquesBruxa[jogadorAtual.nome]) {
+                                const jogadorIndex = resultadoSorteio.findIndex(jogador => jogador.jogador === jogadorAtual.nome);
+                                if (jogadorIndex !== -1) {
+                                    resultadoSorteio[jogadorIndex].papel = 'aldeão';
+                                    localStorage.setItem('resultadoSorteio', JSON.stringify(resultadoSorteio));
+                                    alert(`Você agora é um aldeão.`);
+                                }
+                            }
 
                             atualizarStatusJogador(nomeSelecionado, 'envenenado');
                             window.location.href = 'mediador.html';
@@ -2034,12 +2099,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 navegacaoDiv.appendChild(botaoAtaque);
 
-
-
                 const botaoProtecao = document.createElement('button');
                 botaoProtecao.textContent = 'Proteger';
 
-                const protecoesBruxa = JSON.parse(localStorage.getItem('protecoesBruxa')) || {};
+                let protecoesBruxa = JSON.parse(localStorage.getItem('protecoesBruxa')) || {};
 
                 if (protecoesBruxa[jogadorAtual.nome]) {
                     botaoProtecao.disabled = true;
@@ -2056,6 +2119,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
                         protecoesBruxa[jogadorAtual.nome] = nomeSelecionado;
                         localStorage.setItem('protecoesBruxa', JSON.stringify(protecoesBruxa));
+
+                        ataquesBruxa = JSON.parse(localStorage.getItem('ataquesBruxa')) || {};
+                        protecoesBruxa = JSON.parse(localStorage.getItem('protecoesBruxa')) || {};
+
+                        if (protecoesBruxa[jogadorAtual.nome] && ataquesBruxa[jogadorAtual.nome]) {
+                            const jogadorIndex = resultadoSorteio.findIndex(jogador => jogador.jogador === jogadorAtual.nome);
+                            if (jogadorIndex !== -1) {
+                                resultadoSorteio[jogadorIndex].papel = 'aldeão';
+                                localStorage.setItem('resultadoSorteio', JSON.stringify(resultadoSorteio));
+                                alert(`Você agora é um aldeão.`);
+                            }
+                        }
 
                         window.location.href = 'mediador.html';
                     });
@@ -2310,6 +2385,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const modal = document.getElementById('modal-reuniao');
         const resultadoSorteio = JSON.parse(localStorage.getItem('resultadoSorteio')) || [];
 
+        localStorage.removeItem('chatAgora');
+
         let contagemDia = JSON.parse(localStorage.getItem('contagemDia')) || 0;
 
         contagemDia = contagemDia + 1;
@@ -2494,7 +2571,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 
-            const casal = JSON.parse(localStorage.getItem('casal'));
+            const casal = JSON.parse(localStorage.getItem('casal')) || {};
 
             const casalMorto = Object.entries(casal).find(([jogador1, jogador2]) =>
                 jogador1.toLowerCase() === jogadorMorto.nome.toLowerCase() || jogador2.toLowerCase() === jogadorMorto.nome.toLowerCase()
@@ -2509,6 +2586,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 console.log(`${jogadorMortoOutro} morreu devido à morte de seu parceiro(a).`);
 
                 nomeJogador.innerHTML += ` ${jogadorMortoOutro} morreu durante a noite.<br>`;
+
+                localStorage.removeItem('chatAgora');
+
             } else {
                 console.log(`Jogador "${jogadorMorto.nome}" não está em um casal registrado.`);
             }
@@ -2630,28 +2710,21 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         }
 
-
-        // Recuperar dados do localStorage e jogadoresStatus
         const casal = JSON.parse(localStorage.getItem('casal')) || {};
         const vivos = jogadoresStatus.filter(jogador => jogador.status === 'vivo');
 
-        // Elemento para exibir informações
         if (!nomeJogador) {
             console.error('Elemento nomeJogador não encontrado.');
         } else {
-            // Iterar pelos casais
             Object.entries(casal).forEach(([jogador1, jogador2]) => {
-                // Verificar se ambos os jogadores estão vivos
                 const jogador1Vivo = vivos.find(j => j.nome === jogador1);
                 const jogador2Vivo = vivos.find(j => j.nome === jogador2);
 
                 if (jogador1Vivo && jogador2Vivo) {
-                    // Ambos estão vivos, exibe no relatório
                     nomeJogador.innerHTML += `${jogador1} e ${jogador2} estão apaixonados.<br>`;
                 }
             });
         }
-
 
     }
 
@@ -2684,6 +2757,19 @@ document.addEventListener('DOMContentLoaded', () => {
             }
             return jogador;
         });
+
+        const moverMensagensParaChatAgora = () => {
+            const chat = JSON.parse(localStorage.getItem('chat')) || [];
+            const chatAgora = JSON.parse(localStorage.getItem('chatAgora')) || [];
+
+            const mensagensMovidas = chat.map(mensagem => ({ ...mensagem }));
+
+            localStorage.setItem('chatAgora', JSON.stringify([...chatAgora, ...mensagensMovidas]));
+            localStorage.setItem('chat', JSON.stringify([]));
+        };
+
+        moverMensagensParaChatAgora();
+
 
         jogadoresStatus = jogadoresStatus.map(jogador => {
             if (jogador.status === 'ressuscitado') {
@@ -2776,7 +2862,6 @@ document.addEventListener('DOMContentLoaded', () => {
             const jogadorStatus = resultadoSorteio.find(jogador => jogador.jogador === vencedor);
 
             if (jogadorStatus) {
-                // Verificar se o jogador é 'príncipe bonitão' ou 'idiota'
                 if (jogadorStatus.papel === 'príncipe bonitão' && !principeJogadores.includes(vencedor)) {
                     resultadoP.textContent = `${vencedor} é um Príncipe Bonitão e não morrerá dessa vez.`;
                     principeJogadores.push(vencedor);
@@ -2787,9 +2872,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     localStorage.setItem('idiota', JSON.stringify(idiotaJogadores));
                 } else if (jogadorStatus.papel === 'depressivo') {
                     atualizarStatusJogador(vencedor, 'linchado');
-                    votacaoOuFim(vencedor); // Chama a função votacaoOuFim()
+                    votacaoOuFim(vencedor);
                 } else {
-                    // Verifica se o vencedor está como valor na lista 'manhunt'
                     const cacaCabeça = Object.keys(manhunt).find(
                         chave => manhunt[chave] === vencedor
                     );
@@ -2803,12 +2887,10 @@ document.addEventListener('DOMContentLoaded', () => {
                             atualizarStatusJogador(cacaCabeça, 'hunter');
                             resultadoP.textContent = `${vencedor} recebeu ${maxVotos} voto(s) e morreu pela vila.`;
                         } else {
-                            // Caso o jogador caçador de cabeças não tenha papel registrado
                             atualizarStatusJogador(vencedor, 'morto');
                             resultadoP.textContent = `${vencedor} recebeu ${maxVotos} voto(s) e morreu pela vila.`;
                         }
                     } else {
-                        // Caso o jogador não tenha esses papéis, ele morre normalmente
                         atualizarStatusJogador(vencedor, 'morto');
                         resultadoP.textContent = `${vencedor} recebeu ${maxVotos} voto(s) e morreu pela vila.`;
                     }
