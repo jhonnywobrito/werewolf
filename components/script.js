@@ -383,6 +383,7 @@ document.addEventListener('DOMContentLoaded', () => {
     //--------------------------------------
 
     if (page === 'index') {
+        localStorage.removeItem('sosia');
         localStorage.removeItem('pistoleiro');
         localStorage.removeItem('idiota');
         localStorage.removeItem('silenciado');
@@ -414,6 +415,7 @@ document.addEventListener('DOMContentLoaded', () => {
     //--------------------------------------
 
     if (page === 'papeis') {
+        localStorage.removeItem('sosia');
         localStorage.removeItem('pistoleiro');
         localStorage.removeItem('idiota');
         localStorage.removeItem('silenciado');
@@ -444,6 +446,7 @@ document.addEventListener('DOMContentLoaded', () => {
     //--------------------------------------
 
     if (page === 'cadastro') {
+        localStorage.removeItem('sosia');
         localStorage.removeItem('pistoleiro');
         localStorage.removeItem('idiota');
         localStorage.removeItem('silenciado');
@@ -506,6 +509,7 @@ document.addEventListener('DOMContentLoaded', () => {
     //--------------------------------------
 
     if (page === 'mestre') {
+        localStorage.removeItem('sosia');
         localStorage.removeItem('pistoleiro');
         localStorage.removeItem('idiota');
         localStorage.removeItem('silenciado');
@@ -1009,6 +1013,15 @@ document.addEventListener('DOMContentLoaded', () => {
                         if (jogadorSelecionado) {
                             sosias[jogadorAtual.nome] = nomeSelecionado;
                             localStorage.setItem('sosia', JSON.stringify(sosias));
+                            
+                            const jogadorIndex = resultadoSorteio.findIndex(jogador => jogador.jogador === jogadorAtual.nome);
+                        if (jogadorIndex !== -1) {
+                            resultadoSorteio[jogadorIndex].papel = 'aldeão';
+                            localStorage.setItem('resultadoSorteio', JSON.stringify(resultadoSorteio));
+                            alert(`Você agora é um aldeão.`);
+                        }
+                            
+                            
                             window.location.href = 'mediador.html';
                         } else {
                             alert('Jogador selecionado não encontrado!');
@@ -1850,16 +1863,25 @@ document.addEventListener('DOMContentLoaded', () => {
             console.log('Sósia encontrado:', nomeJogadorSosia);
 
             if (nomeJogadorSosia) {
+                let resultadoSorteio = JSON.parse(localStorage.getItem('resultadoSorteio')) || [];
                 const jogadorSelecionado = resultadoSorteio.find(jogador => jogador.jogador === nomeJogadorSosia);
 
                 if (jogadorSelecionado) {
                     const papelMorto = resultadoSorteio.find(jogador => jogador.jogador === jogadorMorto.nome);
 
-                    alert(papelMorto.papel)
+                    
                     jogadorSelecionado.papel = papelMorto.papel;
 
 
                     console.log(`${nomeJogadorSosia} agora tem o papel de ${papelMorto.papel}`);
+                    
+                    resultadoSorteio =
+                    localStorage.setItem('resultadoSorteio', JSON.stringify(resultadoSorteio));
+                    
+                    
+                    
+                    
+                    
                 } else {
                     console.warn(`Jogador sósia ${nomeJogadorSosia} não encontrado no sorteio.`);
                 }
