@@ -398,7 +398,6 @@ document.addEventListener('DOMContentLoaded', () => {
             vivos.every(jogador => !jogadoresComPapeisPerigosos.includes(jogador.jogador))) {
 
             const mortosAtualizados = jogadoresStatus.filter(jogador => jogador.status === 'morto');
-            alert('aaaaaaaaaaaaaaaaaaa')
             localStorage.setItem('vitoria', JSON.stringify({
                 vencedores: "NINGUÉM",
                 vivos: vivos.map(j => j.nome),
