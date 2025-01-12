@@ -382,32 +382,52 @@ document.addEventListener('DOMContentLoaded', () => {
             window.location.href = 'vitoria.html';
         }
 
-        const papeisPerigosos = [
-            "bruxa",
-            "sacerdote",
-            "vovó zangada",
-            "pistoleiro",
-            "assassino em série",
-            "necromante",
-            "piromaníaco"
-        ]
-
-        const jogadoresComPapeisPerigosos = resultadoSorteio.filter(jogador => !papeisPerigosos.includes(jogador.papel));
-
-        if (papeisUnicos.length === 1 && vivos.length === 1 || vivos.length === 2 &&
-            vivos.every(jogador => !jogadoresComPapeisPerigosos.includes(jogador.jogador))) {
-
-            const mortosAtualizados = jogadoresStatus.filter(jogador => jogador.status === 'morto');
-            localStorage.setItem('vitoria', JSON.stringify({
-                vencedores: "NINGUÉM",
-                vivos: vivos.map(j => j.nome),
-                mortos: mortosAtualizados.map(j => j.nome),
-                papeis: resultadoSorteio.map(j => ({ jogador: j.jogador, papel: j.papel }))
-            }));
-
-            setTimeout(() => window.location.href = 'vitoria.html', 100);
-            return;
+        if (vivos.length === 2) {
+            const papeisDosVivos = vivos.map(jogador => {
+                const papel = resultadoSorteio.find(r => r.jogador === jogador.nome)?.papel || null;
+                return { nome: jogador.nome, papel };
+            });
+        
+            const bruxaPresente = papeisDosVivos.some(j => j.papel === 'bruxa');
+            const sacerdotePresente = papeisDosVivos.some(j => j.papel === 'sacerdote');
+            const vovoZangadaPresente = papeisDosVivos.some(j => j.papel === 'vovó zangada');
+            const pistoleiroPresente = papeisDosVivos.some(j => j.papel === 'pistoleiro');
+            const assassinoSeriePresente = papeisDosVivos.some(j => j.papel === 'assassino em série');
+            const necromantePresente = papeisDosVivos.some(j => j.papel === 'necromante');
+            const piromaniacoPresente = papeisDosVivos.some(j => j.papel === 'piromaníaco');
+            const lobisomemPresente = papeisDosVivos.some(j => 
+                ['lobisomem', 'lobo alfa', 'filhote de lobisomem', 'lobo solitário'].includes(j.papel)
+            );
+        
+            const condicoesPerigosas = [
+                bruxaPresente,
+                sacerdotePresente,
+                vovoZangadaPresente,
+                pistoleiroPresente,
+                assassinoSeriePresente,
+                necromantePresente,
+                piromaniacoPresente,
+                lobisomemPresente
+            ];
+        
+            if (!condicoesPerigosas.some(Boolean)) {
+                const mortosAtualizados = jogadoresStatus.filter(jogador => jogador.status === 'morto');
+        
+                localStorage.setItem('vitoria', JSON.stringify({
+                    vencedores: "NINGUÉM", 
+                    vivos: vivos.map(j => j.nome), 
+                    mortos: mortosAtualizados.map(j => j.nome), 
+                    papeis: resultadoSorteio.map(j => ({ jogador: j.jogador, papel: j.papel })) 
+                }));
+        
+                setTimeout(() => window.location.href = 'vitoria.html', 100);
+                return;
+            }
         }
+        
+        
+        
+        
 
 
 
