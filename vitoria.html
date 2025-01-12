@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,6 +12,7 @@
     <link rel="shortcut icon" href="img/mini-logo.png" type="image/x-icon">
     <script src="https://kit.fontawesome.com/8b0455432d.js" crossorigin="anonymous"></script>
 </head>
+
 <body data-page="vitoria">
     <div id="pai-mestre-jogo-vitoria">
         <div id="mestre-jogo-vitoria">
@@ -27,42 +29,38 @@
                     </div>
                 </div>
             </div>
-            
-        <div class="navegacao">
-            <a href="mestre.html"><button class="botao-conteudo">Voltar</button></a>
-            <a href="index.html"><button class="botao-conteudo">Continuar</button></a>
-        </div>
+
+            <div class="navegacao">
+                <a href="mestre.html"><button class="botao-conteudo">Voltar</button></a>
+                <a href="index.html"><button class="botao-conteudo">Continuar</button></a>
+            </div>
         </div>
     </div>
     <script>
-        // Recupera as informações de vitória
-const vitoria = JSON.parse(localStorage.getItem('vitoria')) || {};
+        const vitoria = JSON.parse(localStorage.getItem('vitoria')) || {};
 
-// Atualiza o título e o resumo
-const topo = document.getElementById('topo');
-const imagemPapel = document.getElementById('imagem-papel');
+        const topo = document.getElementById('topo');
+        const imagemPapel = document.getElementById('imagem-papel');
 
-if (vitoria.vivos.length === 0) {
-    topo.textContent = 'NINGUÉM VENCEU';
-    imagemPapel.src = 'img/mestre.png'; // Imagem do mestre
-    imagemPapel.alt = 'Imagem do Mestre';
-} else {
-    topo.textContent = `${vitoria.vencedores} venceu!`;
+        if (vitoria.vivos.length === 0) {
+            topo.textContent = 'NINGUÉM VENCEU';
+            imagemPapel.src = 'img/mestre.png';
+            imagemPapel.alt = 'Imagem do Mestre';
+        } else {
+            topo.textContent = `${vitoria.vencedores} venceu!`;
 
-    // Atualiza a imagem de acordo com os vencedores
-    if (vitoria.vencedores === 'A alcateia') {
-        imagemPapel.src = 'img/lobisomem.png';
-        imagemPapel.alt = 'Imagem de Lobisomem';
-    } else if (vitoria.vencedores === 'A vila') {
-        imagemPapel.src = 'img/aldeao.png';
-        imagemPapel.alt = 'Imagem de Aldeão';
-    }
-}
+            if (vitoria.vencedores === 'A alcateia') {
+                imagemPapel.src = 'img/lobisomem.png';
+                imagemPapel.alt = 'Imagem de Lobisomem';
+            } else if (vitoria.vencedores === 'A vila') {
+                imagemPapel.src = 'img/aldeao.png';
+                imagemPapel.alt = 'Imagem de Aldeão';
+            }
+        }
 
-document.getElementById('nome-jogador').textContent = 'Resumo do jogo';
+        document.getElementById('nome-jogador').textContent = 'Resumo do jogo';
 
-// Gera o conteúdo para exibir os detalhes do jogo
-const conteudo = `
+        const conteudo = `
     <h5>Vivos:</h5>
     ${vitoria.vivos.map(nome => `${nome}<br>`).join('')}
     <h5>Mortos:</h5>
@@ -71,11 +69,11 @@ const conteudo = `
     ${vitoria.papeis.map(j => `${j.jogador}: ${j.papel}<br>`).join('')}
 `;
 
-// Atualiza o conteúdo da página
-const container = document.querySelector('.espaco-vitoria');
-container.innerHTML = conteudo;
+        const container = document.querySelector('.espaco-vitoria');
+        container.innerHTML = conteudo;
 
 
     </script>
 </body>
+
 </html>

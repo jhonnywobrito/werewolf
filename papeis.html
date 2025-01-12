@@ -59,14 +59,14 @@
                       <img src="img/bruxa.png" alt="">
                       <input type="checkbox" checked name="papel" value="bruxa"> Bruxa
                     </label>
-                    <p>Você tem duas opções que podem ser usadas durante a noite: uma que irá salvar outro jogador de ser morto pelos lobisomens e um veneno que irá matar outro jogador.</p>
+                    <p>"Você tem duas poções que podem ser usadas durante a noite: uma que irá salvar outro jogador de ser morto pelos lobisomens e um veneno que irá matar outro jogador.</p>
                   </div>
                   <div class="label-form">
                     <label>
                       <img src="img/aprendiz-de-vidente.png" alt="">
                       <input type="checkbox" checked name="papel" value="aprendiz de vidente"> Aprendiz de Vidente
                     </label>
-                    <p>Você pode aprender vidência durante a noite. Se aprender por 3 noites seguidas, você se torna vidente.</p>
+                    <p>"Você pode aprender vidência durante a noite. Se aprender por 3 noites seguidas, você se torna vidente.</p>
                   </div>
                   <div class="label-form">
                     <label>
@@ -108,7 +108,7 @@
                       <img src="img/portador-do-amuleto.png" alt="">
                       <input type="checkbox" checked name="papel" value="portador do amuleto"> Portador do Amuleto
                     </label>
-                    <p>Você não poderá ser morto por lobisomens durante a noite.</p>
+                    <p>"Você não poderá ser morto por lobisomens durante a noite se vestir o amuleto. Você não pode vestir o amuleto duas noites seguidas.</p>
                   </div>
                   <div class="label-form">
                     <label>
@@ -136,7 +136,7 @@
                       <img src="img/menininha.png" alt="">
                       <input type="checkbox" checked name="papel" value="menininha"> Menininha
                     </label>
-                    <p>Se você abrir seus olhos, há 20% de chance de detectar um lobisomem; mas também há 5% de chance dos lobisomens te encontrarem e te matarem.</p>
+                    <p>Se você abrir seus olhos, há 15% de chance de detectar um lobisomem; mas também há 15% de chance dos lobisomens te encontrarem e te matarem.</p>
                   </div>
                   <div class="label-form"> 
                     <label>
@@ -158,7 +158,7 @@
                       <img src="img/valentao.png" alt="">
                       <input type="checkbox" checked name="papel" value="valentão"> Valentão
                     </label>
-                    <p>Quando atacado pelos lobisomens, você sobrevive até o próximo dia.</p>
+                    <p>Quando atacado pelos lobisomens, você sangra e só morre no próximo dia.</p>
                   </div>
                   <div class="label-form"> 
                     <label>
@@ -236,7 +236,7 @@
                       <img src="img/humano-amaldicoado.png" alt="">
                       <input type="checkbox" checked name="papel" value="humano amaldiçoado"> Humano Amaldiçoado
                     </label>
-                    <p>Você é um aldeão normal até os lobisomens tentarem te matar. Caso aconteça, você se torna um lobisomem.</p>
+                    <p>Você é um aldeão normal até os lobisomens tentarem te matar. Caso aconteça, você se torna um lobisomem e os lobisomens ficam leprosos por uma noite.</p>
                   </div>
                   <div class="label-form"> 
                     <label>
@@ -265,7 +265,7 @@
                       <img src="img/sosia.png" alt="">
                       <input type="checkbox" checked name="papel" value="sósia"> Sósia
                     </label>
-                    <p>Na primeira noite você seleciona um jogador. Se esse jogador morrer, você tomará o seu papel.</p>
+                    <p>Você seleciona um jogador. Se esse jogador morrer, você tomará o seu papel.</p>
                   </div>
                   <div class="label-form"> 
                     <label>
@@ -279,7 +279,7 @@
                       <img src="img/cupido.png" alt="">
                       <input type="checkbox" checked name="papel" value="cupido"> Cupido
                     </label>
-                    <p>Durante a primeira noite, você seleciona duas pessoas para formarem um casal. Esse casal só ganhará se eles forem as duas últimas pessoas vivas. Se uma pessoa do casal morrer em qualquer momento, a outra também morrerá.</p>
+                    <p>"Você pode selecionar duas pessoas para formarem um casal. Se uma pessoa do casal morrer em qualquer momento, a outra também morrerá.</p>
                   </div>
                   <div class="label-form"> 
                     <label>
@@ -307,7 +307,7 @@
                       <img src="img/cacador-de-cabecas.png" alt="">
                       <input type="checkbox" checked name="papel" value="caçador de cabeças"> Caçador de Cabeças
                     </label>
-                    <p>Seu objetivo é fazer seu alvo ser linchado pela vila durante o dia. Se o seu alvo morrer de outra maneira, você irá virar um aldeão normal.</p>
+                    <p>Seu objetivo é fazer seu alvo ser linchado pela vila durante o dia. Se conseguir, você ganha; se o seu alvo morrer de outra maneira, você morre.</p>
                   </div>
                   <div class="label-form"> 
                     <label>
@@ -329,36 +329,8 @@
         
     </div>
     
-    <script>
-      document.getElementById('comecar-jogo').addEventListener('click', function (event) {
-          const papeisSelecionados = JSON.parse(localStorage.getItem('papeisSessao')) || [];
-      
-          if (papeisSelecionados.length < 2) {
-              event.preventDefault();
-              alert('Selecione e salve na sessão ao menos 2 papéis para começar o jogo.');
-          }
-      });
-      
-      document.getElementById('form-papeis').addEventListener('submit', function (event) {
-          event.preventDefault();
-      
-          const papeisSelecionados = [];
-          const checkboxes = document.querySelectorAll('input[name="papel"]:checked');
-          checkboxes.forEach(checkbox => {
-              papeisSelecionados.push(checkbox.value);
-          });
-      
-          if (papeisSelecionados.length < 2) {
-              alert('Selecione ao menos 2 papéis para essa sessão.');
-          } else {
-              localStorage.setItem('papeisSessao', JSON.stringify(papeisSelecionados));
-              alert('Papéis selecionados salvos! Clique "Começar jogo" para iniciar a sessão com essas configurações.');
-          }
-      });
-    
-    </script>
+    <script src="components/script.js"></script>
 
-    
     </body>
     </html>
     

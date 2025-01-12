@@ -907,3 +907,39 @@ label img {
     margin-top: 8px;
 }
 
+
+#lobisomem-papeis {
+    font-size: 1.4rem;
+}
+
+.modal-chat, .modal-mensagens {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: white;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+    z-index: 1000;
+}
+
+.modal-content {
+    text-align: center;
+}
+
+#botao-chat {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    padding: 10px 20px;
+    background: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#botao-chat:hover {
+    background: #0056b3;
+}
