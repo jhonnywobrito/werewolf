@@ -78,8 +78,8 @@ const abrirChatModal = (jogadorAtual) => {
             <textarea id="mensagem-chat" placeholder="Digite sua mensagem..."></textarea>
             </div>
             <div>
-            <button id="enviar-chat">Enviar</button>
             <button id="cancelar-chat">Cancelar</button>
+            <button id="enviar-chat">Enviar</button>
             </div>
         </div>
     `;
@@ -604,7 +604,7 @@ const abrirChatModal = (jogadorAtual) => {
         "médico": "Durante a noite, você acorda e seleciona um jogador que não poderá ser morto pelos lobisomens naquela noite. Você não poderá proteger o mesmo jogador duas vezes seguidas.",
         "caçador": "Quando você morrer poderá escolher outra pessoa para morrer com você.",
         "bruxa": "Você tem duas poções que podem ser usadas durante a noite: uma que irá salvar outro jogador de ser morto pelos lobisomens e um veneno que irá matar outro jogador.",
-        "aprendiz de vidente": "Você pode aprender vidência durante a noite. Se aprender por 3 noites seguidas, você se torna vidente.",
+        "aprendiz de vidente": "Você pode aprender vidência durante a noite. Se aprender por 2 noites, você se torna vidente.",
         "pacifista": "Uma vez por jogo você pode revelar o papel de um jogador para todos e pular a votação daquele dia.",
         "sacerdote": "Você poderá usar a água benta em outro jogador. Se esse jogador for um lobisomem, ele morre. Se não, você morre. Só pode ser usada uma única vez.",
         "prefeito": "Se você revelar seu papel para a aldeia, seu voto conta duas vezes durante o dia.",
@@ -1418,10 +1418,10 @@ const abrirChatModal = (jogadorAtual) => {
                 outrosLobisomensDiv.style.bottom = '10px';
                 outrosLobisomensDiv.style.right = '10px';
                 outrosLobisomensDiv.style.backgroundColor = 'rgba(0, 0, 0, 0.8)';
-                outrosLobisomensDiv.style.color = '#fff';
+                outrosLobisomensDiv.style.color = '#ffffff37';
                 outrosLobisomensDiv.style.padding = '10px';
                 outrosLobisomensDiv.style.borderRadius = '5px';
-                outrosLobisomensDiv.innerHTML = '<strong>Outros Lobisomens:</strong><br>';
+                outrosLobisomensDiv.innerHTML = '<strong>Lobisomens:</strong><br>';
 
                 const outrosLobisomens = resultadoSorteio.filter(
                     jogador =>
@@ -2204,7 +2204,7 @@ const abrirChatModal = (jogadorAtual) => {
 
                     localStorage.setItem('aprendizesDeVidente', JSON.stringify(aprendizesDeVidente));
 
-                    if (aprendizesDeVidente[jogadorAtual.nome] === 3) {
+                    if (aprendizesDeVidente[jogadorAtual.nome] === 2) {
                         const jogadorIndex = resultadoSorteio.findIndex(jogador => jogador.jogador === jogadorAtual.nome);
                         if (jogadorIndex !== -1) {
                             resultadoSorteio[jogadorIndex].papel = 'vidente';

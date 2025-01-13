@@ -23,7 +23,7 @@
                 </div>
 
                 <div class="nome-pessoa">
-                    <h3 id="nome-jogador">ESTÁ DE NOITE</h3>
+                    <h3 id="resumo">ESTÁ DE NOITE</h3>
                     <div class="espaco-vitoria">
                         <p></p>
                     </div>
@@ -31,7 +31,6 @@
             </div>
 
             <div class="navegacao">
-                <a href="mestre.html"><button class="botao-conteudo">Voltar</button></a>
                 <a href="index.html"><button class="botao-conteudo">Continuar</button></a>
             </div>
         </div>
@@ -58,7 +57,7 @@
             }
         }
     
-        document.getElementById('nome-jogador').textContent = 'Resumo do jogo';
+        document.getElementById('resumo').textContent = 'Resumo do jogo';
     
         const vivosComPapeis = vitoria.vivos.map(nome => {
             const papel = vitoria.papeis.find(p => p.jogador === nome)?.papel || 'Papel desconhecido';

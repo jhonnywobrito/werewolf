@@ -12,7 +12,7 @@
 
 body,
 html {
-    background: linear-gradient(to bottom, rgb(31, 25, 46), rgb(0, 0, 0));
+    background-color: #000000;
     font-family: "Righteous", sans-serif;
     background-position: center;
     background-size: cover;
@@ -32,7 +32,7 @@ html {
 }
 
 #index {
-    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 1)), url('img/fundo.png');
+    background: linear-gradient(to bottom, rgba(24, 23, 23, 0.7), rgba(0, 0, 0, 1)), url('img/fundo.png');
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
@@ -61,7 +61,7 @@ nav {
 button {
     padding: 12px;
     font-family: "Righteous", sans-serif;
-    background-color: #14233B;
+    background-color: #030303;
     color: white;
     border: none;
     border-radius: 24px;
@@ -73,7 +73,7 @@ button {
 }
 
 button:hover {
-    background-color: #6e5fe2;
+    background-color: #151515;
 }
 
 a {
@@ -132,6 +132,7 @@ p {
 
 .grid div {
     text-align: center;
+    padding: 0 4px;
 }
 
 .logo {
@@ -193,10 +194,6 @@ form label {
     font-size: 1rem;
 }
 
-form button:hover {
-    background-color: #4b40b1;
-}
-
 table {
     width: 100%;
     border-collapse: collapse;
@@ -253,7 +250,7 @@ table td:last-child {
 
 #form-papeis p {
     font-size: 1rem;
-    background-color: rgb(40, 31, 61);
+    background-color: rgb(44, 42, 42);
     padding: 10px;
     border-radius: 6px;
 }
@@ -268,11 +265,11 @@ table td:last-child {
 }
 
 .label-form {
-    background: linear-gradient(rgb(66, 53, 101), rgba(44, 35, 66, 1));
+    background:  rgb(64, 63, 63);
     padding: 10px;
     border-style: solid;
     border-width: 3px;
-    border-color: #fff;
+    border-color: #cfc7c7;
     border-radius: 10px;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
     margin: 5px;
@@ -312,17 +309,12 @@ label img {
     left: 20px;
     z-index: 1000;
     padding: 10px 20px;
-    background-color: #14233B;
     color: white;
     border: none;
     border-radius: 20px;
     font-size: 16px;
     cursor: pointer;
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-#voltar-cadastro:hover {
-    background-color: #6e5fe2;
 }
 
 #salvar-sessao-ut {
@@ -351,7 +343,6 @@ label img {
     right: 20px;
     z-index: 1000;
     padding: 10px 20px;
-    background-color: #00763E;
     color: white;
     border: none;
     border-radius: 20px;
@@ -361,7 +352,8 @@ label img {
 }
 
 #comecar-jogo:hover {
-    background-color: #026738;
+    background-color: #ffffff;
+    color: rgb(0, 0, 0);
 }
 
 ::-webkit-scrollbar-track {
@@ -377,15 +369,26 @@ label img {
     background: #ffffff;
 }
 
-#pai-cadastro,
 #dom-mestre-jogo-votacao {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    background: linear-gradient(to bottom, rgb(31, 25, 46), rgb(0, 0, 0));
+    background: linear-gradient(to bottom, rgb(255, 255, 255), rgb(0, 0, 0));
     width: 100%;
     min-height: 100vh;
+}
+
+#pai-cadastro {
+    background-color: #000000;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: auto;
+    width: 100%;
+    height: 100%;
+    
 }
 
 .pai-papeis {
@@ -395,7 +398,7 @@ label img {
     justify-content: center;
     margin: 0px auto;
     padding: 8rem 0px;
-    background: linear-gradient(to bottom, rgb(31, 25, 46), rgb(0, 0, 0));
+    background: linear-gradient(to top, rgb(255, 255, 255), rgb(0, 0, 0));
     width: 100%;
     max-height: fit-content;
     max-width: 100%;
@@ -434,7 +437,7 @@ label img {
     border-style: solid;
     border-width: 4px;
     border-color: #fff;
-    background: linear-gradient(rgba(53, 42, 81, 1), rgba(44, 35, 66, 1));
+    background-color: #2C2C2C;
     border-radius: 12px;
     padding: 0;
 }
@@ -456,7 +459,7 @@ label img {
 
 
 #pai-mestre-jogo button {
-    background-color: rgb(31, 24, 46);
+    background-color:#030303;
 }
 
 #imagem-jogador {
@@ -464,7 +467,7 @@ label img {
 }
 
 #papel #nome-jogador {
-    background-color: rgb(31, 24, 46);
+    background-color: #151515;
     border-radius: 4px;
     text-shadow: none;
     text-align: center;
@@ -483,7 +486,7 @@ label img {
 
 .imagem-papel #nome-jogador,
 #noite {
-    background-color: rgb(31, 24, 46);
+    background-color: #151515;
     border-radius: 4px;
     text-shadow: none;
     text-align: center;
@@ -510,7 +513,7 @@ label img {
 #papel-jogador,
 .papel-jogador,
 .nome-pessoa h3 {
-    background-color: #02502b;
+    background-color: #433B31;
     padding: 8px;
     font-weight: normal;
     text-align: center;
@@ -532,7 +535,7 @@ label img {
 
 .espaco,
 .nome-pessoa {
-    background-color: #026738;
+    background-color: #635A4C;
     padding: 4px;
     margin-bottom: 10px;
 }
@@ -548,12 +551,7 @@ label img {
 }
 
 #navegacao button {
-    background-color: rgb(31, 24, 46);
-}
-
-
-#botao-conteudo {
-    background: #034e2b;
+    background-color:#030303;
 }
 
 
@@ -578,21 +576,19 @@ label img {
     color: white;
     margin: 10px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
-    background: #026738;
+    background: #635A4C;
 }
 
 #modal #pai-mestre-jogo #mestre-jogo button {
     color: white;
     margin: 10px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    background: #034e2b;
 }
 
 #continuar-btn {
     margin-top: 18px;
     padding: 12px 24px;
     font-size: 1.2rem;
-    background-color: #14233B;
     color: white;
     border: none;
     border-radius: 24px;
@@ -600,9 +596,6 @@ label img {
     transition: background-color 0.3s;
 }
 
-#continuar-btn:hover {
-    background-color: #6e5fe2;
-}
 
 .modal-ataque,
 .modal-detetive {
@@ -612,7 +605,7 @@ label img {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background-color: rgba(31, 24, 46, 0.95);
+    background-color: rgba(21, 21, 21,0.95);
     z-index: 1000;
     padding: 20px;
     width: 100%;
@@ -641,7 +634,7 @@ label img {
     max-width: 250px;
     overflow-y: auto;
     margin: auto;
-    background-color: rgb(22, 18, 38);
+    background-color: rgb(47, 46, 46);
     border-radius: 8px;
     padding: 8px;
 }
@@ -659,7 +652,7 @@ label img {
 .item-jogador {
     display: block;
     text-align: center;
-    background-color: rgb(31, 24, 46);
+    background-color:  rgb(43, 40, 40);
     padding: 12px;
     border-radius: 24px;
     color: #fff;
@@ -675,7 +668,7 @@ label img {
 .item-jogador input:checked+span {
     font-weight: bold;
     color: #E18902;
-    background-color: #2c1d40;
+    background-color:  rgb(47, 46, 46);
     border-radius: 24px;
     padding: 12px;
     display: inline-block;
@@ -688,7 +681,7 @@ label img {
     cursor: pointer;
     border: none;
     border-radius: 24px;
-    background-color: #034e2b;
+    background-color: #030303;
     color: #fff;
     font-size: 1rem;
     transition: background-color 0.3s ease;
@@ -696,7 +689,7 @@ label img {
 
 .modal-content button:hover,
 #modal-reuniao button:hover {
-    background-color: #45a049;
+    background-color: rgb(16, 16, 16);
 }
 
 .lista-jogadores::-webkit-scrollbar {
@@ -864,12 +857,12 @@ label img {
     margin: 8px;
     padding: 1rem;
     border-radius: 12px;
-    background: linear-gradient(rgb(41, 33, 62), rgb(29, 23, 44));
+    background: rgb(47, 46, 46);
     text-align: center;
 }
 
 #pai-mestre-jogo-votacao {
-    background: linear-gradient(rgb(41, 33, 62), rgb(29, 23, 44));
+    background:  rgb(40, 39, 39);
     padding: 1.6rem;
     border-style: solid;
     border-width: 4px;
@@ -890,12 +883,12 @@ label img {
 }
 
 #pai-mestre-jogo-votacao button {
-    background-color: rgb(22, 18, 38);
+    background-color: #030303;
 }
 
 #nome-jogador-votacao {
     font-size: 1.6rem;
-    background-color: rgb(22, 18, 38);
+    background-color:  rgb(30, 29, 29);
     padding: 4px;
     border-radius: 8px;
     margin-top: 8px;
@@ -915,7 +908,7 @@ label img {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background-color: rgba(31, 24, 46, 0.95);
+    background-color:  rgb(47, 46, 46,0.95);
     z-index: 1000;
     padding: 20px;
     width: 100%;
@@ -925,11 +918,11 @@ label img {
 
 #botao-chat {
     position: fixed;
-    bottom: 20px;
+    bottom: 10px;
     left: 20px;
     padding: 12px;
     font-family: "Righteous", sans-serif;
-    background-color: #14233B;
+    background-color: #4e4f51;
     color: white;
     border: none;
     border-radius: 24px;
@@ -937,10 +930,6 @@ label img {
     margin: 2px;
     margin-bottom: 10px;
     font-size: 1rem;
-}
-
-#botao-chat:hover {
-    background: #0056b3;
 }
 
 #selecao-mensagem {
@@ -953,60 +942,13 @@ label img {
     padding: 10px;
     font-family: "Righteous", sans-serif;
     font-size: 1.4rem;
+    width: 92%;
 }
 
-@media (max-height: 360px) {
-    #pai-cadastro {
-        padding: 12rem 0;
-    }
-}
-
-@media (max-width: 600px) {
-    .grid {
-        grid-template-columns: 1fr;
-        grid-gap: 0;
-    }
-
-    nav {
-        word-spacing: 50px;
-        margin-right: 0px
-    }
-
-    table th,
-    table td {
-        font-size: 0.9rem;
-    }
-
-    form button {
-        font-size: 1rem;
-    }
-
-    .nome-pessoa {
-        border-radius: 12px;
-        padding: 12px;
-    }
-
-    #mestre-jogo #papel {
-        grid-gap: 20px;
-    }
-
-    #pai-cadastro {
-        padding: 8rem 0;
-    }
-
-    #tabela-registro {
-        margin-top: 40px;
-    }
-
-    #mestre-dia {
-        min-width: 105%;
-    }
-
-}
 
 #nome-jogador {
     font-size: 1.2rem;
-    background-color: #00000000;
+    background-color: #433B31;
 }
 
 #mestre-jogo-vitoria .nome-pessoa {
@@ -1037,3 +979,83 @@ label img {
     padding: 6px;
 }
 
+#tabela-registro h2, #adicionar h2 {
+    text-shadow: none;
+}
+
+#adicionar {
+    display: flex;
+    background-color:#151515;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    border-radius: 14px;
+    padding: 12px;
+}
+
+#tabela-registro {
+    display: flex;
+    background: #2C2C2C;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    border-radius: 14px;
+    padding: 12px;
+}
+
+#resumo {
+    background-color: #00000000;
+}
+
+@media (max-height: 380px) {
+    #pai-cadastro {
+        padding: 6rem 0;
+    }
+}
+
+@media (max-width: 600px) {
+    .grid {
+        grid-template-columns: 1fr;
+        grid-gap: 0;
+        margin: auto;
+        padding: 0;
+    }
+
+    nav {
+        word-spacing: 50px;
+        margin-right: 0px
+    }
+
+    table th,
+    table td {
+        font-size: 0.9rem;
+    }
+
+    form button {
+        font-size: 1rem;
+    }
+
+    .nome-pessoa {
+        border-radius: 12px;
+        padding: 12px;
+        margin-top: 14px;
+    }
+
+    #mestre-jogo #papel {
+        grid-gap: 20px;
+    }
+    #mestre-dia {
+        min-width: 105%;
+    }
+    #tabela-registro {
+        padding: 12px;
+        border-radius: 0 0 12px 12px;
+        margin-bottom: 5rem;
+    }
+    #adicionar {
+        margin-top: 12rem;
+        background-color:#151515;
+        border-radius: 12px 12px 0 0;
+        box-shadow: inset 0px -10px 6px 0px #0000003b;
+    }
+}
