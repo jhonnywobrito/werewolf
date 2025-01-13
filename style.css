@@ -748,10 +748,7 @@ label img {
     height: 100vh;
     max-width: 100%;
     box-sizing: border-box;
-    background: linear-gradient(to bottom, rgba(255, 255, 255, 1), rgba(77, 77, 77, 0.23));
-    background-position: center;
-    background-size: cover;
-    background-repeat: no-repeat;
+    background-color: white;
 }
 
 #pai-mestre-jogo-vitoria {
@@ -764,7 +761,7 @@ label img {
     height: 100vh;
     max-width: 100%;
     box-sizing: border-box;
-    background-color: #ffffff;
+    background-color: #2C2C2C;;
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
@@ -774,13 +771,22 @@ label img {
     display: flex;
     align-items: center;
     flex-direction: column;
-    margin: auto;
+    margin: 0;
     border-style: solid;
     border-width: 4px;
     border-color: #fff;
     background-color: #2C2C2C;
     border-radius: 12px;
     padding: 0;
+    min-width: 105%;
+}
+
+#mestre-jogo-vitoria {
+    border-width: 0;
+    box-sizing: border-box;
+    border-radius: 0;
+    min-width: 100%;
+    height: 100%;
 }
 
 #mestre-dia .grid .imagem-papel .nome-jogador {

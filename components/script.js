@@ -34,73 +34,90 @@ document.addEventListener('DOMContentLoaded', () => {
     ]
 
     const criarBotaoChat = (jogadorAtual) => {
-        const botaoChat = document.createElement('button');
-        botaoChat.id = 'botao-chat';
-        botaoChat.textContent = 'Chat';
+    const botaoChat = document.createElement('button');
+    botaoChat.id = 'botao-chat';
+    botaoChat.textContent = 'Chat';
 
+    const chat = JSON.parse(localStorage.getItem('chat')) || [];
+
+    // Verifica se o jogadorAtual já é remetente em alguma mensagem
+    const jaEnviouMensagem = chat.some(mensagem => mensagem.remetente === jogadorAtual);
+
+    if (jaEnviouMensagem) {
+        botaoChat.disabled = true;
+        botaoChat.textContent = 'Enviado';
+    } else {
         botaoChat.addEventListener('click', () => {
             abrirChatModal(jogadorAtual);
         });
+    }
 
-        document.body.appendChild(botaoChat);
-    };
+    document.body.appendChild(botaoChat);
+};
 
-    const abrirChatModal = (jogadorAtual) => {
-        const modalChat = document.createElement('div');
-        modalChat.className = 'modal-chat';
-        const jogadoresStatus = JSON.parse(localStorage.getItem('jogadoresStatus')) || [];
+const abrirChatModal = (jogadorAtual) => {
+    const modalChat = document.createElement('div');
+    modalChat.className = 'modal-chat';
+    const jogadoresStatus = JSON.parse(localStorage.getItem('jogadoresStatus')) || [];
 
-        const jogadoresVivos = jogadoresStatus.filter(jogador =>
-            jogador.status !== 'morto' && jogador.nome !== jogadorAtual
-        );
+    const jogadoresVivos = jogadoresStatus.filter(jogador =>
+        jogador.status !== 'morto' && jogador.nome !== jogadorAtual
+    );
 
-        modalChat.innerHTML = `
-            <div class="modal-content">
-                <h2>Enviar Mensagem</h2>
-                <div id="selecao-mensagem">
-                <select id="jogador-selecionado">
-                    ${jogadoresVivos.map(jogador =>
-            `<option value="${jogador.nome}">${jogador.nome}</option>`
-        ).join('')}
-                </select>
-                </div>
-                <div>
-                <textarea id="mensagem-chat" placeholder="Digite sua mensagem..."></textarea>
-                </div>
-                <div>
-                <button id="enviar-chat">Enviar</button>
-                <button id="cancelar-chat">Cancelar</button>
-                </div>
+    modalChat.innerHTML = `
+        <div class="modal-content">
+            <h2>Enviar Mensagem</h2>
+            <div id="selecao-mensagem">
+            <select id="jogador-selecionado">
+                ${jogadoresVivos.map(jogador =>
+        `<option value="${jogador.nome}">${jogador.nome}</option>`
+    ).join('')}
+            </select>
             </div>
-        `;
+            <div>
+            <textarea id="mensagem-chat" placeholder="Digite sua mensagem..."></textarea>
+            </div>
+            <div>
+            <button id="enviar-chat">Enviar</button>
+            <button id="cancelar-chat">Cancelar</button>
+            </div>
+        </div>
+    `;
 
-        document.body.appendChild(modalChat);
+    document.body.appendChild(modalChat);
 
-        document.getElementById('enviar-chat').addEventListener('click', () => {
-            const jogadorSelecionado = document.getElementById('jogador-selecionado').value;
-            const mensagem = document.getElementById('mensagem-chat').value;
+    document.getElementById('enviar-chat').addEventListener('click', () => {
+        const jogadorSelecionado = document.getElementById('jogador-selecionado').value;
+        const mensagem = document.getElementById('mensagem-chat').value;
 
-            if (!jogadorSelecionado || !mensagem.trim()) {
-                alert('Escolha um jogador e digite uma mensagem.');
-                return;
-            }
+        if (!jogadorSelecionado || !mensagem.trim()) {
+            alert('Escolha um jogador e digite uma mensagem.');
+            return;
+        }
 
-            const chat = JSON.parse(localStorage.getItem('chat')) || [];
-            chat.push({
-                remetente: jogadorAtual,
-                destinatario: jogadorSelecionado,
-                mensagem: mensagem.trim()
-            });
-            localStorage.setItem('chat', JSON.stringify(chat));
-
-            alert('Mensagem enviada!');
-            modalChat.remove();
+        const chat = JSON.parse(localStorage.getItem('chat')) || [];
+        chat.push({
+            remetente: jogadorAtual,
+            destinatario: jogadorSelecionado,
+            mensagem: mensagem.trim()
         });
+        localStorage.setItem('chat', JSON.stringify(chat));
 
-        document.getElementById('cancelar-chat').addEventListener('click', () => {
-            modalChat.remove();
-        });
-    };
+        alert('Mensagem enviada!');
+        modalChat.remove();
+
+        // Desabilitar o botão após o envio
+        const botaoChat = document.getElementById('botao-chat');
+        if (botaoChat) {
+            botaoChat.disabled = true;
+            botaoChat.textContent = 'Enviado';
+        }
+    });
+
+    document.getElementById('cancelar-chat').addEventListener('click', () => {
+        modalChat.remove();
+    });
+};
 
     const exibirMensagensRecebidas = (jogadorAtual) => {
 
@@ -1785,10 +1802,23 @@ document.addEventListener('DOMContentLoaded', () => {
                             localStorage.setItem('pistoleiro', JSON.stringify(pistoleiros));
 
                             atualizarStatusJogador(nomeSelecionado, 'envenenado');
+                            
+                            const tirosUsados = pistoleiros[jogadorAtual.nome] || 0;
 
+                if (tirosUsados >= 2) {
+                    const jogadorIndex = resultadoSorteio.findIndex(jogador => jogador.jogador === jogadorAtual.nome);
+                        if (jogadorIndex !== -1) {
+                            resultadoSorteio[jogadorIndex].papel = 'aldeão';
+                            localStorage.setItem('resultadoSorteio', JSON.stringify(resultadoSorteio));
+                            alert(`Você agora é um aldeão.`);
+                        }
+                }
+                            
+                            
+                            
                             window.location.href = 'mediador.html';
                         } else {
-                            alert('O jogador selecionado já está morto ou não pode ser envenenado.');
+                            alert('O jogador selecionado já está morto ou não pode ser atingido.');
                         }
                     });
                 });
