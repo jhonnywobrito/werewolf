@@ -1724,11 +1724,13 @@ const abrirChatModal = (jogadorAtual) => {
                         const jogadorRevelado = jogadoresStatus.find(jogador => jogador.nome === nomeSelecionado);
                         if (jogadorRevelado) {
                             const papelSelecionado = resultadoSorteio.find(j => j.jogador === nomeSelecionado)?.papel || 'Desconhecido';
-                            if (papelSelecionado.toLowerCase() === 'lobisomem') {
+                            if (papelSelecionado.toLowerCase() === 'lobisomem' || papelSelecionado.toLowerCase() === 'lobo solitário' || papelSelecionado.toLowerCase() === 'lobo alfa' || papelSelecionado.toLowerCase() === 'filhote de lobisomem') {
                                 alert(`${nomeSelecionado} é lobisomem.`);
-                            } else if (papelSelecionado.toLowerCase() === 'vidente') {
+                            } else if (papelSelecionado.toLowerCase() === 'vidente' || papelSelecionado.toLowerCase() === 'aprendiz de vidente' || papelSelecionado.toLowerCase() === 'vidente de aura') {
                                 alert(`${nomeSelecionado} é vidente.`);
-                            } else {
+                            }
+                            
+                            else {
                                 alert(`${nomeSelecionado} não é lobisomem nem vidente.`);
                             }
                         } else {
