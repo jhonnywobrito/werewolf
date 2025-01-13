@@ -1538,6 +1538,23 @@ const abrirChatModal = (jogadorAtual) => {
                 navegacaoDiv.appendChild(botaoRessuscitar);
             }
 
+            if (papelAtual.toLowerCase() === 'vidente') {
+                const botaoRevelar = document.createElement('button');
+                botaoRevelar.textContent = 'Revelar';
+                botaoRevelar.addEventListener('click', () => {
+                    abrirJanela(jogadorAtual.nome, (nomeSelecionado) => {
+                        const jogadorRevelado = jogadoresStatus.find(jogador => jogador.nome === nomeSelecionado);
+                        if (jogadorRevelado) {
+                            alert(`${nomeSelecionado} é: ${resultadoSorteio.find(j => j.jogador === nomeSelecionado)?.papel || 'Desconhecido'}`);
+                        } else {
+                            alert('Jogador não encontrado.');
+                        }
+                        window.location.href = 'mediador.html';
+                    });
+                });
+                navegacaoDiv.appendChild(botaoRevelar);
+            }
+
 
             if (papelAtual.toLowerCase() === 'piromaníaco') {
                 atualizarStatusJogador(jogadorAtual.nome, 'protegido')

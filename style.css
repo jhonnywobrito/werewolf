@@ -457,6 +457,10 @@ label img {
 }
 
 
+#mestre-jogo-vitoria button {
+    background-color: white;
+    color: #000000;
+}
 
 #pai-mestre-jogo button {
     background-color:#030303;
