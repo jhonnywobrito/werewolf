@@ -10,7 +10,8 @@
     font-style: normal;
 }
 
-body,html {
+body,
+html {
     background: linear-gradient(to bottom, rgb(31, 25, 46), rgb(0, 0, 0));
     font-family: "Righteous", sans-serif;
     background-position: center;
@@ -24,8 +25,8 @@ body,html {
 .container {
     display: flex;
     flex-direction: column;
-    justify-content: center; 
-    align-items: center; 
+    justify-content: center;
+    align-items: center;
     height: 100%;
     margin: 0;
 }
@@ -202,7 +203,7 @@ table {
     table-layout: fixed;
 }
 
-table th, 
+table th,
 table td {
     padding: 10px;
     text-align: left;
@@ -213,7 +214,7 @@ table td {
 
 table thead th {
     position: sticky;
-    top: 0; 
+    top: 0;
     z-index: 1;
 }
 
@@ -223,7 +224,7 @@ table tbody {
     overflow-y: auto;
 }
 
-table thead, 
+table thead,
 table tbody tr {
     display: table;
     width: 100%;
@@ -267,7 +268,7 @@ table td:last-child {
 }
 
 .label-form {
-    background: linear-gradient( rgb(66, 53, 101), rgba(44, 35, 66,1));
+    background: linear-gradient(rgb(66, 53, 101), rgba(44, 35, 66, 1));
     padding: 10px;
     border-style: solid;
     border-width: 3px;
@@ -291,32 +292,32 @@ label img {
 }
 
 #salvar-sessao {
-    position: fixed; 
-    bottom: 20px; 
-    right: 20px;    
-    z-index: 1000;  
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1000;
     padding: 10px 20px;
-    background-color: #E18902; 
-    color: white;  
-    border: none;   
+    background-color: #E18902;
+    color: white;
+    border: none;
     border-radius: 20px;
     font-size: 16px;
-    cursor: pointer; 
+    cursor: pointer;
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 #voltar-cadastro {
-    position: fixed; 
-    bottom: 20px; 
-    left: 20px;    
-    z-index: 1000;  
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    z-index: 1000;
     padding: 10px 20px;
-    background-color: #14233B; 
-    color: white;  
-    border: none;   
+    background-color: #14233B;
+    color: white;
+    border: none;
     border-radius: 20px;
     font-size: 16px;
-    cursor: pointer; 
+    cursor: pointer;
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
 }
 
@@ -325,55 +326,59 @@ label img {
 }
 
 #salvar-sessao-ut {
-    position: fixed; 
-    bottom: 20px; 
-    right: 20px;    
-    z-index: 1000;  
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1000;
     padding: 10px 20px;
-    background-color: #E18902; 
-    color: white;  
-    border: none;   
+    background-color: #E18902;
+    color: white;
+    border: none;
     border-radius: 20px;
     font-size: 16px;
-    cursor: pointer; 
+    cursor: pointer;
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-#salvar-sessao:hover, #salvar-sessao-ut:hover{
-    background-color: #b7720c; 
+#salvar-sessao:hover,
+#salvar-sessao-ut:hover {
+    background-color: #b7720c;
 }
 
 #comecar-jogo {
     position: fixed;
-    bottom: 70px; 
-    right: 20px;    
-    z-index: 1000;  
+    bottom: 70px;
+    right: 20px;
+    z-index: 1000;
     padding: 10px 20px;
-    background-color: #00763E; 
-    color: white;  
-    border: none;   
+    background-color: #00763E;
+    color: white;
+    border: none;
     border-radius: 20px;
     font-size: 16px;
-    cursor: pointer; 
+    cursor: pointer;
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 #comecar-jogo:hover {
-    background-color: #026738; 
+    background-color: #026738;
 }
 
 ::-webkit-scrollbar-track {
     background-color: #ffffff00;
 }
+
 ::-webkit-scrollbar {
     width: 1px;
     background: #000000;
 }
+
 ::-webkit-scrollbar-thumb {
     background: #ffffff;
 }
 
-#pai-cadastro, #dom-mestre-jogo-votacao {
+#pai-cadastro,
+#dom-mestre-jogo-votacao {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -386,7 +391,7 @@ label img {
 .pai-papeis {
     display: flex;
     flex-direction: column;
-    align-items: center; 
+    align-items: center;
     justify-content: center;
     margin: 0px auto;
     padding: 8rem 0px;
@@ -429,18 +434,26 @@ label img {
     border-style: solid;
     border-width: 4px;
     border-color: #fff;
-    background: linear-gradient(rgba(53, 42, 81,1), rgba(44, 35, 66,1));
+    background: linear-gradient(rgba(53, 42, 81, 1), rgba(44, 35, 66, 1));
     border-radius: 12px;
     padding: 0;
 }
 
-#mestre-jogo img, #mestre-dia img, #mestre-jogo-vitoria img {
+#mestre-jogo img,
+#mestre-dia img,
+#mestre-jogo-vitoria img {
     width: 100px;
     background-color: #ffffff;
     padding: 12px 60px;
     border-radius: 20px;
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.5);
 }
+
+#mestre-jogo-vitoria img {
+    margin: 0 0 10px 0;
+}
+
+
 
 #pai-mestre-jogo button {
     background-color: rgb(31, 24, 46);
@@ -468,7 +481,8 @@ label img {
     text-shadow: none;
 }
 
-.imagem-papel #nome-jogador, #noite{
+.imagem-papel #nome-jogador,
+#noite {
     background-color: rgb(31, 24, 46);
     border-radius: 4px;
     text-shadow: none;
@@ -478,7 +492,7 @@ label img {
     font-size: 1.6rem;
 }
 
-#dia, #topo {
+#dia {
     background-color: #151515;
     border-radius: 4px;
     text-shadow: none;
@@ -493,7 +507,9 @@ label img {
     margin: auto;
 }
 
-#papel-jogador, .papel-jogador, .nome-pessoa h3 {
+#papel-jogador,
+.papel-jogador,
+.nome-pessoa h3 {
     background-color: #02502b;
     padding: 8px;
     font-weight: normal;
@@ -514,7 +530,8 @@ label img {
     margin: auto;
 }
 
-.espaco, .nome-pessoa  {
+.espaco,
+.nome-pessoa {
     background-color: #026738;
     padding: 4px;
     margin-bottom: 10px;
@@ -529,44 +546,6 @@ label img {
 #descricao-papel {
     font-size: 1.2rem;
 }
-
-@media (max-height: 360px){
-    #pai-cadastro {
-        padding: 12rem 0;
-    }
-}
-
-@media (max-width: 600px){
-    .grid {
-        grid-template-columns: 1fr;
-        grid-gap:0;
-    }
-    nav {
-        word-spacing: 50px;
-        margin-right: 0px
-    }
-    
-    table th, table td {
-        font-size: 0.9rem;
-    }
-    form button {
-        font-size: 1rem;
-    }
-    .nome-pessoa  {
-        border-radius: 12px;
-        padding: 12px;
-    }
-    #mestre-jogo #papel {
-        grid-gap: 20px;
-    }
-    #pai-cadastro {
-        padding: 8rem 0;
-    }
-    #tabela-registro {
-        margin-top: 40px;
-    }
-}
-
 
 #navegacao button {
     background-color: rgb(31, 24, 46);
@@ -602,7 +581,7 @@ label img {
     background: #026738;
 }
 
-#modal #pai-mestre-jogo #mestre-jogo button{
+#modal #pai-mestre-jogo #mestre-jogo button {
     color: white;
     margin: 10px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -625,14 +604,15 @@ label img {
     background-color: #6e5fe2;
 }
 
-.modal-ataque, .modal-detetive {
+.modal-ataque,
+.modal-detetive {
     display: flex;
     margin: auto;
     position: fixed;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background-color: rgba(31, 24, 46,0.95);
+    background-color: rgba(31, 24, 46, 0.95);
     z-index: 1000;
     padding: 20px;
     width: 100%;
@@ -657,11 +637,11 @@ label img {
     list-style: none;
     padding: 0;
     margin: 0;
-    max-height: 200px; 
+    max-height: 200px;
     max-width: 250px;
-    overflow-y: auto; 
+    overflow-y: auto;
     margin: auto;
-    background-color: rgb(22, 18, 38); 
+    background-color: rgb(22, 18, 38);
     border-radius: 8px;
     padding: 8px;
 }
@@ -692,16 +672,17 @@ label img {
 }
 
 
-.item-jogador input:checked + span {
+.item-jogador input:checked+span {
     font-weight: bold;
-    color: #E18902; 
+    color: #E18902;
     background-color: #2c1d40;
     border-radius: 24px;
     padding: 12px;
     display: inline-block;
 }
 
-.modal-content button, #modal-reuniao button {
+.modal-content button,
+#modal-reuniao button {
     margin: 10px 5px;
     padding: 10px 20px;
     cursor: pointer;
@@ -713,12 +694,13 @@ label img {
     transition: background-color 0.3s ease;
 }
 
-.modal-content button:hover,  #modal-reuniao button:hover {
+.modal-content button:hover,
+#modal-reuniao button:hover {
     background-color: #45a049;
 }
 
 .lista-jogadores::-webkit-scrollbar {
-    width: 8px; 
+    width: 8px;
 }
 
 .lista-jogadores::-webkit-scrollbar-track {
@@ -726,9 +708,9 @@ label img {
 }
 
 .lista-jogadores::-webkit-scrollbar-thumb {
-    background-color: #555; 
-    border-radius: 4px; 
-    border: 2px solid #222; 
+    background-color: #555;
+    border-radius: 4px;
+    border: 2px solid #222;
 }
 
 #descricao-relatorio {
@@ -745,29 +727,28 @@ label img {
     justify-content: center;
     margin: auto;
     width: 100%;
-    height: 100vh;
+    height: 100%;
     max-width: 100%;
+    min-height: fit-content;
     box-sizing: border-box;
     background-color: white;
 }
 
 #pai-mestre-jogo-vitoria {
-    padding: 1rem 0;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
-    margin: auto;
+    background-color: #000000;
     width: 100%;
-    height: 100vh;
-    max-width: 100%;
+    min-height: 100vh;
     box-sizing: border-box;
-    background-color: #2C2C2C;;
-    background-position: center;
-    background-size: cover;
-    background-repeat: no-repeat;
+    flex-grow: 1;
+    padding: 0 4px;
 }
 
-#mestre-dia, #mestre-jogo-vitoria {
+#mestre-dia,
+#mestre-jogo-vitoria {
     display: flex;
     align-items: center;
     flex-direction: column;
@@ -778,15 +759,20 @@ label img {
     background-color: #2C2C2C;
     border-radius: 12px;
     padding: 0;
-    min-width: 105%;
+    min-width: 100vh;
 }
 
 #mestre-jogo-vitoria {
-    border-width: 0;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    margin: auto;
+    background-color: #00000000;
     box-sizing: border-box;
     border-radius: 0;
     min-width: 100%;
     height: 100%;
+    border-radius: 12px;
 }
 
 #mestre-dia .grid .imagem-papel .nome-jogador {
@@ -802,11 +788,12 @@ label img {
     background-color: #9A7665;
 }
 
-#mestre-dia .nome-pessoa, #mestre-dia .nome-pessoa #relatorio, #mestre-jogo-vitoria .nome-pessoa {
+#mestre-dia .nome-pessoa,
+#mestre-dia .nome-pessoa #relatorio {
     background-color: #635A4C;
 }
 
-#mestre-dia .nome-pessoa #descricao-relatorio, #mestre-jogo-vitoria h5 {
+#mestre-dia .nome-pessoa #descricao-relatorio {
     background-color: #717070;
     padding: 4px;
     margin: 4px 0;
@@ -820,15 +807,15 @@ label img {
     margin: 6px 0;
 }
 
-#mestre-dia .nome-pessoa .nome-jogador, #mestre-jogo-vitoria .nome-pessoa #nome-jogador {
+#mestre-dia .nome-pessoa .nome-jogador {
     background-color: #433B31;
 }
 
-#mestre-jogo-vitoria .nome-pessoa #nome-jogador {
-    margin-bottom: 16px;
+#mestre-jogo-vitoria .nome-pessoa {
+    min-width: 250px;
 }
 
-#mestre-dia #sortear, #mestre-jogo-vitoria button {
+#mestre-dia #sortear {
     background-color: #030303;
 }
 
@@ -840,7 +827,6 @@ label img {
     font-size: 1.6rem;
     margin: 4px;
     border-radius: 6px;
-    margin-top: 20px;
 }
 
 #modal-reuniao {
@@ -867,7 +853,8 @@ label img {
     margin: auto;
 }
 
-#modal-reuniao p, #modal-reuniao h2 {
+#modal-reuniao p,
+#modal-reuniao h2 {
     color: #000000;
     text-shadow: none;
 }
@@ -903,12 +890,12 @@ label img {
 }
 
 #pai-mestre-jogo-votacao button {
-    background-color: rgb(22, 18, 38); 
+    background-color: rgb(22, 18, 38);
 }
 
 #nome-jogador-votacao {
     font-size: 1.6rem;
-    background-color: rgb(22, 18, 38); 
+    background-color: rgb(22, 18, 38);
     padding: 4px;
     border-radius: 8px;
     margin-top: 8px;
@@ -919,7 +906,8 @@ label img {
     font-size: 1.4rem;
 }
 
-.modal-chat, .modal-mensagens {
+.modal-chat,
+.modal-mensagens {
     display: flex;
     margin: auto;
     position: fixed;
@@ -927,7 +915,7 @@ label img {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background-color: rgba(31, 24, 46,0.95);
+    background-color: rgba(31, 24, 46, 0.95);
     z-index: 1000;
     padding: 20px;
     width: 100%;
@@ -959,9 +947,93 @@ label img {
     margin: 10px 0;
 }
 
-#jogador-selecionado, #mensagem-chat{
+#jogador-selecionado,
+#mensagem-chat {
     border-radius: 12px;
     padding: 10px;
     font-family: "Righteous", sans-serif;
     font-size: 1.4rem;
 }
+
+@media (max-height: 360px) {
+    #pai-cadastro {
+        padding: 12rem 0;
+    }
+}
+
+@media (max-width: 600px) {
+    .grid {
+        grid-template-columns: 1fr;
+        grid-gap: 0;
+    }
+
+    nav {
+        word-spacing: 50px;
+        margin-right: 0px
+    }
+
+    table th,
+    table td {
+        font-size: 0.9rem;
+    }
+
+    form button {
+        font-size: 1rem;
+    }
+
+    .nome-pessoa {
+        border-radius: 12px;
+        padding: 12px;
+    }
+
+    #mestre-jogo #papel {
+        grid-gap: 20px;
+    }
+
+    #pai-cadastro {
+        padding: 8rem 0;
+    }
+
+    #tabela-registro {
+        margin-top: 40px;
+    }
+
+    #mestre-dia {
+        min-width: 105%;
+    }
+
+}
+
+#nome-jogador {
+    font-size: 1.2rem;
+    background-color: #00000000;
+}
+
+#mestre-jogo-vitoria .nome-pessoa {
+    background-color: #00000000;
+}
+
+#vitoria-vivos {
+    background-color: #02502b;
+    margin: 4px;
+    font-size: 1.4rem;
+    border-radius: 4px;
+    padding: 6px;
+}
+
+#vitoria-mortos {
+    background-color: #930e0e;
+    margin: 4px;
+    font-size: 1.4rem;
+    border-radius: 4px;
+    padding: 6px;
+}
+
+#vitoria-papeis {
+    background-color: #8f6603;
+    margin: 4px;
+    font-size: 1.4rem;
+    border-radius: 4px;
+    padding: 6px;
+}
+
