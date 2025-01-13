@@ -217,8 +217,8 @@ const abrirChatModal = (jogadorAtual) => {
         }
 
 
-        const lobisomensVivos = resultadoSorteio.filter(jogador =>
-            ['lobisomem', 'lobo alfa', 'filhote de lobisomem', 'feiticeira'].includes(jogador.papel) &&
+        let lobisomensVivos = resultadoSorteio.filter(jogador =>
+            ['lobisomem', 'lobo alfa', 'filhote de lobisomem'].includes(jogador.papel) &&
             vivos.some(v => v.nome === jogador.jogador)
         );
 
@@ -229,13 +229,16 @@ const abrirChatModal = (jogadorAtual) => {
         const feiticeirasVivas = resultadoSorteio.filter(jogador =>
             jogador.papel === 'feiticeira' && vivos.some(v => v.nome === jogador.jogador)
         );
+        
+        vivos = atualizarVivos();
+        mortosAtualizados = jogadoresStatus.filter(jogador => jogador.status === 'morto');
 
         const assassinoEmSerieVivo = resultadoSorteio.find(jogador =>
             jogador.papel === 'assassino em série' && vivos.some(v => v.nome === jogador.jogador)
         );
 
         const aldeoesVivos = resultadoSorteio.filter(jogador =>
-            !['lobisomem', 'lobo solitário', 'lobo alfa', 'filhote de lobisomem', 'piromaníaco', 'assassino em série', 'feiticeira'].includes(jogador.papel) &&
+            !['lobisomem', 'lobo solitário', 'lobo alfa', 'filhote de lobisomem', 'piromaníaco', 'assassino em série','feiticeira'].includes(jogador.papel) &&
             vivos.some(v => v.nome === jogador.jogador)
         );
 
@@ -258,6 +261,18 @@ const abrirChatModal = (jogadorAtual) => {
         }
 
         console.log(aldeoesVivos)
+        
+        if (lobisomensVivos.length === 0) {
+            feiticeirasVivas.forEach(feiticeira => {
+                atualizarStatusJogador(feiticeira.jogador, 'morto');
+                console.log(`${feiticeira.jogador} foi eliminada porque não há lobisomens vivos.`);
+            });
+        }
+        
+        lobisomensVivos = resultadoSorteio.filter(jogador =>
+            ['lobisomem', 'lobo alfa', 'filhote de lobisomem'].includes(jogador.papel) &&
+            vivos.some(v => v.nome === jogador.jogador)
+        );
 
         const vilaVence = lobisomensVivos.length === 0 && papeisUnicos.length === 0;
         let lobisomensVencem = lobisomensVivos.length > aldeoesVivos.length && papeisUnicos.length === 0;
@@ -291,13 +306,6 @@ const abrirChatModal = (jogadorAtual) => {
             loboSolitarioVivo &&
             lobisomensVivos.length === 0 &&
             aldeoesVivos.length === 0;
-
-        if (lobisomensVivos.length <= feiticeirasVivas.length) {
-            feiticeirasVivas.forEach(feiticeira => {
-                atualizarStatusJogador(feiticeira.jogador, 'morto');
-                console.log(`${feiticeira.jogador} foi eliminada porque não há lobisomens vivos.`);
-            });
-        }
 
         const assassinoEmSerieVence =
             assassinoEmSerieVivo &&
