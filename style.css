@@ -621,7 +621,6 @@ label img {
     text-align: center;
     align-items: center;
     align-content: center;
-    padding: 12px;
     margin: auto;
     flex-direction: column;
 }
@@ -634,13 +633,18 @@ label img {
     list-style: none;
     padding: 0;
     margin: 0;
-    max-height: 200px;
+    max-height: 180px;
     max-width: 250px;
     overflow-y: auto;
     margin: auto;
     background-color: rgb(47, 46, 46);
     border-radius: 8px;
     padding: 8px;
+}
+
+.coluna {
+    width: 100%;
+    min-width: 100px;
 }
 
 .coluna h3 {
@@ -934,6 +938,20 @@ label img {
     margin: 2px;
     margin-bottom: 10px;
     font-size: 1rem;
+}
+
+#cancelar-detetive, #cancelar {
+    position: fixed;
+    bottom: 30px;
+    left: 40px;
+    padding: 12px;
+}
+
+#confirmar-detetive, #confirmar {
+    position: fixed;
+    bottom: 30px;
+    right: 40px;
+    padding: 12px;
 }
 
 #selecao-mensagem {

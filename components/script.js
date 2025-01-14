@@ -1279,7 +1279,7 @@ const abrirChatModal = (jogadorAtual) => {
             modalDetetive.innerHTML = `
                 <div class=modal-content>
                     <h3>Escolha dois jogadores</h3>
-                    <div class="selecao-jogadores">
+                    <div class="grid">
                         <div class="coluna">
                             <h3>Jogador 1</h3>
                             <ul class="lista-jogadores">
