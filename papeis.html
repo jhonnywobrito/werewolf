@@ -23,9 +23,11 @@
     <div id="section-papeis" class="pai-papeis">
         <h2 id="topo-papeis">Papéis de Jogo</h2>
         <section >
+          <button type="button" id="toggle-all">Selecionar/Desmarcar todos</button>
             <form id="form-papeis">
             <div>
                 <h2>Aldeões</h2>
+
                 <div class="label-form">
                     <label>
                       <img src="img/aldeao.png" alt="">
@@ -59,14 +61,14 @@
                       <img src="img/bruxa.png" alt="">
                       <input type="checkbox" checked name="papel" value="bruxa"> Bruxa
                     </label>
-                    <p>"Você tem duas poções que podem ser usadas durante a noite: uma que irá salvar outro jogador de ser morto pelos lobisomens e um veneno que irá matar outro jogador.</p>
+                    <p>Você tem duas poções que podem ser usadas durante a noite: uma que irá salvar outro jogador de ser morto pelos lobisomens e um veneno que irá matar outro jogador.</p>
                   </div>
                   <div class="label-form">
                     <label>
                       <img src="img/aprendiz-de-vidente.png" alt="">
                       <input type="checkbox" checked name="papel" value="aprendiz de vidente"> Aprendiz de Vidente
                     </label>
-                    <p>"Você pode aprender vidência durante a noite. Se aprender por 2 noites, você se torna vidente.</p>
+                    <p>Você pode aprender vidência durante a noite. Se aprender por 2 noites, você se torna vidente.</p>
                   </div>
                   <div class="label-form">
                     <label>
@@ -81,6 +83,13 @@
                       <input type="checkbox" checked name="papel" value="sacerdote"> Sacerdote
                     </label>
                     <p>Você poderá usar a água benta em outro jogador. Se esse jogador for um lobisomem, ele morre. Se não, você morre. Só pode ser usada uma única vez.</p>
+                  </div>
+                  <div class="label-form"> 
+                    <label>
+                      <img src="img/inquisidor.png" alt="">
+                      <input type="checkbox" checked name="papel" value="inquisidor"> Inquisidor
+                    </label>
+                    <p>Cada noite você pode selecionar um jogador. Se ele é o líder da seita ou parte de uma seita, o jogador morrerá.</p>
                   </div>
                   <div class="label-form">
                     <label>
@@ -108,7 +117,7 @@
                       <img src="img/portador-do-amuleto.png" alt="">
                       <input type="checkbox" checked name="papel" value="portador do amuleto"> Portador do Amuleto
                     </label>
-                    <p>"Você não poderá ser morto por lobisomens durante a noite se vestir o amuleto. Você não pode vestir o amuleto duas noites seguidas.</p>
+                    <p>Você não poderá ser morto por lobisomens durante a noite se vestir o amuleto. Você não pode vestir o amuleto duas noites seguidas.</p>
                   </div>
                   <div class="label-form">
                     <label>
@@ -202,20 +211,42 @@
                     </label>
                     <p>Você têm duas balas que podem ser usadas para matar alguém. Os tiros são muito barulhentos, seu papel será revelado logo depois do primeiro tiro.</p>
                   </div>
+                  <div class="label-form"> 
+                    <label>
+                      <img src="img/necromante.png" alt="">
+                      <input type="checkbox" checked name="papel" value="necromante"> Necromante
+                    </label>
+                    <p>Uma vez por jogo, você poderá reviver um jogador morto.</p>
+                  </div>
+                  <div class="label-form"> 
+                    <label>
+                      <img src="img/cupido.png" alt="">
+                      <input type="checkbox" checked name="papel" value="cupido"> Cupido
+                    </label>
+                    <p>Você pode selecionar duas pessoas para formarem um casal. Se uma pessoa do casal morrer em qualquer momento, a outra também morrerá.</p>
+                  </div>
+                  <div class="label-form"> 
+                    <label>
+                      <img src="img/sosia.png" alt="">
+                      <input type="checkbox" checked name="papel" value="sósia"> Sósia
+                    </label>
+                    <p>Você seleciona um jogador. Se esse jogador morrer, você tomará o seu papel.</p>
+                  </div>
+                  <div class="label-form"> 
+                    <label>
+                      <img src="img/presidente.png" alt="">
+                      <input type="checkbox" checked name="papel" value="presidente"> Presidente
+                    </label>
+                    <p>Você é o presidente! Todo mundo sabe quem você é. Se você morrer, a aldeia perderá.</p>
+                  </div>
                   <h2>Lobisomens</h2>
                   <div class="label-form"> 
                     <label>
                       <img src="img/lobisomem.png" alt="">
-                      <input type="checkbox" checked name="papel" value="lobisomem"> Lobisomem
+                      <h5 id="lobisomem-papeis"> Lobisomem
+                      </h5>
                     </label>
-                    <p>Durante a noite, você acorda junto com seus amigos lobisomens e decide uma vítima para matar. Durante o dia, tenta parecer um aldeão comum para não ser morto.</p>
-                  </div>
-                  <div class="label-form"> 
-                    <label>
-                      <img src="img/lobo-solitario.png" alt="">
-                      <input type="checkbox" checked name="papel" value="lobo solitário"> Lobo Solitário
-                    </label>
-                    <p>Você é um lobisomem comum, exceto que você só ganhará se for o último lobisomem vivo.</p>
+                    <p>Durante a noite, você acorda junto com seus amigos lobisomens e escolhe uma vítima para atacar. Durante o dia, tenta parecer um aldeão comum para não ser morto.</p>
                   </div>
                   <div class="label-form"> 
                     <label>
@@ -229,7 +260,7 @@
                       <img src="img/filhote-de-lobisomem.png" alt="">
                       <input type="checkbox" checked name="papel" value="filhote de lobisomem"> Filhote de Lobisomem
                     </label>
-                    <p>Você é um lobisomem normal, exceto que, se você morrer, os lobisomens matarão duas pessoas na próxima noite.</p>
+                    <p>Você é um lobisomem normal, exceto que, se você morrer na votação da vila, os lobisomens matarão duas pessoas na próxima noite.</p>
                   </div>
                   <div class="label-form"> 
                     <label>
@@ -243,29 +274,22 @@
                       <img src="img/feiticeira.png" alt="">
                       <input type="checkbox" checked name="papel" value="feiticeira"> Feiticeira
                     </label>
-                    <p>A cada noite você seleciona um jogador para ver se ele é o vidente ou um lobisomem.</p>
+                    <p>A cada noite, você seleciona um jogador para ver se ele é lobisomem ou vidente. Seu objetivo é fazer o lobisomem ganhar.</p>
                   </div>
                   <h2 style="color: black; text-shadow: none;">Papéis especiais</h2>
+                  <div class="label-form"> 
+                    <label>
+                      <img src="img/lobo-solitario.png" alt="">
+                      <input type="checkbox" checked name="papel" value="lobo solitário"> Lobo Solitário
+                    </label>
+                    <p>Você é um lobisomem comum, exceto que você só ganhará se for o último lobisomem vivo.</p>
+                  </div>
                   <div class="label-form"> 
                     <label>
                       <img src="img/assassino-em-serie.png" alt="">
                       <input type="checkbox" checked name="papel" value="assassino em série"> Assassino em Série
                     </label>
                     <p>A cada noite você pode matar outro jogador. Se você for o último jogador vivo, você vence.</p>
-                  </div>
-                  <div class="label-form"> 
-                    <label>
-                      <img src="img/inquisidor.png" alt="">
-                      <input type="checkbox" checked name="papel" value="inquisidor"> Inquisidor
-                    </label>
-                    <p>Cada noite você pode selecionar um jogador. Se ele é o líder da seita ou parte de uma seita, o jogador morrerá.</p>
-                  </div>
-                  <div class="label-form"> 
-                    <label>
-                      <img src="img/sosia.png" alt="">
-                      <input type="checkbox" checked name="papel" value="sósia"> Sósia
-                    </label>
-                    <p>Você seleciona um jogador. Se esse jogador morrer, você tomará o seu papel.</p>
                   </div>
                   <div class="label-form"> 
                     <label>
@@ -276,24 +300,10 @@
                   </div>
                   <div class="label-form"> 
                     <label>
-                      <img src="img/cupido.png" alt="">
-                      <input type="checkbox" checked name="papel" value="cupido"> Cupido
-                    </label>
-                    <p>"Você pode selecionar duas pessoas para formarem um casal. Se uma pessoa do casal morrer em qualquer momento, a outra também morrerá.</p>
-                  </div>
-                  <div class="label-form"> 
-                    <label>
                       <img src="img/depressivo.png" alt="">
                       <input type="checkbox" checked name="papel" value="depressivo"> Depressivo
                     </label>
                     <p>Você está muito triste. Seu objetivo é ser morto pela aldeia. Se você for linchado pela aldeia, você vence.</p>
-                  </div>
-                  <div class="label-form"> 
-                    <label>
-                      <img src="img/necromante.png" alt="">
-                      <input type="checkbox" checked name="papel" value="necromante"> Necromante
-                    </label>
-                    <p>Uma vez por jogo, você poderá reviver um jogador morto.</p>
                   </div>
                   <div class="label-form"> 
                     <label>
@@ -308,13 +318,6 @@
                       <input type="checkbox" checked name="papel" value="caçador de cabeças"> Caçador de Cabeças
                     </label>
                     <p>Seu objetivo é fazer seu alvo ser linchado pela vila durante o dia. Se conseguir, você ganha; se o seu alvo morrer de outra maneira, você morre.</p>
-                  </div>
-                  <div class="label-form"> 
-                    <label>
-                      <img src="img/presidente.png" alt="">
-                      <input type="checkbox" checked name="papel" value="presidente"> Presidente
-                    </label>
-                    <p>Você é o presidente! Todo mundo sabe quem você é. Se você morrer, a aldeia perderá.</p>
                   </div>
                 <button type="submit" class="cadastrar" id="salvar-sessao-ut">Salvar papéis para sessão</button>
             </div>
