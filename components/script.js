@@ -332,7 +332,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const loboSolitarioVence =
             loboSolitarioVivo &&
             lobisomensVivos.length === 0 &&
-            aldeoesVivos.length === 0;
+            aldeoesVivos.length <= 1 && 
+            !condicoesPerigosas.some(Boolean);
 
         const assassinoEmSerieVence =
             assassinoEmSerieVivo &&
