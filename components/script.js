@@ -17,7 +17,6 @@ document.addEventListener('DOMContentLoaded', () => {
         modal.innerHTML = `
             <div class="custom-alert-box">
                 <div id="custom-alert-message">${message}</div>
-                <button id="custom-alert-close">OK</button>
             </div>
         `;
         document.body.appendChild(modal);
@@ -27,16 +26,6 @@ document.addEventListener('DOMContentLoaded', () => {
             modal.classList.remove('custom-alert-hidden');
             modal.classList.add('show');
         }, 0);
-
-        document.getElementById('custom-alert-close').onclick = () => {
-            modal.classList.remove('show');
-            overlay.style.display = 'none';
-            setTimeout(() => {
-                modal.remove();
-                overlay.remove();
-                if (callback) callback(); // Chama o callback após o modal ser fechado
-            }, 300);
-        };
 
         modal.addEventListener('click', (e) => {
             if (e.target === modal) {
