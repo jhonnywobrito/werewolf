@@ -998,11 +998,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
         document.getElementById('salvar-sessao-ut').addEventListener('click', function (event) {
             const papeisSelecionados = JSON.parse(localStorage.getItem('papeisSessao')) || [];
+            const jogadores = JSON.parse(localStorage.getItem('jogadores')) || [];
 
             if (papeisSelecionados.length < 2) {
                 event.preventDefault();
-                alert('Selecione e salve na sessão ao menos 2 papéis para começar o jogo.');
+                showAlert('Selecione e salve na sessão ao menos 2 papéis para começar o jogo.');
             }
+            if (jogadores.length < 3 || papeisSelecionados.length < 2) {
+                    showAlert('Certifique-se de que há ao menos 3 jogadores e 2 papéis salvos na sessão.');
+                } else {
+                    window.location.href = 'mestre.html'
+                }
         });
 
         document.getElementById('form-papeis').addEventListener('submit', function (event) {
@@ -1071,10 +1077,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
         document.getElementById('salvar-sessao-ut').addEventListener('click', (event) => {
             const jogadores = JSON.parse(localStorage.getItem('jogadores')) || [];
-            if (jogadores.length < 2) {
-                event.preventDefault();
-                showAlert('Adicione ao menos 2 jogadores na sessão.')
-            };
         });
 
         document.getElementById('adicionar-jogador').addEventListener('click', (event) => {
@@ -1249,14 +1251,6 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('sortear').addEventListener('click', () => {
             const jogadores = carregarJogadores();
             const papeisSelecionados = carregarPapeis();
-
-            if (jogadores.length < 2 || papeisSelecionados.length < 2) {
-                showAlert('Certifique-se de que há ao menos 2 jogadores e 2 papéis salvos.', () => {
-                    window.location.href = 'cadastro.html';
-                });
-                return;
-            }
-
             const chancesPapeis = Object.fromEntries(
                 Object.entries(chancesPapeisConfig).filter(([papel]) =>
                     papeisSelecionados.includes(papel)
@@ -3654,10 +3648,10 @@ document.addEventListener('DOMContentLoaded', () => {
                                 atualizarStatusJogador(vencedor, 'morto');
                             }
                             resultadoP.textContent = `${vencedor} recebeu ${maxVotos} voto(s) e morreu pela vila.`;
-                            
+
                             atualizarStatusJogador(vencedor, 'morto');
                         } else {
-                            
+
                             atualizarStatusJogador(vencedor, 'morto');
                             resultadoP.textContent = `${vencedor} recebeu ${maxVotos} voto(s) e morreu pela vila.`;
                         }
