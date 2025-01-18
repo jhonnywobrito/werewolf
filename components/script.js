@@ -903,10 +903,7 @@ document.addEventListener('DOMContentLoaded', () => {
     //--------------------------------------
 
     if (page === 'index') {
-
-
-
-
+        localStorage.removeItem('manhunt');
         localStorage.removeItem('filhoteDeLobisomem');
         localStorage.removeItem('chatAgora');
         localStorage.removeItem('chat');
@@ -947,6 +944,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (page === 'papeis') {
 
+        localStorage.removeItem('manhunt');
         localStorage.removeItem('filhoteDeLobisomem');
         localStorage.removeItem('chatAgora');
         localStorage.removeItem('chat');
@@ -1026,6 +1024,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (page === 'cadastro') {
 
+        localStorage.removeItem('manhunt');
         localStorage.removeItem('filhoteDeLobisomem');
         localStorage.removeItem('chatAgora');
         localStorage.removeItem('chat');
@@ -1079,6 +1078,7 @@ document.addEventListener('DOMContentLoaded', () => {
     //--------------------------------------
 
     if (page === 'mestre') {
+        localStorage.removeItem('manhunt');
         localStorage.removeItem('filhoteDeLobisomem');
         localStorage.removeItem('chatAgora');
         localStorage.removeItem('chat');
