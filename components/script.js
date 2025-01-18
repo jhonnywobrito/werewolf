@@ -983,12 +983,8 @@ document.addEventListener('DOMContentLoaded', () => {
             const papeisSelecionados = JSON.parse(localStorage.getItem('papeisSessao')) || [];
             const jogadores = JSON.parse(localStorage.getItem('jogadores')) || [];
 
-            if (papeisSelecionados.length < 2) {
-                event.preventDefault();
-                showAlert('Selecione e salve na sessão ao menos 2 papéis para começar o jogo.');
-            }
-            if (jogadores.length < 3) {
-                showAlert('Certifique-se de que há ao menos 3 jogadores na sessão.');
+            if (jogadores.length < 3 || papeisSelecionados.length < 2) {
+                showAlert('Certifique-se de que há ao menos 3 jogadores na sessão e 2 papéis salvos na sessão.');
             } else {
                 window.location.href = 'mestre.html'
             }
