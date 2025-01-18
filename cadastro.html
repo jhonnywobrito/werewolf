@@ -12,6 +12,12 @@
     <script src="https://kit.fontawesome.com/8b0455432d.js" crossorigin="anonymous"></script>
 </head>
 <body data-page="cadastro">
+    <div id="loading-screen">
+        <div class="loader"></div>
+    </div>
+
+    
+
     <header>
         <nav>
             <a href="index.html"><i class="fa-solid fa-house"></i></a>
@@ -19,22 +25,12 @@
             <a href="papeis.html"><i class="fa-solid fa-layer-group"></i></a>
         </nav>
     </header>
-    <div class="" id="pai-cadastro">
-        <section class="conteudo-grid" id="grid-conteudo">
-            <div class="grid">
-                <div id="adicionar">
-                    <h2>Adicionar jogador</h2>
-
-                    <form action="" method="">
-                        <label for="nome">Nome:</label>
-                        <input type="text" id="nome" name="nome" required>
-                        <hr>
-                        <button class="cadastrar" type="submit">Adicionar</button>
-                    </form>
-                </div>
+    <div id="pai-cadastro">
+            <div class="tabela-cadastro">
+                
                 <div id="tabela-registro">
                     <h2>Jogadores já adicionados</h2>
-                    <a href="" id="deletar-todos"><button>Deletar todos</button></a>
+
                     <table>
                         <thead>
                             <tr>
@@ -45,16 +41,24 @@
                         <tbody>
                         </tbody>
                     </table> 
+                    
+            <button id="adicionar-jogador">Adicionar novo jogador</button>
+            
+            <a href="" id="deletar-todos"><button>Deletar todos</button></a>
                 </div>
+                
             </div>
+            
             <div class="navegacao">
                 <a href="index.html"><button class="botao-conteudo" id="voltar-cadastro">Voltar</button></a>
                 <a href="papeis.html"><button class="botao-conteudo" id="salvar-sessao-ut">Continuar</button></a>
             </div>
-        </section>
         
     </div>
     
     <script src="components/script.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+</body>
+
 </body>
 </html>

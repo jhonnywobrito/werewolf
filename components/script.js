@@ -6,6 +6,55 @@ document.addEventListener('DOMContentLoaded', () => {
     const papeisLobisomens = ['lobo solitário', 'filhote de lobisomem', 'lobo alfa'];
     let posicaoAtual = parseInt(localStorage.getItem('posicaoAtual')) || 0;
 
+    function showAlert(message, callback) {
+        const overlay = document.createElement('div');
+        overlay.id = 'overlay';
+        document.body.appendChild(overlay);
+
+        const modal = document.createElement('div');
+        modal.id = 'background-alert';
+        modal.classList.add('custom-alert-hidden');
+        modal.innerHTML = `
+            <div class="custom-alert-box">
+                <div id="custom-alert-message">${message}</div>
+                <button id="custom-alert-close">OK</button>
+            </div>
+        `;
+        document.body.appendChild(modal);
+
+        setTimeout(() => {
+            overlay.style.display = 'block'; // Exibe a sobreposição
+            modal.classList.remove('custom-alert-hidden');
+            modal.classList.add('show');
+        }, 0);
+
+        document.getElementById('custom-alert-close').onclick = () => {
+            modal.classList.remove('show');
+            overlay.style.display = 'none';
+            setTimeout(() => {
+                modal.remove();
+                overlay.remove();
+                if (callback) callback(); // Chama o callback após o modal ser fechado
+            }, 300);
+        };
+
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                modal.classList.remove('show');
+                overlay.style.display = 'none';
+                setTimeout(() => {
+                    modal.remove();
+                    overlay.remove();
+                    if (callback) callback(); // Chama o callback após o modal ser fechado
+                }, 300);
+            }
+        });
+    }
+
+
+
+
+
     function atualizarStatusJogador(nomeJogador, novoStatus) {
         const jogadoresStatus = JSON.parse(localStorage.getItem('jogadoresStatus')) || [];
         const jogadorIndex = jogadoresStatus.findIndex(jogador => jogador.nome === nomeJogador);
@@ -18,6 +67,34 @@ document.addEventListener('DOMContentLoaded', () => {
             console.warn(`Jogador "${nomeJogador}" não encontrado na lista.`);
         }
     }
+
+    window.addEventListener('load', () => {
+        const loadingScreen = document.getElementById('loading-screen');
+        loadingScreen.style.display = 'none';
+    });
+
+    // Entrada da página 
+    gsap.fromTo('body',
+        { opacity: 0 },
+        { opacity: 1, duration: 0.3, ease: "power2.out" }
+    );
+
+    document.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', (e) => {
+            e.preventDefault();
+            const url = link.href;
+
+            gsap.to('body', {
+                opacity: 0,
+                duration: 0.3,
+                ease: 'power2.inOut',
+                onComplete: () => {
+                    window.location.href = url;
+                }
+            });
+        });
+    });
+
 
     const papeisPerigosos = [
         "bruxa",
@@ -55,6 +132,66 @@ document.addEventListener('DOMContentLoaded', () => {
         document.body.appendChild(botaoChat);
     };
 
+    const abrirModalCadastro = () => {
+        const modalCadastro = document.createElement('div');
+        modalCadastro.className = 'modal-cadastro';
+        modalCadastro.innerHTML = `
+            <div class="modal-content">
+                <div id="adicionar">
+                    <form id="form-cadastro" action="#" method="post">
+                        <label for="nome">Nome:</label>
+                        <input type="text" id="nome" name="nome" required placeholder="Nome do jogador">
+                        <hr>
+                        <div id="div-botoes">
+                            <button id="cancelar-cadastro" type="button">Cancelar</button>
+                            <button class="cadastrar" type="submit">Adicionar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        `;
+
+        document.body.appendChild(modalCadastro);
+
+        // Foco automático no input
+        const nomeInput = document.getElementById('nome');
+        nomeInput.focus();
+
+        // Cancelar cadastro
+        document.getElementById('cancelar-cadastro').addEventListener('click', () => {
+            modalCadastro.remove();
+        });
+
+        // Carregar jogadores
+        carregarJogadores();
+
+        // Submissão do formulário
+        const form = document.getElementById('form-cadastro');
+        form.addEventListener('submit', (event) => {
+            // Prevenir comportamento padrão de envio
+            event.preventDefault();
+
+            const nome = nomeInput.value.trim();
+
+            if (nome) {
+                const jogadores = JSON.parse(localStorage.getItem('jogadores')) || [];
+                jogadores.push(nome);
+                localStorage.setItem('jogadores', JSON.stringify(jogadores));
+
+                // Limpar o input e fechar o modal
+                nomeInput.value = '';
+                modalCadastro.remove();
+                carregarJogadores();
+            } else {
+                showAlert('Por favor, insira um nome.');
+            }
+        });
+    };
+
+
+
+    // --------------------------
+
     const abrirChatModal = (jogadorAtual) => {
         const modalChat = document.createElement('div');
         modalChat.className = 'modal-chat';
@@ -91,7 +228,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const mensagem = document.getElementById('mensagem-chat').value;
 
             if (!jogadorSelecionado || !mensagem.trim()) {
-                alert('Escolha um jogador e digite uma mensagem.');
+                showAlert('Escolha um jogador e digite uma mensagem.');
                 return;
             }
 
@@ -103,7 +240,7 @@ document.addEventListener('DOMContentLoaded', () => {
             });
             localStorage.setItem('chat', JSON.stringify(chat));
 
-            alert('Mensagem enviada!');
+            showAlert('Mensagem enviada!');
             modalChat.remove();
 
             // Desabilitar o botão após o envio
@@ -332,7 +469,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const loboSolitarioVence =
             loboSolitarioVivo &&
             lobisomensVivos.length === 0 &&
-            aldeoesVivos.length <= 1 && 
+            aldeoesVivos.length <= 1 &&
             !condicoesPerigosas.some(Boolean);
 
         const assassinoEmSerieVence =
@@ -781,6 +918,10 @@ document.addEventListener('DOMContentLoaded', () => {
     //--------------------------------------
 
     if (page === 'index') {
+
+
+
+
         localStorage.removeItem('filhoteDeLobisomem');
         localStorage.removeItem('chatAgora');
         localStorage.removeItem('chat');
@@ -820,6 +961,7 @@ document.addEventListener('DOMContentLoaded', () => {
     //--------------------------------------
 
     if (page === 'papeis') {
+
         localStorage.removeItem('filhoteDeLobisomem');
         localStorage.removeItem('chatAgora');
         localStorage.removeItem('chat');
@@ -854,7 +996,7 @@ document.addEventListener('DOMContentLoaded', () => {
         localStorage.removeItem('contadorMestre');
         localStorage.removeItem('protecoesMedico');
 
-        document.getElementById('comecar-jogo').addEventListener('click', function (event) {
+        document.getElementById('salvar-sessao-ut').addEventListener('click', function (event) {
             const papeisSelecionados = JSON.parse(localStorage.getItem('papeisSessao')) || [];
 
             if (papeisSelecionados.length < 2) {
@@ -873,10 +1015,10 @@ document.addEventListener('DOMContentLoaded', () => {
             });
 
             if (papeisSelecionados.length < 2) {
-                alert('Selecione ao menos 2 papéis para essa sessão.');
+                showAlert('Selecione ao menos 2 papéis para essa sessão.');
             } else {
                 localStorage.setItem('papeisSessao', JSON.stringify(papeisSelecionados));
-                alert('Papéis selecionados salvos! Clique "Começar jogo" para iniciar a sessão com essas configurações.');
+                showAlert('Papéis selecionados salvos! Clique "Começar jogo" para iniciar a sessão com essas configurações.');
             }
         });
         document.getElementById('toggle-all').addEventListener('click', function () {
@@ -892,6 +1034,7 @@ document.addEventListener('DOMContentLoaded', () => {
     //--------------------------------------
 
     if (page === 'cadastro') {
+
         localStorage.removeItem('filhoteDeLobisomem');
         localStorage.removeItem('chatAgora');
         localStorage.removeItem('chat');
@@ -930,32 +1073,19 @@ document.addEventListener('DOMContentLoaded', () => {
             const jogadores = JSON.parse(localStorage.getItem('jogadores')) || [];
             if (jogadores.length < 2) {
                 event.preventDefault();
-                alert('Adicione ao menos 2 jogadores na sessão.')
+                showAlert('Adicione ao menos 2 jogadores na sessão.')
             };
         });
 
+        document.getElementById('adicionar-jogador').addEventListener('click', (event) => {
+            abrirModalCadastro();
+        })
+
         carregarJogadores();
 
-        form.addEventListener('submit', (event) => {
-            event.preventDefault();
-            const nome = nomeInput.value.trim();
-
-            if (nome) {
-                const jogadores = JSON.parse(localStorage.getItem('jogadores')) || [];
-                jogadores.push(nome);
-                localStorage.setItem('jogadores', JSON.stringify(jogadores));
-
-                carregarJogadores();
-                nomeInput.value = '';
-            } else {
-                alert('Por favor, insira um nome.');
-            }
-        });
 
         document.getElementById('deletar-todos').addEventListener('click', () => {
-            if (confirm('Tem certeza de que deseja excluir todos os jogadores?')) {
-                deletarJogadores();
-            }
+            deletarJogadores();
         });
     }
 
@@ -1078,7 +1208,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const jogadoresLobisomem = sorteados.filter(({ papel }) => papel === 'lobisomem');
 
             if (jogadoresLobisomem.length === 0) {
-                alert('Nenhum jogador com papel de lobisomem encontrado.');
+                showAlert('Nenhum jogador com papel de lobisomem encontrado.');
                 return;
             }
 
@@ -1121,8 +1251,9 @@ document.addEventListener('DOMContentLoaded', () => {
             const papeisSelecionados = carregarPapeis();
 
             if (jogadores.length < 2 || papeisSelecionados.length < 2) {
-                alert('Certifique-se de que há ao menos 2 jogadores e 2 papéis salvos.');
-                window.location.href = 'cadastro.html';
+                showAlert('Certifique-se de que há ao menos 2 jogadores e 2 papéis salvos.', () => {
+                    window.location.href = 'cadastro.html';
+                });
                 return;
             }
 
@@ -1194,6 +1325,12 @@ document.addEventListener('DOMContentLoaded', () => {
     //--------------------------------------
 
     if (page === 'mediador') {
+
+        gsap.fromTo('#modal',
+            { opacity: 0, y: 50 },
+            { opacity: 1, y: 0, duration: 0.3, ease: "power2.out" }
+        );
+
 
         if (!localStorage.getItem('protecoesMedico')) {
             localStorage.setItem('protecoesMedico', JSON.stringify({}));
@@ -1303,7 +1440,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (jogadorSelecionado) {
                     callbackConfirmar(jogadorSelecionado.value);
                 } else {
-                    alert('Selecione um jogador para continuar.');
+                    showAlert('Selecione um jogador para continuar.');
                 }
                 modalAtaque.remove();
             });
@@ -1365,13 +1502,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 if (jogador1Selecionado && jogador2Selecionado) {
                     if (jogador1Selecionado.value === jogador2Selecionado.value) {
-                        alert('Os dois jogadores selecionados devem ser diferentes.');
-                        return;
+                        showAlert('Os dois jogadores selecionados devem ser diferentes.', () => {
+                            return;
+                        });
+
                     }
                     callbackConfirmar(jogador1Selecionado.value, jogador2Selecionado.value);
                     modalDetetive.remove();
                 } else {
-                    alert('Selecione dois jogadores para continuar.');
+                    showAlert('Selecione dois jogadores para continuar.');
                 }
             });
 
@@ -1449,8 +1588,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 if (jogador1Selecionado && jogador2Selecionado) {
                     if (jogador1Selecionado.value === jogador2Selecionado.value) {
-                        alert('Os dois jogadores selecionados devem ser diferentes.');
-                        return;
+                        showAlert('Os dois jogadores selecionados devem ser diferentes.', () => {
+                            return;
+                        });
                     }
 
                     const jogadoresSelecionados = [
@@ -1508,7 +1648,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (jogadorSelecionado) {
                     callbackConfirmar(jogadorSelecionado.value);
                 } else {
-                    alert('Selecione um jogador para continuar.');
+                    showAlert('Selecione um jogador para continuar.');
                 }
                 modalRessuscitar.remove();
             });
@@ -1779,8 +1919,9 @@ document.addEventListener('DOMContentLoaded', () => {
                                 localStorage.setItem('mordida', JSON.stringify(mordida));
                                 localStorage.setItem('loboAlfa', JSON.stringify(jogadorAtual.nome));
 
-                                alert('Você mordeu ' + nomeSelecionado + '.')
-                                window.location.href = 'mediador.html';
+                                showAlert('Você mordeu ' + nomeSelecionado + '.', () => {
+                                    window.location.href = 'mediador.html';
+                                });
 
                             });
                         });
@@ -1888,7 +2029,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
                                 window.location.href = 'mediador.html';
                             } else {
-                                alert('Você só pode selecionar um jogador vivo como alvo.');
+                                showAlert('Você só pode selecionar um jogador vivo como alvo.');
                             }
                         }, listaManhunt[jogadorAtual.nome]);
                     });
@@ -1913,11 +2054,12 @@ document.addEventListener('DOMContentLoaded', () => {
                             if (jogadorIndex !== -1) {
                                 resultadoSorteio[jogadorIndex].papel = 'aldeão';
                                 localStorage.setItem('resultadoSorteio', JSON.stringify(resultadoSorteio));
-                                alert(`Você agora é um aldeão.`);
+                                showAlert('Você agora é um aldeão.', () => {
+                                    window.location.href = 'mediador.html';
+                                });
                             }
                         }
 
-                        window.location.href = 'mediador.html';
                     });
                 });
 
@@ -1931,11 +2073,12 @@ document.addEventListener('DOMContentLoaded', () => {
                     abrirJanela(jogadorAtual.nome, (nomeSelecionado) => {
                         const jogadorRevelado = jogadoresStatus.find(jogador => jogador.nome === nomeSelecionado);
                         if (jogadorRevelado) {
-                            alert(`${nomeSelecionado} é: ${resultadoSorteio.find(j => j.jogador === nomeSelecionado)?.papel || 'Desconhecido'}`);
+                            showAlert(`${nomeSelecionado} é: ${resultadoSorteio.find(j => j.jogador === nomeSelecionado)?.papel || 'Desconhecido'}`, () => {
+                                window.location.href = 'mediador.html';
+                            });
                         } else {
-                            alert('Jogador não encontrado.');
+                            showAlert('Jogador não encontrado.');
                         }
-                        window.location.href = 'mediador.html';
                     });
                 });
                 navegacaoDiv.appendChild(botaoRevelar);
@@ -1958,8 +2101,10 @@ document.addEventListener('DOMContentLoaded', () => {
                             const gasolina = JSON.parse(localStorage.getItem('gasolina')) || {};
                             gasolina[jogadorAtual.nome] = [nomeSelecionado];
                             localStorage.setItem('gasolina', JSON.stringify(gasolina));
-                            alert('Alvo encharcado!');
-                            window.location.href = 'mediador.html';
+                            showAlert('Alvo encharcado!', () => {
+                                window.location.href = 'mediador.html'; // Só executa após o modal ser fechado
+                            });
+
                         });
                     } else {
                         abrirJanelaDetetive(jogadorAtual.nome, (jogador1, jogador2) => {
@@ -1967,8 +2112,9 @@ document.addEventListener('DOMContentLoaded', () => {
                             gasolina[jogadorAtual.nome] = [jogador1, jogador2];
                             localStorage.setItem('gasolina', JSON.stringify(gasolina));
 
-                            alert('Alvos encharcados!');
-                            window.location.href = 'mediador.html';
+                            showAlert('Alvos encharcado!', () => {
+                                window.location.href = 'mediador.html'; // Só executa após o modal ser fechado
+                            });
                         });
                     }
 
@@ -1992,11 +2138,12 @@ document.addEventListener('DOMContentLoaded', () => {
                             }
                         });
 
-                        alert('Os jogadores encharcados foram queimados!');
-                        localStorage.removeItem('gasolina');
-                        window.location.href = 'mediador.html';
+                        showAlert('Os jogadores encharcados foram queimados!', () => {
+                            localStorage.removeItem('gasolina');
+                            window.location.href = 'mediador.html';
+                        });
                     } else {
-                        alert('Nenhum jogador vivo está encharcado.');
+                        showAlert('Nenhum jogador vivo está encharcado.');
                     }
                 });
 
@@ -2074,13 +2221,14 @@ document.addEventListener('DOMContentLoaded', () => {
                             if (jogadorIndex !== -1) {
                                 resultadoSorteio[jogadorIndex].papel = 'aldeão';
                                 localStorage.setItem('resultadoSorteio', JSON.stringify(resultadoSorteio));
-                                alert(`Você agora é um aldeão.`);
+                                showAlert('Você agora é um aldeão.', () => {
+                                    window.location.href = 'mediador.html';
+                                });
                             }
                         } else {
-                            console.warn('Um dos jogadores já está em um casal.');
+                            showAlert('Um dos jogadores já está em um casal.');
                         }
 
-                        window.location.href = 'mediador.html';
                     });
                 });
 
@@ -2148,9 +2296,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 navegacaoDiv.appendChild(botaoConverter);
             }
 
-
-
-
             if (papelAtual.toLowerCase() === 'sósia') {
 
                 const botaoSosia = document.createElement('button');
@@ -2169,13 +2314,12 @@ document.addEventListener('DOMContentLoaded', () => {
                             if (jogadorIndex !== -1) {
                                 resultadoSorteio[jogadorIndex].papel = 'aldeão';
                                 localStorage.setItem('resultadoSorteio', JSON.stringify(resultadoSorteio));
-                                alert(`Você agora é um aldeão.`);
+                                showAlert('Você agora é um aldeão.', () => {
+                                    window.location.href = 'mediador.html'; // Só executa após o modal ser fechado
+                                });
                             }
-
-
-                            window.location.href = 'mediador.html';
                         } else {
-                            alert('Jogador selecionado não encontrado!');
+                            showAlert('Jogador selecionado não encontrado!');
                         }
                     }, sosias[jogadorAtual.nome]);
                 });
@@ -2194,18 +2338,27 @@ document.addEventListener('DOMContentLoaded', () => {
                         if (jogadorRevelado) {
                             const papelSelecionado = resultadoSorteio.find(j => j.jogador === nomeSelecionado)?.papel || 'Desconhecido';
                             if (papelSelecionado.toLowerCase() === 'lobisomem' || papelSelecionado.toLowerCase() === 'lobo solitário' || papelSelecionado.toLowerCase() === 'lobo alfa' || papelSelecionado.toLowerCase() === 'filhote de lobisomem') {
-                                alert(`${nomeSelecionado} é lobisomem.`);
+
+                                showAlert(`${nomeSelecionado} é lobisomem.`, () => {
+                                    window.location.href = 'mediador.html'; // Só executa após o modal ser fechado
+                                });
+
                             } else if (papelSelecionado.toLowerCase() === 'vidente' || papelSelecionado.toLowerCase() === 'aprendiz de vidente' || papelSelecionado.toLowerCase() === 'vidente de aura') {
-                                alert(`${nomeSelecionado} é vidente.`);
+                                showAlert(`${nomeSelecionado} é vidente.`, () => {
+                                    window.location.href = 'mediador.html'; // Só executa após o modal ser fechado
+                                });
                             }
 
                             else {
-                                alert(`${nomeSelecionado} não é lobisomem nem vidente.`);
+                                showAlert(`${nomeSelecionado} não é lobisomem nem vidente.`, () => {
+                                    window.location.href = 'mediador.html'; // Só executa após o modal ser fechado
+                                });
                             }
                         } else {
-                            alert('Jogador não encontrado.');
+                            showAlert(`Jogador não encontrado`, () => {
+                                window.location.href = 'mediador.html'; // Só executa após o modal ser fechado
+                            });
                         }
-                        window.location.href = 'mediador.html';
                     });
                 });
 
@@ -2281,15 +2434,13 @@ document.addEventListener('DOMContentLoaded', () => {
                                 if (jogadorIndex !== -1) {
                                     resultadoSorteio[jogadorIndex].papel = 'aldeão';
                                     localStorage.setItem('resultadoSorteio', JSON.stringify(resultadoSorteio));
-                                    alert(`Você agora é um aldeão.`);
+                                    showAlert(`Você agora é um aldeão.`, () => {
+                                        window.location.href = 'mediador.html'; // Só executa após o modal ser fechado
+                                    });
                                 }
                             }
-
-
-
-                            window.location.href = 'mediador.html';
                         } else {
-                            alert('O jogador selecionado já está morto ou não pode ser atingido.');
+                            showAlert('O jogador selecionado já está morto ou não pode ser atingido.');
                         }
                     });
                 });
@@ -2372,19 +2523,20 @@ document.addEventListener('DOMContentLoaded', () => {
                         if (jogadorIndex !== -1) {
                             resultadoSorteio[jogadorIndex].papel = 'aldeão';
                             localStorage.setItem('resultadoSorteio', JSON.stringify(resultadoSorteio));
-                            alert(`Você agora é um aldeão.`);
+                            showAlert(`Você agora é um aldeão.`, () => {
+                                window.location.href = 'mediador.html'; // Só executa após o modal ser fechado
+                            });
                         } else {
                             console.warn(`Jogador "${jogadorAtual.nome}" não encontrado na lista de sorteio.`);
+
+                            window.location.href = 'mediador.html';
                         }
-                        window.location.href = 'mediador.html';
                     });
 
                 });
 
                 navegacaoDiv.appendChild(botaoTrocar);
             }
-
-
 
             if (papelAtual.toLowerCase() === 'menininha') {
                 const botaoAbrirOlhos = document.createElement('button');
@@ -2403,18 +2555,27 @@ document.addEventListener('DOMContentLoaded', () => {
 
                         if (lobisomensVivos.length > 0) {
                             const lobisomemAleatorio = lobisomensVivos[Math.floor(Math.random() * lobisomensVivos.length)];
-                            alert(`Você viu que ${lobisomemAleatorio.jogador} é um lobisomem.`);
+
+                            showAlert(`Você viu que ${lobisomemAleatorio.jogador} é um lobisomem.`, () => {
+                                window.location.href = 'mediador.html'; // Só executa após o modal ser fechado
+                            });
+
                         } else {
-                            alert('Não há lobisomens vivos para ver.');
+                            showAlert(`Não há lobisomens vivos para ver.`, () => {
+                                window.location.href = 'mediador.html'; // Só executa após o modal ser fechado
+                            });
                         }
                     } else if (chance >= 16 && chance <= 30) {
                         atualizarStatusJogador(jogadorAtual.nome, 'condenado');
-                        alert('O lobisomem viu você!');
+                        showAlert(`O lobisomem viu você!`, () => {
+                            window.location.href = 'mediador.html'; // Só executa após o modal ser fechado
+                        });
                     } else {
-                        alert('Você não conseguiu ver nada desta vez.');
+                        showAlert(`Você não conseguiu ver nada dessa vez.`, () => {
+                            window.location.href = 'mediador.html'; // Só executa após o modal ser fechado
+                        });
                     }
 
-                    window.location.href = 'mediador.html';
                 });
 
                 navegacaoDiv.appendChild(botaoAbrirOlhos);
@@ -2430,15 +2591,16 @@ document.addEventListener('DOMContentLoaded', () => {
                         if (jogadorRevelado) {
                             const papelSelecionado = resultadoSorteio.find(j => j.jogador === nomeSelecionado)?.papel || 'Desconhecido';
                             if (papelSelecionado.toLowerCase() === 'maçom') {
-                                alert(`${nomeSelecionado} é maçom.`);
+                                showAlert(`${nomeSelecionado} é maçom.`);
                             } else {
-                                alert(`${nomeSelecionado} não é maçom.`);
+                                showAlert(`${nomeSelecionado} não é maçom.`);
                             }
                         } else {
-                            alert('Jogador não encontrado.');
+                            showAlert('Jogador não encontrado.');
                         }
                     });
                 });
+
                 navegacaoDiv.appendChild(botaoRevelarAura);
             }
 
@@ -2523,14 +2685,21 @@ document.addEventListener('DOMContentLoaded', () => {
                         if (jogadorRevelado) {
                             const papelSelecionado = resultadoSorteio.find(j => j.jogador === nomeSelecionado)?.papel || 'Desconhecido';
                             if (papelSelecionado.toLowerCase() === 'lobisomem' || papelSelecionado.toLowerCase() === 'lobo solitário') {
-                                alert(`${nomeSelecionado} é lobisomem.`);
+
+                                showAlert(`${nomeSelecionado} é lobisomem.`, () => {
+                                    window.location.href = 'mediador.html'; // Só executa após o modal ser fechado
+                                });
                             } else {
-                                alert(`${nomeSelecionado} não é lobisomem.`);
+                                showAlert(`${nomeSelecionado} não é lobisomem.`, () => {
+                                    window.location.href = 'mediador.html'; // Só executa após o modal ser fechado
+                                });
                             }
                         } else {
-                            alert('Jogador não encontrado.');
+                            showAlert(`Jogador não encontrado`, () => {
+                                window.location.href = 'mediador.html'; // Só executa após o modal ser fechado
+                            });
                         }
-                        window.location.href = 'mediador.html';
+
                     });
                 });
                 navegacaoDiv.appendChild(botaoRevelarAura);
@@ -2559,8 +2728,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
             if (papelAtual.toLowerCase() === 'bruxa') {
 
-
-
                 const botaoAtaque = document.createElement('button');
                 botaoAtaque.textContent = 'Envenenar';
 
@@ -2587,15 +2754,19 @@ document.addEventListener('DOMContentLoaded', () => {
                                 if (jogadorIndex !== -1) {
                                     resultadoSorteio[jogadorIndex].papel = 'aldeão';
                                     localStorage.setItem('resultadoSorteio', JSON.stringify(resultadoSorteio));
-                                    alert(`Você agora é um aldeão.`);
+                                    showAlert(`Você agora é um aldeão.`, () => {
+                                        atualizarStatusJogador(nomeSelecionado, 'envenenado');
+                                        window.location.href = 'mediador.html'; // Só executa após o modal ser fechado
+                                    });
                                 }
                             }
 
-                            atualizarStatusJogador(nomeSelecionado, 'envenenado');
-                            window.location.href = 'mediador.html';
                         } else {
                             ataquesBruxa[jogadorAtual.nome] = nomeSelecionado;
                             localStorage.setItem('ataquesBruxa', JSON.stringify(ataquesBruxa));
+
+                            atualizarStatusJogador(nomeSelecionado, 'envenenado');
+                            window.location.href = 'mediador.html';
 
                             ataquesBruxa = JSON.parse(localStorage.getItem('ataquesBruxa')) || {};
                             protecoesBruxa = JSON.parse(localStorage.getItem('protecoesBruxa')) || {};
@@ -2605,12 +2776,12 @@ document.addEventListener('DOMContentLoaded', () => {
                                 if (jogadorIndex !== -1) {
                                     resultadoSorteio[jogadorIndex].papel = 'aldeão';
                                     localStorage.setItem('resultadoSorteio', JSON.stringify(resultadoSorteio));
-                                    alert(`Você agora é um aldeão.`);
+                                    showAlert(`Você agora é um aldeão.`, () => {
+                                        atualizarStatusJogador(nomeSelecionado, 'envenenado');
+                                        window.location.href = 'mediador.html'; // Só executa após o modal ser fechado
+                                    });
                                 }
                             }
-
-                            atualizarStatusJogador(nomeSelecionado, 'envenenado');
-                            window.location.href = 'mediador.html';
                         }
                     });
                 });
@@ -2633,6 +2804,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
                         if (jogadorAlvo && (jogadorAlvo.status === 'condenado' || jogadorAlvo.status === 'vivo')) {
                             atualizarStatusJogador(nomeSelecionado, 'protegido');
+                            window.location.href = 'mediador.html';
                         }
 
                         protecoesBruxa[jogadorAtual.nome] = nomeSelecionado;
@@ -2641,16 +2813,19 @@ document.addEventListener('DOMContentLoaded', () => {
                         ataquesBruxa = JSON.parse(localStorage.getItem('ataquesBruxa')) || {};
                         protecoesBruxa = JSON.parse(localStorage.getItem('protecoesBruxa')) || {};
 
+                        window.location.href = 'mediador.html';
+
                         if (protecoesBruxa[jogadorAtual.nome] && ataquesBruxa[jogadorAtual.nome]) {
                             const jogadorIndex = resultadoSorteio.findIndex(jogador => jogador.jogador === jogadorAtual.nome);
                             if (jogadorIndex !== -1) {
                                 resultadoSorteio[jogadorIndex].papel = 'aldeão';
                                 localStorage.setItem('resultadoSorteio', JSON.stringify(resultadoSorteio));
-                                alert(`Você agora é um aldeão.`);
+                                showAlert(`Você agora é um aldeão.`, () => {
+                                    window.location.href = 'mediador.html'; // Só executa após o modal ser fechado
+                                });
                             }
                         }
 
-                        window.location.href = 'mediador.html';
                     });
                 });
 
@@ -2679,15 +2854,15 @@ document.addEventListener('DOMContentLoaded', () => {
                             resultadoSorteio[jogadorIndex].papel = 'vidente';
                             localStorage.setItem('resultadoSorteio', JSON.stringify(resultadoSorteio));
                             console.log(`Jogador "${jogadorAtual.nome}" agora é vidente.`);
-                            alert(`Você agora é um vidente!`);
-                        } else {
-                            console.warn(`Jogador "${jogadorAtual.nome}" não encontrado na lista.`);
+                            showAlert(`Você agora é um vidente!`, () => {
+                                window.location.href = 'mediador.html'; // Só executa após o modal ser fechado
+                            });
                         }
 
-                        window.location.href = 'mediador.html';
                     } else {
-                        alert(`Você está aprendendo. Nível atual: ${aprendizesDeVidente[jogadorAtual.nome]}`);
-                        window.location.href = 'mediador.html';
+                        showAlert(`Você está aprendendo. Nível atual: ${aprendizesDeVidente[jogadorAtual.nome]}`, () => {
+                            window.location.href = 'mediador.html'; // Só executa após o modal ser fechado
+                        });
                     }
                 });
 
@@ -2806,17 +2981,27 @@ document.addEventListener('DOMContentLoaded', () => {
                             const timeJogador2 = antagonistas.includes(jogadores[1].papel.toLowerCase()) ? 'antagonista' : 'vila';
 
                             if (timeJogador1 === timeJogador2) {
-                                alert(`${jogador1} e ${jogador2} são do mesmo time.`);
+                                showAlert(`${jogador1} e ${jogador2} são do mesmo time.`, () => {
+
+                                    localStorage.removeItem('investigacao');
+                                    window.location.href = 'mediador.html'; // Só executa após o modal ser fechado
+                                });
                             } else {
-                                alert(`${jogador1} e ${jogador2} são de times diferentes.`);
+                                showAlert(`${jogador1} e ${jogador2} são de times diferentes.`, () => {
+
+                                    localStorage.removeItem('investigacao');
+                                    window.location.href = 'mediador.html'; // Só executa após o modal ser fechado
+                                });
                             }
                         } else {
-                            alert('Um ou ambos os jogadores selecionados não foram encontrados.');
+                            showAlert(`Um ou ambos os jogadores selecionados não foram encontrados.`, () => {
+
+                                localStorage.removeItem('investigacao');
+                                window.location.href = 'mediador.html'; // Só executa após o modal ser fechado
+                            });
                         }
 
-                        localStorage.removeItem('investigacao');
 
-                        window.location.href = 'mediador.html';
                     });
                 });
 
@@ -3374,7 +3559,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
                             window.location.href = 'mediador.html';
                         } else {
-                            alert('Um ou ambos os jogadores selecionados não foram encontrados.');
+                            showAlert('Um ou ambos os jogadores selecionados não foram encontrados.');
                         }
 
                         const papelTemp = jogador1.papel;
@@ -3457,14 +3642,22 @@ document.addEventListener('DOMContentLoaded', () => {
                     );
 
                     if (cacaCabeça) {
-                        const cacaStatus = resultadoSorteio.find(
+                        const cacaJogador = resultadoSorteio.find(
                             jogador => jogador.jogador === cacaCabeça && jogador.papel === 'caçador de cabeças'
                         );
 
+                        const cacaStatus = jogadoresStatus.find(jogador => jogador.nome === cacaJogador.jogador)
+
                         if (cacaStatus) {
-                            atualizarStatusJogador(cacaCabeça, 'hunter');
+                            if (cacaStatus.status !== 'morto') {
+                                atualizarStatusJogador(cacaCabeça, 'hunter');
+                                atualizarStatusJogador(vencedor, 'morto');
+                            }
                             resultadoP.textContent = `${vencedor} recebeu ${maxVotos} voto(s) e morreu pela vila.`;
+                            
+                            atualizarStatusJogador(vencedor, 'morto');
                         } else {
+                            
                             atualizarStatusJogador(vencedor, 'morto');
                             resultadoP.textContent = `${vencedor} recebeu ${maxVotos} voto(s) e morreu pela vila.`;
                         }
@@ -3480,6 +3673,170 @@ document.addEventListener('DOMContentLoaded', () => {
 
         localStorage.removeItem('votacao');
         localStorage.removeItem('ordemDeVotacao');
+    }
+
+    if (page === 'votacao') {
+        localStorage.removeItem('votacao');
+        localStorage.removeItem('ordemDeVotacao');
+        const listaJogadores = document.getElementById('lista-jogadores');
+        const continuarBtn = document.getElementById('continuar-btn');
+        const pularBtn = document.getElementById('pular-btn');
+        const nomeJogadorAtual = document.getElementById('nome-jogador-votacao');
+
+        const jogadoresStatus = JSON.parse(localStorage.getItem('jogadoresStatus')) || [];
+        const ordemDeVotacao = JSON.parse(localStorage.getItem('ordemDeVotacao')) || [];
+        const votacao = JSON.parse(localStorage.getItem('votacao')) || {};
+
+        const jogadoresVivos = jogadoresStatus.filter(jogador => jogador.status !== 'morto' && jogador.status !== 'ressuscitado');
+
+        function atualizarModal() {
+            const jogadorAtual = jogadoresVivos.find(jogador => !ordemDeVotacao.includes(jogador.nome));
+            if (!jogadorAtual) {
+                showAlert(`Votação concluída!`, () => {
+                    window.location.href = 'resultadoVotacao.html'; // Só executa após o modal ser fechado
+                    return;
+                });
+            }
+
+            const silenciados = JSON.parse(localStorage.getItem('silenciado')) || [];
+            const idiota = JSON.parse(localStorage.getItem('idiota')) || [];
+
+            const jogadorAtualNome = jogadorAtual.nome;
+
+            if (silenciados.includes(jogadorAtualNome)) {
+                ordemDeVotacao.push(jogadorAtualNome);
+                localStorage.setItem('ordemDeVotacao', JSON.stringify(ordemDeVotacao));
+
+                showAlert(`${jogadorAtualNome} está silenciado pela Vovó Zangada e não pode votar.`);
+                atualizarModal();
+            }
+            else if (idiota.includes(jogadorAtualNome)) {
+                ordemDeVotacao.push(jogadorAtualNome);
+                localStorage.setItem('ordemDeVotacao', JSON.stringify(ordemDeVotacao));
+
+                showAlert(`${jogadorAtualNome} é um idiota e não pode votar.`);
+                atualizarModal();
+            }
+            else {
+                nomeJogadorAtual.textContent = jogadorAtual.nome;
+
+                listaJogadores.innerHTML = '';
+                jogadoresVivos
+                    .filter(jogador => jogador.nome !== jogadorAtual.nome)
+                    .forEach(jogador => {
+                        const li = document.createElement('li');
+                        li.classList.add('item-jogador');
+                        li.innerHTML = `
+            <label class="item-jogador" >
+                <input type="radio" name="voto" value="${jogador.nome}" />
+                <span>${jogador.nome}</span>
+            </label>
+        `;
+                        listaJogadores.appendChild(li);
+                    });
+            }
+
+        }
+
+        function atualizarStatusJogador(nomeJogador, novoStatus) {
+            const jogadoresStatus = JSON.parse(localStorage.getItem('jogadoresStatus')) || [];
+            const jogadorIndex = jogadoresStatus.findIndex(jogador => jogador.nome === nomeJogador);
+
+            if (jogadorIndex !== -1) {
+                jogadoresStatus[jogadorIndex].status = novoStatus;
+                localStorage.setItem('jogadoresStatus', JSON.stringify(jogadoresStatus));
+                console.log(`Status do jogador "${nomeJogador}" atualizado para "${novoStatus}".`);
+            } else {
+                console.warn(`Jogador "${nomeJogador}" não encontrado na lista.`);
+            }
+        }
+
+        function registrarVoto() {
+            const votoSelecionado = document.querySelector('input[name="voto"]:checked');
+            if (!votoSelecionado) {
+                showAlert('Por favor, selecione um jogador para votar.');
+                return;
+            }
+
+            const jogadorSelecionado = votoSelecionado.value;
+            const jogadorAtual = nomeJogadorAtual.textContent.replace('É a vez de: ', '');
+
+            const prefeitos = JSON.parse(localStorage.getItem('prefeito')) || [];
+
+            const pesoDoVoto = prefeitos.includes(jogadorAtual) ? 2 : 1;
+
+            votacao[jogadorSelecionado] = (votacao[jogadorSelecionado] || 0) + pesoDoVoto;
+
+            localStorage.setItem('votacao', JSON.stringify(votacao));
+
+            ordemDeVotacao.push(jogadorAtual);
+            localStorage.setItem('ordemDeVotacao', JSON.stringify(ordemDeVotacao));
+
+            atualizarModal();
+        }
+
+
+        function pularVez() {
+            const jogadorAtual = nomeJogadorAtual.textContent.replace('É a vez de: ', '');
+
+            ordemDeVotacao.push(jogadorAtual);
+            localStorage.setItem('ordemDeVotacao', JSON.stringify(ordemDeVotacao));
+
+            atualizarModal();
+        }
+
+        continuarBtn.addEventListener('click', registrarVoto);
+        pularBtn.addEventListener('click', pularVez);
+
+        atualizarModal();
+    }
+
+    if (page === 'vitoria') {
+        const vitoria = JSON.parse(localStorage.getItem('vitoria')) || {};
+
+        const topo = document.getElementById('topo');
+        const imagemPapel = document.getElementById('imagem-papel');
+
+        if (vitoria.vivos.length === 0) {
+            topo.textContent = 'NINGUÉM VENCEU';
+            imagemPapel.src = 'img/mestre.png';
+            imagemPapel.alt = 'Imagem do Mestre';
+        } else {
+            topo.textContent = `${vitoria.vencedores} venceu!`;
+
+            if (vitoria.vencedores === 'A alcateia') {
+                imagemPapel.src = 'img/lobisomem.png';
+                imagemPapel.alt = 'Imagem de Lobisomem';
+            } else if (vitoria.vencedores === 'A vila') {
+                imagemPapel.src = 'img/aldeao.png';
+                imagemPapel.alt = 'Imagem de Aldeão';
+            }
+        }
+
+        document.getElementById('resumo').textContent = 'Resumo do jogo';
+
+        const vivosComPapeis = vitoria.vivos.map(nome => {
+            const papel = vitoria.papeis.find(p => p.jogador === nome)?.papel || 'Papel desconhecido';
+            return `${nome} (${papel})`;
+        });
+
+        const mortosComPapeis = vitoria.mortos.map(nome => {
+            const papel = vitoria.papeis.find(p => p.jogador === nome)?.papel || 'Papel desconhecido';
+            return `${nome} (${papel})`;
+        });
+
+        const conteudo = `
+            <div id="vitoria-vivos">
+                ${vivosComPapeis.join('<br>')}
+            </div>
+            
+            <div id="vitoria-mortos">
+                ${mortosComPapeis.join('<br>')}
+            </div>
+        `;
+
+        const container = document.querySelector('.espaco-vitoria');
+        container.innerHTML = conteudo;
     }
 
 

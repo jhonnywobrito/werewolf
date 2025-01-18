@@ -22,6 +22,42 @@ html {
     color: #fff;
 }
 
+#loading-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10000000;
+}
+
+.loader {
+    border: 18px dotted #f3f3f3;
+    border-top: 18px dotted #e18902;
+    border-radius: 100%;
+    width: 50px;
+    height: 50px;
+    animation: spin 1.5s linear infinite;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.main-content {
+    position: relative;
+    z-index: 1;
+}
+
 .container {
     display: flex;
     flex-direction: column;
@@ -186,17 +222,20 @@ form label {
     width: 100%;
     color: rgb(0, 0, 0);
     background-color: #ffffff;
-    padding: 10px 0;
+    padding: 10px 4px;
     margin-bottom: 15px;
     border: none;
     border-radius: 5px;
     font-size: 1rem;
+    min-width: 300px;
+    font-family: "Righteous", sans-serif;
 }
 
 table {
     width: 100%;
     border-collapse: collapse;
     table-layout: fixed;
+    margin: 20px 0;
 }
 
 table th,
@@ -216,7 +255,7 @@ table thead th {
 
 table tbody {
     display: block;
-    max-height: 150px;
+    max-height: 250px;
     overflow-y: auto;
 }
 
@@ -267,10 +306,15 @@ table td:last-child {
     font-size: 1.4rem;
 }
 
+#div-botoes {
+    display: flex;
+    flex-direction: row;
+}
+
 .label-form {
     display: flex;
     flex-direction: column;
-    background:  rgb(64, 63, 63);
+    background: rgb(64, 63, 63);
     padding: 10px;
     border-style: solid;
     border-width: 3px;
@@ -393,7 +437,7 @@ label img {
     margin: auto;
     width: 100%;
     height: 100%;
-    
+
 }
 
 .pai-papeis {
@@ -468,7 +512,7 @@ label img {
 }
 
 #pai-mestre-jogo button {
-    background-color:#030303;
+    background-color: #030303;
 }
 
 #imagem-jogador {
@@ -560,9 +604,8 @@ label img {
 }
 
 #navegacao button {
-    background-color:#030303;
+    background-color: #030303;
 }
-
 
 #modal #pai-mestre-jogo {
     display: flex;
@@ -575,6 +618,23 @@ label img {
     height: 100%;
     background: rgba(0, 0, 0, 0.8);
     z-index: 1000;
+}
+
+.modal-cadastro {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    z-index: 1000;
+}
+
+.modal-cadastro .cadastrar {
+    background-color: #E18902;
 }
 
 #modal #mestre-jogo {
@@ -614,7 +674,7 @@ label img {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background-color: rgba(21, 21, 21,0.95);
+    background-color: rgba(21, 21, 21, 0.95);
     z-index: 1000;
     padding: 20px;
     width: 100%;
@@ -665,7 +725,7 @@ label img {
 .item-jogador {
     display: block;
     text-align: center;
-    background-color:  rgb(43, 40, 40);
+    background-color: rgb(43, 40, 40);
     padding: 12px;
     border-radius: 24px;
     color: #fff;
@@ -681,7 +741,7 @@ label img {
 .item-jogador input:checked+span {
     font-weight: bold;
     color: #E18902;
-    background-color:  rgb(47, 46, 46);
+    background-color: rgb(47, 46, 46);
     border-radius: 24px;
     padding: 12px;
     display: inline-block;
@@ -875,7 +935,7 @@ label img {
 }
 
 #pai-mestre-jogo-votacao {
-    background:  rgb(40, 39, 39);
+    background: rgb(40, 39, 39);
     padding: 1.6rem;
     border-style: solid;
     border-width: 4px;
@@ -901,7 +961,7 @@ label img {
 
 #nome-jogador-votacao {
     font-size: 1.6rem;
-    background-color:  rgb(30, 29, 29);
+    background-color: rgb(30, 29, 29);
     padding: 4px;
     border-radius: 8px;
     margin-top: 8px;
@@ -921,7 +981,7 @@ label img {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background-color:  rgb(47, 46, 46,0.95);
+    background-color: rgb(47, 46, 46, 0.95);
     z-index: 1000;
     padding: 20px;
     width: 100%;
@@ -945,14 +1005,16 @@ label img {
     font-size: 1rem;
 }
 
-#cancelar-detetive, #cancelar {
+#cancelar-detetive,
+#cancelar {
     position: fixed;
     bottom: 30px;
     left: 40px;
     padding: 12px;
 }
 
-#confirmar-detetive, #confirmar {
+#confirmar-detetive,
+#confirmar {
     position: fixed;
     bottom: 30px;
     right: 40px;
@@ -1006,18 +1068,28 @@ label img {
     padding: 6px;
 }
 
-#tabela-registro h2, #adicionar h2 {
+#tabela-registro h2,
+#adicionar h2 {
     text-shadow: none;
 }
 
 #adicionar {
     display: flex;
-    background-color:#151515;
+    background-color: #151515;
     align-items: center;
     justify-content: center;
     flex-direction: column;
     border-radius: 14px;
     padding: 12px;
+}
+
+.tabela-cadastro {
+    width: 70%;
+}
+
+#adicionar-jogador {
+    background-color: white;
+    color: black;
 }
 
 #tabela-registro {
@@ -1082,18 +1154,93 @@ label img {
     #mestre-jogo #papel {
         grid-gap: 20px;
     }
+
     #mestre-dia {
         min-width: 105%;
     }
+
     #tabela-registro {
         padding: 12px;
         border-radius: 0 0 12px 12px;
-        margin-bottom: 5rem;
+        padding-bottom: 5rem;
     }
+
     #adicionar {
-        margin-top: 12rem;
-        background-color:#151515;
+        background-color: #151515;
         border-radius: 12px 12px 0 0;
         box-shadow: inset 0px -10px 6px 0px #0000003b;
+        margin-bottom: 6rem;
     }
+
+    .tabela-cadastro {
+        width: 100%;
+    }
+    #pai-cadastro {
+        background-color: white;
+    }
+
+    header {
+        display: none;
+    }
+
+    .pai-papeis,
+    #section-papeis {
+        padding-top: 2vh;
+        padding-bottom: 7rem;
+    }
+}
+
+/* Modal base */
+.custom-alert-hidden, .modal-hidden {
+    display: none;
+}
+
+/* Estilo do conteúdo dos modais */
+.custom-alert-box {
+    background-color: #ffffff;
+    text-align: center;
+    margin: 24px;
+    border-radius: 16px;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+#background-alert {
+    color: #000;
+    display: flex;
+    margin: auto;
+    position: fixed;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    top: 50%; /* Centraliza verticalmente */
+    left: 50%;
+    transform: translate(-50%, -50%); /* Para centralizar o modal */
+    background-color: rgb(47, 46, 46, 0.95);
+    z-index: 99999; /* Garantir que o modal fique no topo */
+    width: 100%; /* Ajuste conforme necessário */
+    height: 100%;
+    border-radius: 12px;
+    box-sizing: border-box;
+    opacity: 0; /* Inicialmente invisível */
+    transition: opacity 0.5s ease; /* Transição suave para aparecer */
+}
+
+#background-alert.show {
+    opacity: 1; /* Quando a classe show for adicionada, o modal aparece */
+}
+
+#custom-alert-message {
+    margin: 1.5rem 10px;
+    color: #000;
+    font-style: normal;
+    font-weight: normal;
+    text-shadow: none;
+    font-size: 1.2rem;
+}
+
+#reuniao p {
+    font-size: 6rem;
+    background-color: #635A4C;
+    color: #ffffff;
 }
