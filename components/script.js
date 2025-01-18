@@ -40,10 +40,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-
-
-
-
     function atualizarStatusJogador(nomeJogador, novoStatus) {
         const jogadoresStatus = JSON.parse(localStorage.getItem('jogadoresStatus')) || [];
         const jogadorIndex = jogadoresStatus.findIndex(jogador => jogador.nome === nomeJogador);
@@ -993,11 +989,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 event.preventDefault();
                 showAlert('Selecione e salve na sessão ao menos 2 papéis para começar o jogo.');
             }
-            if (jogadores.length < 3 || papeisSelecionados.length < 2) {
-                    showAlert('Certifique-se de que há ao menos 3 jogadores e 2 papéis salvos na sessão.');
-                } else {
-                    window.location.href = 'mestre.html'
-                }
+            if (jogadores.length < 3) {
+                showAlert('Certifique-se de que há ao menos 3 jogadores na sessão.');
+            } else {
+                window.location.href = 'mestre.html'
+            }
         });
 
         document.getElementById('form-papeis').addEventListener('submit', function (event) {
