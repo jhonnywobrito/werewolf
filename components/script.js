@@ -984,7 +984,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const jogadores = JSON.parse(localStorage.getItem('jogadores')) || [];
 
             if (jogadores.length < 3 || papeisSelecionados.length < 2) {
-                showAlert('Certifique-se de que há ao menos 3 jogadores na sessão e 2 papéis salvos na sessão.');
+                showAlert('Certifique-se de que há ao menos 3 jogadores 2 papéis salvos na sessão.');
             } else {
                 window.location.href = 'mestre.html'
             }
@@ -1441,7 +1441,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     <div class="grid">
                         <div class="coluna">
                             <h3>Jogador 1</h3>
-                            <ul class="lista-jogadores">
+                            <ul class="lista-jogadores" id="lista-jogadores-duplo">
                                 ${jogadoresVivos.map(jogador =>
                 `<li>
                                         <label for="jogador1-${jogador.nome}" class="item-jogador">
@@ -1453,7 +1453,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         </div>
                         <div class="coluna">
                             <h3>Jogador 2</h3>
-                            <ul class="lista-jogadores">
+                            <ul class="lista-jogadores" id="lista-jogadores-duplo">
                                 ${jogadoresVivos.map(jogador =>
                     `<li>
                                         <label for="jogador2-${jogador.nome}" class="item-jogador">
@@ -1509,7 +1509,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     <div class="grid">
                         <div class="coluna">
                             <h3>Jogador 1</h3>
-                            <ul class="lista-jogadores">
+                            <ul class="lista-jogadores" id="lista-jogadores-duplo">
                                 ${jogadoresVivos.map(jogador =>
                 `<li>
                                         <label for="jogador1-${jogador.nome}" class="item-jogador">
@@ -1521,7 +1521,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         </div>
                         <div class="coluna">
                             <h3>Jogador 2</h3>
-                            <ul class="lista-jogadores">
+                            <ul class="lista-jogadores" id="lista-jogadores-duplo">
                                 ${jogadoresVivos.map(jogador =>
                     `<li>
                                         <label for="jogador2-${jogador.nome}" class="item-jogador">
