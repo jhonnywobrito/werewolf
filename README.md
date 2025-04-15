@@ -2,9 +2,7 @@
 https://jhonnywobrito.github.io/werewolf/ <br>
 
 **ou**
-
-<br>
-https://www.werewolf.elementfx.com<br>
+<br>https://www.werewolf.elementfx.com<br>
 
 (*web app*)
 **para jogar!**
