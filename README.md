@@ -37,7 +37,7 @@ O jogo acaba quando:
 - Cupido precisa explicar que a pessoa morre apenas na noite seguinte;
 - Cientista maluco não mata e a mensagem não some do mural.
 
-### Para adicionar:
+### Para Adicionar:
 - Foto de perfil para cada jogador;
 - Efeitos sonoros;
 - Personalizar mensagens de papéis no relatório;
