@@ -29,8 +29,7 @@ O jogo acaba quando:
 - **Vira um hospício** – você pode até culpar seu amigo sem prova nenhuma.
 
 ### Bugs Conhecidos
-- Está aparecendo que morreu sem ter morrido (não encontrei e nem consegui replicar);
-- O guarda-costas aparece como morto duas vezes (acho que é por ele ter sido sorteado para morrer ao mesmo tempo que protegeu outra pessoa);
+- O guarda-costas aparece como morto duas vezes;
 - Filhote de lobisomem permite escolher 2 jogadores, mas não mata 2 durante o relatório;
 - Prefeito não aparece no relatório;
 - Piromaníaco com condição bugada;
