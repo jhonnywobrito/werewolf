@@ -20,7 +20,7 @@ Se você curte jogos de **mentira, dedução e caos**, *We'reWolf* é o jogo per
 
 O jogo acaba quando:  
 ✅ **Os aldeões matam todos os lobisomens** (vitória do bem!... ou sorte).  
-❌ **Os lobisomens dominam a vila** (todo mundo vira petisco).
+❌ **Os lobisomens dominam a vila** (todo mundo vira petisco). <br>
 ⭕️**Os papéis especiais fazem seu trabalho bem feito** (ganhar sozinho é sempre satisfatório).
 
 ### **Por Que É Legal?**  
