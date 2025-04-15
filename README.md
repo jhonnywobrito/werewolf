@@ -1,2 +1,5 @@
 <h2>Acesse</h2>
-https://www.werewolf.elementfx.com ou https://jhonnywobrito.github.io/werewolf/ para jogar!
+https://jhonnywobrito.github.io/werewolf/ 
+ou \n
+https://www.werewolf.elementfx.com (web app) \n
+para jogar!
