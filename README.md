@@ -8,7 +8,7 @@ https://jhonnywobrito.github.io/werewolf/ <br>
 (*web app*)
 **para jogar!**
 
-Se você curte jogos de **mentira, dedução e caos**, *We'reWolf* é o jogo perfeito! Ele é tipo *Among Us*, mas com um clima de vila medieval assombrada, onde lobisomens infiltrados tentam matar todo mundo enquanto os aldeões desconfiam até da própria sombra.  
+Se você curte jogos de **mentira, dedução e caos**, *We'rewolf* é o jogo perfeito! Ele é tipo *Among Us*, mas com um clima de vila medieval assombrada, onde lobisomens infiltrados tentam matar todo mundo enquanto os aldeões desconfiam até da própria sombra.  
 
 ### **Como Joga?**  
 - **Um moderador** (nesse caso, a aplicação) sorteia os papéis em segredo:  
@@ -27,3 +27,19 @@ O jogo acaba quando:
 - **Todo mundo mente igual político em campanha.**  
 - **Dá pra jogar com 4 ou 20 pessoas** (quanto mais, mais bagunça).  
 - **Vira um hospício** – você pode até culpar seu amigo sem prova nenhuma.
+
+### Bugs Conhecidos
+- Está aparecendo que morreu sem ter morrido (não encontrei e nem consegui replicar);
+- O guarda-costas aparece como morto duas vezes (acho que é por ele ter sido sorteado para morrer ao mesmo tempo que protegeu outra pessoa);
+- Filhote de lobisomem permite escolher 2 jogadores, mas não mata 2 durante o relatório;
+- Prefeito não aparece no relatório;
+- Piromaníaco com condição bugada;
+- Pistoleiro atira mais de duas vezes;
+- Cupido precisa explicar que a pessoa morre apenas na noite seguinte;
+- Cientista maluco não mata e a mensagem não some do mural.
+
+### Para adicionar:
+- Foto de perfil para cada jogador;
+- Efeitos sonoros;
+- Personalizar mensagens de papéis no relatório;
+- Impedir nome de jogador repetido;
