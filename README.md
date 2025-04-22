@@ -1,6 +1,6 @@
 <h1>We'rewolf</h1>
 <h3>Acesse:</h3>
-https://jhonnywobrito.github.io/werewolf/ <br>
+https://jhonnywobrito.github.io/werewolf/ 
 
 **ou**
 <br>https://www.werewolf.elementfx.com (*web app*) <br>
