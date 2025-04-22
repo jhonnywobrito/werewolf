@@ -3,9 +3,7 @@
 https://jhonnywobrito.github.io/werewolf/ <br>
 
 **ou**
-<br>https://www.werewolf.elementfx.com<br>
-
-(*web app*)
+<br>https://www.werewolf.elementfx.com (*web app*) <br>
 **para jogar!**
 
 Se você curte jogos de **mentira, dedução e caos**, *We'rewolf* é o jogo perfeito! Ele é tipo *Among Us*, mas com um clima de vila medieval assombrada, onde lobisomens infiltrados tentam matar todo mundo enquanto os aldeões desconfiam até da própria sombra.  
