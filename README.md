@@ -35,7 +35,7 @@ O jogo acaba quando:
 - Cupido precisa explicar que a pessoa morre apenas na noite seguinte (gráfico);
 - Cientista maluco não mata e a mensagem não some do mural (gráfico/lógica).
 
-Obs: para papéis com bugs de **lógica**, é recomendado que não utilize os papéis no jogo.
+Obs: papéis com bugs de **lógica** não são recomendados para perfeito aproveitamento do jogo.
 
 ### Para Adicionar:
 - Foto de perfil para cada jogador;
