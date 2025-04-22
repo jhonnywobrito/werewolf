@@ -21,7 +21,7 @@ Se você curte jogos de **mentira, dedução e caos**, *We'rewolf* é o jogo per
 O jogo acaba quando:  
 ✅ **Os aldeões matam todos os lobisomens** (vitória do bem!... ou sorte).  
 ❌ **Os lobisomens dominam a vila** (todo mundo vira petisco). <br>
-⭕️**Os papéis especiais fazem seu trabalho bem feito** (ganhar sozinho é sempre satisfatório).
+⭕️ **Os papéis especiais fazem seu trabalho bem feito** (ganhar sozinho é sempre satisfatório).
 
 ### **Por Que É Legal?**  
 - **Todo mundo mente igual político em campanha.**  
@@ -29,13 +29,15 @@ O jogo acaba quando:
 - **Vira um hospício** – você pode até culpar seu amigo sem prova nenhuma.
 
 ### Bugs Conhecidos
-- O guarda-costas aparece como morto duas vezes;
-- Filhote de lobisomem permite escolher 2 jogadores, mas não mata 2 durante o relatório;
-- Prefeito não aparece no relatório;
-- Piromaníaco com condição bugada;
-- Pistoleiro atira mais de duas vezes;
-- Cupido precisa explicar que a pessoa morre apenas na noite seguinte;
-- Cientista maluco não mata e a mensagem não some do mural.
+- Guarda-costas aparece como morto duas vezes (gráficos);
+- Filhote de lobisomem permite escolher 2 jogadores, mas não mata 2 durante o relatório (lógica);
+- Prefeito não aparece no relatório (gráfico/lógica);
+- Piromaníaco com condição bugada (lógica); 
+- Pistoleiro atira mais de duas vezes (lógica);
+- Cupido precisa explicar que a pessoa morre apenas na noite seguinte (gráfico);
+- Cientista maluco não mata e a mensagem não some do mural (gráfico/lógica).
+
+Obs: para papéis com bugs de **lógica**, é recomendado que não utilize os papéis no jogo.
 
 ### Para Adicionar:
 - Foto de perfil para cada jogador;
