@@ -1,8 +1,6 @@
 <h1>We'rewolf</h1>
 <h3>Acesse:</h3>
 https://jhonnywobrito.github.io/werewolf/ <br>
-**ou**
-<br>https://www.werewolf.elementfx.com (*web app*) <br>
 **para jogar!**
 
 **para jogar!**
