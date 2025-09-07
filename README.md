@@ -1,7 +1,6 @@
 <h1>We'rewolf</h1>
 <h3>Acesse:</h3>
 https://jhonnywobrito.github.io/werewolf/ <br>
-**para jogar!**
 
 **para jogar!**
 
