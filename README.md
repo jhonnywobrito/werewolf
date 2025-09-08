@@ -26,7 +26,6 @@ O jogo acaba quando:
 
 ### Bugs Conhecidos
 - Guarda-costas aparece como morto duas vezes (gráfico);
-- Prefeito não aparece no relatório (gráfico/lógica);
 - Pistoleiro atira mais de duas vezes (lógica);
 - Cupido precisa explicar que a pessoa morre apenas na noite seguinte (gráfico);
 - Cientista maluco não mata e a mensagem não some do mural (gráfico/lógica).
