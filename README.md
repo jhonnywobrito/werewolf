@@ -26,7 +26,6 @@ O jogo acaba quando:
 
 ### Bugs Conhecidos
 - Guarda-costas aparece como morto duas vezes (gráfico);
-- Filhote de lobisomem permite escolher 2 jogadores, mas não mata 2 durante o relatório (lógica);
 - Prefeito não aparece no relatório (gráfico/lógica);
 - Pistoleiro atira mais de duas vezes (lógica);
 - Cupido precisa explicar que a pessoa morre apenas na noite seguinte (gráfico);
