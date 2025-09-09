@@ -807,7 +807,7 @@ fecharBtn.addEventListener('click', () => {
         "inquisidor": "Cada noite você pode selecionar um jogador. Se ele é o líder da seita ou parte de uma seita, o jogador morrerá.",
         "sósia": "Você seleciona um jogador. Se esse jogador morrer, você tomará o seu papel.",
         "líder de seita": "Toda noite você escolhe alguém para unir à sua seita. Quando todos os jogadores se unirem, você vence.",
-        "cupido": "Você pode selecionar duas pessoas para formarem um casal. Se uma pessoa do casal morrer em qualquer momento, a outra também morrerá. Se houverem 2 casais no jogo e um se desfazer, todos os casais serão desfeitos.",
+        "cupido": "Você pode selecionar duas pessoas para formarem um casal. Se uma pessoa do casal morrer em qualquer momento, a outra também morrerá na noite seguinte. Se houverem 2 casais no jogo e um se desfazer, todos os casais serão desfeitos.",
         "depressivo": "Você está muito triste. Seu objetivo é ser morto pela aldeia. Se você for linchado pela aldeia, você vence.",
         "necromante": "Uma vez por jogo, você poderá reviver um jogador morto.",
         "piromaníaco": "Toda noite você seleciona dois jogadores para encharcar com gasolina ou queimar todos os jogadores já encharcados. Você ganha se você for o último jogador vivo. Você não pode ser morto pelos lobisomens.",
@@ -1387,7 +1387,7 @@ fecharBtn.addEventListener('click', () => {
             const modalAtaque = document.createElement('div');
             modalAtaque.className = 'modal-ataque';
 
-            // Filtrar jogadores vivos e, se fornecido, aplicar a lista de exclusão
+            // Filtrar jogadores vivos e aplica a lista de exclusão
             const jogadoresVivos = jogadoresStatus.filter(jogador =>
                 jogador.status !== 'morto' && jogador.status !== 'ressuscitado' &&
                 jogador.nome !== nomeAtual &&
@@ -2408,16 +2408,21 @@ fecharBtn.addEventListener('click', () => {
 
                             const tirosUsados = pistoleiros[jogadorAtual.nome] || 0;
 
+
                             if (tirosUsados >= 2) {
                                 const jogadorIndex = resultadoSorteio.findIndex(jogador => jogador.jogador === jogadorAtual.nome);
                                 if (jogadorIndex !== -1) {
                                     resultadoSorteio[jogadorIndex].papel = 'aldeão';
                                     localStorage.setItem('resultadoSorteio', JSON.stringify(resultadoSorteio));
                                     showAlert(`Você agora é um aldeão.`, () => {
-                                        window.location.href = 'mediador.html'; // Só executa após o modal ser fechado
+                                        window.location.href = 'mediador.html';
                                     });
                                 }
+                            } else {
+                                
+                                window.location.href = 'mediador.html';
                             }
+                            
                         } else {
                             showAlert('O jogador selecionado já está morto ou não pode ser atingido.');
                         }
@@ -3209,7 +3214,10 @@ fecharBtn.addEventListener('click', () => {
                         jogadoresStatus[guardaCostasIndex].status = 'morto';
                     }
 
-                    nomeJogador.innerHTML += `${nomeProtetor} morreu durante a noite<br>`;
+                    const guardaCostasMorto = jogadoresStatus.find(jogador => jogador.nome === nomeProtetor && jogador.status === 'morto');
+                    if (!guardaCostasMorto) {
+                        nomeJogador.innerHTML += `${nomeProtetor} morreu durante a noite<br>`;
+                    }
 
                 } else {
 
