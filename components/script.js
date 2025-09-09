@@ -18,11 +18,13 @@ document.addEventListener('DOMContentLoaded', () => {
             <div class="custom-alert-box">
                 <div id="custom-alert-message">${message}</div>
             </div>
+            
+            <div id="fechar-alerta"><br><br><p>Toque aqui para fechar</p></div>
         `;
         document.body.appendChild(modal);
 
         setTimeout(() => {
-            overlay.style.display = 'block'; // Exibe a sobreposição
+            overlay.style.display = 'block'; 
             modal.classList.remove('custom-alert-hidden');
             modal.classList.add('show');
         }, 0);
@@ -34,7 +36,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 setTimeout(() => {
                     modal.remove();
                     overlay.remove();
-                    if (callback) callback(); // Chama o callback após o modal ser fechado
+                    if (callback) callback(); 
                 }, 300);
             }
         });
@@ -58,7 +60,6 @@ document.addEventListener('DOMContentLoaded', () => {
         loadingScreen.style.display = 'none';
     });
 
-    // Entrada da página 
     gsap.fromTo('body',
         { opacity: 0 },
         { opacity: 1, duration: 0.3, ease: "power2.out" }
@@ -102,7 +103,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const chat = JSON.parse(localStorage.getItem('chat')) || [];
 
-        // Verifica se o jogadorAtual já é remetente em alguma mensagem
         const jaEnviouMensagem = chat.some(mensagem => mensagem.remetente === jogadorAtual);
 
         if (jaEnviouMensagem) {
@@ -138,22 +138,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
         document.body.appendChild(modalCadastro);
 
-        // Foco automático no input
         const nomeInput = document.getElementById('nome');
         nomeInput.focus();
 
-        // Cancelar cadastro
         document.getElementById('cancelar-cadastro').addEventListener('click', () => {
             modalCadastro.remove();
         });
 
-        // Carregar jogadores
         carregarJogadores();
 
-        // Submissão do formulário
         const form = document.getElementById('form-cadastro');
         form.addEventListener('submit', (event) => {
-            // Prevenir comportamento padrão de envio
             event.preventDefault();
 
             const nome = nomeInput.value.trim();
@@ -163,7 +158,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 jogadores.push(nome);
                 localStorage.setItem('jogadores', JSON.stringify(jogadores));
 
-                // Limpar o input e fechar o modal
                 nomeInput.value = '';
                 modalCadastro.remove();
                 carregarJogadores();
@@ -228,7 +222,6 @@ document.addEventListener('DOMContentLoaded', () => {
             showAlert('Mensagem enviada!');
             modalChat.remove();
 
-            // Desabilitar o botão após o envio
             const botaoChat = document.getElementById('botao-chat');
             if (botaoChat) {
                 botaoChat.disabled = true;
@@ -784,7 +777,7 @@ document.addEventListener('DOMContentLoaded', () => {
         "príncipe bonitão": "A primeira vez que a aldeia tentar te matar na votação, você mostra seu papel e sobrevive.",
         "maçom": "Você pode ver quem são os outros maçons.",
         "menininha": "Se você abrir seus olhos, há 15% de chance de detectar um lobisomem; mas também há 15% de chance dos lobisomens te encontrarem e te matarem.",
-        "cientista maluco": "Você é um aldeão normal, exceto que quando você morrer uma substância tóxica será liberada e ela irá matar as duas pessoas ao seu lado.",
+        "cientista maluco": "Você é um aldeão normal, exceto que quando você morrer uma substância tóxica será liberada e ela irá matar as duas pessoas ao seu lado na próxima noite.",
         "humano leproso": "Quando você é morto pelos lobisomens, eles não serão capazes de matar na próxima noite.",
         "valentão": "Quando atacado pelos lobisomens, você sangra e só morre no próximo dia.",
         "menino travesso": "Apenas uma vez por jogo você pode trocar os papéis de dois jogadores. Após isso, você se torna um aldeão",
@@ -3222,7 +3215,8 @@ document.addEventListener('DOMContentLoaded', () => {
             }
             return jogador;
         });
-
+        
+        localStorage.setItem('jogadoresStatus', JSON.stringify(jogadoresStatus));
 
         const manhunt = JSON.parse(localStorage.getItem('manhunt')) || {};
 
@@ -3242,7 +3236,6 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
 
-
         localStorage.setItem('jogadoresStatus', JSON.stringify(jogadoresStatus));
         console.log("Todos os jogadores envenenados e condenados foram atualizados para 'morto'.");
 
@@ -3257,10 +3250,9 @@ document.addEventListener('DOMContentLoaded', () => {
             console.log('Jogador morto:', nomeJogadorMorto);
             console.log('Sósias disponíveis:', sosias);
 
-            // Busca o sósia onde o jogador morto é o valor no objeto
             const nomeJogadorSosia = Object.entries(sosias).find(
                 ([_, valor]) => valor.toLowerCase() === nomeJogadorMorto
-            )?.[0]; // Retorna a chave (o sósia)
+            )?.[0]; 
 
             console.log('Sósia encontrado:', nomeJogadorSosia);
 
@@ -3339,15 +3331,27 @@ document.addEventListener('DOMContentLoaded', () => {
                     const jogadorEsquerda = jogadores[(indexCientista - 1 + jogadores.length) % jogadores.length];
                     const jogadorDireita = jogadores[(indexCientista + 1) % jogadores.length];
 
-                    if (jogadorEsquerda) {
-                        atualizarStatusJogador(jogadorEsquerda, 'envenenado');
+                    const vivos = jogadoresStatus.filter(jogador => jogador.status === 'vivo');
+                    const jogadorEsquerdaVivo = vivos.find(j => j.nome === jogadorEsquerda);
+                    const jogadorDireitaVivo = vivos.find(j => j.nome === jogadorDireita);
+                    if (jogadorEsquerdaVivo) {
+                        atualizarStatusJogador(jogadorEsquerda, 'cientista');
                     }
-
-                    if (jogadorDireita) {
-                        atualizarStatusJogador(jogadorDireita, 'envenenado');
+                    if (jogadorDireitaVivo) {
+                        atualizarStatusJogador(jogadorDireita, 'cientista');
                     }
                 }
+
             }
+
+            const envenenadosCientista = jogadoresStatus.filter(jogador => jogador.status === 'cientista');
+            console.log('Jogadores com status cientista:', envenenadosCientista);
+
+            envenenadosCientista.forEach(jogador => {
+                atualizarStatusJogador(jogador.nome, 'morto');
+                nomeJogador.innerHTML += ` ${jogador.nome} morreu durante a noite.<br>`;
+            });
+
 
             const humanoLeproso = resultadoSorteio.find(resultado => resultado.papel === 'humano leproso' && resultado.jogador === jogadorSorteado.nome);
             if (humanoLeproso) {
@@ -3439,6 +3443,10 @@ document.addEventListener('DOMContentLoaded', () => {
                     nomeJogador.innerHTML += `${jogador1} e ${jogador2} estão apaixonados.<br>`;
                 }
             });
+        }
+
+        if (!nomeJogador.innerHTML.trim()) {
+            nomeJogador.innerHTML = 'Nada acontece, feijoada.';
         }
 
     }
@@ -3668,7 +3676,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const jogadorAtual = jogadoresVivos.find(jogador => !ordemDeVotacao.includes(jogador.nome));
             if (!jogadorAtual) {
                 showAlert(`Votação concluída!`, () => {
-                    window.location.href = 'resultadoVotacao.html'; // Só executa após o modal ser fechado
+                    window.location.href = 'resultadoVotacao.html';
                     return;
                 });
             }
