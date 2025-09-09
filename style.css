@@ -1253,11 +1253,13 @@ label img {
   font-size: 1.2rem;
 }
 
-#fechar-alerta p {
-  color: #ffffff9e;
+#fechar-alerta button{
+  color: #ffffffb9;
+  background-color: #00000000;
   font-style: normal;
   font-weight: normal;
   text-shadow: none;
+  box-shadow: none;
 }
 
 #reuniao p {
@@ -1265,3 +1267,4 @@ label img {
   background-color: #635a4c;
   color: #ffffff;
 }
+

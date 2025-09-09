@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 <div id="custom-alert-message">${message}</div>
             </div>
             
-            <div id="fechar-alerta"><br><br><p>Toque aqui para fechar</p></div>
+            <div id="fechar-alerta"><button>Fechar</button></div>
         `;
         document.body.appendChild(modal);
 
@@ -40,6 +40,17 @@ document.addEventListener('DOMContentLoaded', () => {
                 }, 300);
             }
         });
+
+        const fecharBtn = modal.querySelector('#fechar-alerta button');
+fecharBtn.addEventListener('click', () => {
+    modal.classList.remove('show');
+    overlay.style.display = 'none';
+    setTimeout(() => {
+        modal.remove();
+        overlay.remove();
+        if (callback) callback();
+    }, 300);
+});
     }
 
     function atualizarStatusJogador(nomeJogador, novoStatus) {
