@@ -28,7 +28,6 @@ O jogo acaba quando:
 - Guarda-costas aparece como morto duas vezes (gráfico);
 - Pistoleiro atira mais de duas vezes (lógica);
 - Cupido precisa explicar que a pessoa morre apenas na noite seguinte (gráfico);
-- Cientista maluco não mata e a mensagem não some do mural (gráfico/lógica).
 
 Obs: papéis com bugs de **lógica** não são recomendados para perfeito aproveitamento do jogo.
 
