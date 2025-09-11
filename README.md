@@ -25,7 +25,8 @@ O jogo acaba quando:
 - **Vira um hospício** – você pode até culpar seu amigo sem prova nenhuma.
 
 ### Bugs Conhecidos
-- Jogadores com o mesmo nome: se sorteado lobisomem, todos serão.
+- Jogadores com o mesmo nome: se sorteado lobisomem, todos serão;
+- Lobo solitário perde para a vila automaticamente caso seja o único lobisomem vivo (lógica).
 
 Obs: papéis com bugs de **lógica** não são recomendados para perfeito aproveitamento do jogo.
 
