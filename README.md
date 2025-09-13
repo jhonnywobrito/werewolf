@@ -1,4 +1,4 @@
-<h1>We'rewolf</h1>
+<h1>We'reWolf</h1>
 <h3>Acesse:</h3>
 https://jhonnywobrito.github.io/werewolf/ <br>
 
@@ -25,7 +25,8 @@ O jogo acaba quando:
 - **Vira um hospício** – você pode até culpar seu amigo sem prova nenhuma.
 
 ### Bugs Conhecidos
-- Guarda-costas aparece como morto duas vezes (gráfico);
+- Jogadores com o mesmo nome: se sorteado lobisomem, todos serão;
+- Lobo solitário perde para a vila automaticamente caso seja o único lobisomem vivo (lógica).
 
 Obs: papéis com bugs de **lógica** não são recomendados para perfeito aproveitamento do jogo.
 
