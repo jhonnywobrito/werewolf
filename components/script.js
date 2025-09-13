@@ -92,7 +92,6 @@ fecharBtn.addEventListener('click', () => {
         });
     });
 
-
     const papeisPerigosos = [
         "bruxa",
         "sacerdote",
@@ -615,8 +614,6 @@ fecharBtn.addEventListener('click', () => {
             }
 
         }
-
-
 
         // ------------------------------------------------------------
         // ------------------------------------------------------------

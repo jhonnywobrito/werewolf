@@ -73,7 +73,7 @@ html {
       rgba(24, 23, 23, 0.7),
       rgba(0, 0, 0, 1)
     ),
-    url("img/fundo.png");
+    url("../img/fundo.png");
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;

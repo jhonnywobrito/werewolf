@@ -7,11 +7,11 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Righteous&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
-    <link rel="shortcut icon" href="img/mini-logo.png" type="image/x-icon">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="shortcut icon" href="../img/mini-logo.png" type="image/x-icon">
     <script src="https://kit.fontawesome.com/8b0455432d.js" crossorigin="anonymous"></script>
 </head>
-<body data-page="noite">
+<body data-page="mestre">
     <div id="loading-screen">
         <div class="loader"></div>
     </div>
@@ -19,34 +19,30 @@
     <div id="pai-mestre-jogo" class="container-tabela">
         <div id="mestre-jogo">
             <div class="grid">
-                
                 <div class="imagem-papel">
-                    <p>Voltar desse ponto pode fazer com que o jogo precise ser reiniciado.</p>
-                    <p id="noite">NOITE</p>
-                    
+                    <p id="nome-jogador">Mestre do jogo</p>
                 </div>
-                <img class="imagem-papel" src="img/mestre.png" alt="Imagem do papel">
+                
+                <img class="imagem-papel" src="../img/mestre.png" alt="Imagem do papel">
 
                 
             </div>
-
             <div class="nome-pessoa">
-                <h3>Mestre do Jogo</h3>
+                <h3 id="nome-jogador">Passe o aparelho para o mestre do jogo.</h3>
                 <div class="espaco">
-                    <p>Anoiteceu. Todos os jogadores fecham os olhos e vão dormir. O mestre recebe o aparelho, visualiza sua função e entrega para o próximo jogador ao terminar.</p>
+                    <p>O jogador 1 é o Mestre do Jogo. Todos os jogadores devem sentar em um círculo, de frente um para o outro. O Mestre deve receber o aparelho e ler as instruções no início de cada noite e dia.</p>
                 </div>
-                
             </div>
+            
             <div class="navegacao">
-                <a href="mediador.html"><button class="botao-conteudo" id="continuar-noite">Continuar</button></a>
-            </div>
-            
-            
+                <a href="papeis.html"><button class="botao-conteudo">Seleção de papéis</button></a>
+                <a href="noite.html"><button class="botao-conteudo" id="sortear">Continuar</button></a>
+            </div> 
         </div>
         
-        
     </div>
-    <script src="components/script.js"></script>
+    <script src="../components/mestre.js" type="module"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    
 </body>
 </html>
