@@ -62,32 +62,33 @@ localStorage.removeItem('manhunt');
         localStorage.removeItem('protecoesMedico');
 
         document.getElementById('salvar-sessao-ut').addEventListener('click', function (event) {
-            const papeisSelecionados = JSON.parse(localStorage.getItem('papeisSessao')) || [];
-            const jogadores = JSON.parse(localStorage.getItem('jogadores')) || [];
-
-            if (jogadores.length < 4 || papeisSelecionados.length < 2) {
-                showAlert('Certifique-se de que há ao menos 4 jogadores e 2 papéis salvos na sessão.');
-            } else {
-                window.location.href = 'mestre.html'
-            }
+            
         });
 
         document.getElementById('form-papeis').addEventListener('submit', function (event) {
-            event.preventDefault();
+            localStorage.removeItem('papeisSessao');
 
-            const papeisSelecionados = [];
+            event.preventDefault();
+            const papeisSelecionados = JSON.parse(localStorage.getItem('papeisSessao')) || [];
+            const jogadores = JSON.parse(localStorage.getItem('jogadores')) || [];
+
             const checkboxes = document.querySelectorAll('input[name="papel"]:checked');
             checkboxes.forEach(checkbox => {
                 papeisSelecionados.push(checkbox.value);
             });
 
-            if (papeisSelecionados.length < 2) {
-                showAlert('Selecione ao menos 2 papéis para essa sessão.');
+            if (jogadores.length < 4 && papeisSelecionados.length < 2) {
+                showAlert('Certifique-se de que há ao menos 4 jogadores e 2 papéis selecionados.');
             } else {
-                localStorage.setItem('papeisSessao', JSON.stringify(papeisSelecionados));
-                showAlert('Papéis selecionados salvos! Clique "Começar jogo" para iniciar a sessão com essas configurações.');
+                if (papeisSelecionados.length < 2) {
+                    showAlert('Selecione ao menos 2 papéis');
+                } else {
+                    localStorage.setItem('papeisSessao', JSON.stringify(papeisSelecionados));
+                    window.location.href = 'mestre.html'
+                }
             }
         });
+        
         document.getElementById('toggle-all').addEventListener('click', function () {
             const checkboxes = document.querySelectorAll('#form-papeis input[type="checkbox"]');
             const allChecked = Array.from(checkboxes).every(checkbox => checkbox.checked);

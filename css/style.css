@@ -393,16 +393,16 @@ label img {
   background-color: #b7720c;
 }
 
-#comecar-jogo {
+#toggle-all {
   position: fixed;
-  bottom: 70px;
-  right: 20px;
+  top: 32px;
+  right: 4px;
   z-index: 1000;
-  padding: 10px 20px;
-  color: white;
+  color: rgb(0, 0, 0);
   border: none;
-  border-radius: 20px;
-  font-size: 16px;
+  padding: 15px 18px;
+  border-radius: 80px;
+  font-size: 20px;
   cursor: pointer;
   box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
 }
@@ -1192,10 +1192,9 @@ label img {
   header {
     display: none;
   }
-
   .pai-papeis,
   #section-papeis {
-    padding-top: 2vh;
+    padding-top: 8vh;
     padding-bottom: 7rem;
   }
 
@@ -1207,6 +1206,14 @@ label img {
     padding-left: 22px;
     padding-right: 22px;
   }
+  .logo {
+    margin-bottom: 40px;
+  }
+ #topo-papeis {
+  position: fixed;
+  top: 20px;
+  z-index: 1000;
+ }
 }
 
 .custom-alert-hidden,
@@ -1271,4 +1278,5 @@ label img {
   background-color: #635a4c;
   color: #ffffff;
 }
+
 

@@ -29,15 +29,15 @@
   <div id="section-papeis" class="pai-papeis">
     <h2 id="topo-papeis">Papéis de Jogo</h2>
     <section>
-      <button type="button" id="toggle-all">Selecionar/Desmarcar todos</button>
+      
+          <button type="button" id="toggle-all" class="cadastrar"><i class="fa-solid fa-rotate"></i></button>
       <form id="form-papeis">
         <div>
           <h2>Aldeões</h2>
-
           <div class="label-form">
             <label>
               <img src="../img/aldeao.png" alt="">
-              <input type="checkbox" checked name="papel" value="aldeão"> Aldeão
+              <h5 id="lobisomem-papeis"> Aldeão </h5>
             </label>
             <p>Durante o dia, você discute com a aldeia sobre quem pode ser o lobisomem e decide alguém para matar.</p>
           </div>
@@ -347,8 +347,9 @@
             <p>Seu objetivo é fazer seu alvo ser linchado pela vila durante o dia. Se conseguir, você ganha; se o seu
               alvo morrer de outra maneira, você morre.</p>
           </div>
-          <button type="submit" class="cadastrar" id="comecar-jogo">Salvar papéis para sessão</button>
         </div>
+        <button type="submit" class="cadastrar" id="salvar-sessao-ut">Iniciar</button>
+
       </form>
 
 
@@ -356,7 +357,6 @@
     <div class="navegacao">
 
       <a href="cadastro.html"><button class="no-transition" id="voltar-cadastro">Voltar</button></a>
-      <button id="salvar-sessao-ut">Começar</button>
     </div>
 
 
