@@ -65,8 +65,8 @@ localStorage.removeItem('manhunt');
             const papeisSelecionados = JSON.parse(localStorage.getItem('papeisSessao')) || [];
             const jogadores = JSON.parse(localStorage.getItem('jogadores')) || [];
 
-            if (jogadores.length < 3 || papeisSelecionados.length < 2) {
-                showAlert('Certifique-se de que há ao menos 3 jogadores 2 papéis salvos na sessão.');
+            if (jogadores.length < 4 || papeisSelecionados.length < 2) {
+                showAlert('Certifique-se de que há ao menos 4 jogadores e 2 papéis salvos na sessão.');
             } else {
                 window.location.href = 'mestre.html'
             }
