@@ -1,4 +1,4 @@
-import { carregarJogadores, carregarPapeis, calcularSorteio } from './main.js';
+import { carregarJogadores, carregarPapeis, calcularSorteio, atualizarStatusJogador } from './main.js';
 import { showAlert } from './main.js';
 import { votacaoOuFim } from './main.js';
 
@@ -23,13 +23,6 @@ localStorage.removeItem('silenciado');
 
         localStorage.removeItem('cacadasCacador');
 
-        jogadoresStatus = jogadoresStatus.map(jogador => {
-            if (jogador.status === 'protegido') {
-                return { ...jogador, status: 'vivo' };
-            }
-            return jogador;
-        });
-
         const moverMensagensParaChatAgora = () => {
             const chat = JSON.parse(localStorage.getItem('chat')) || [];
             const chatAgora = JSON.parse(localStorage.getItem('chatAgora')) || [];
@@ -43,11 +36,11 @@ localStorage.removeItem('silenciado');
         moverMensagensParaChatAgora();
 
         jogadoresStatus = jogadoresStatus.map(jogador => {
-            if (jogador.status === 'ressuscitado') {
+            if (jogador.status === 'protegido' || jogador.status === 'ressuscitado') {
                 return { ...jogador, status: 'vivo' };
-            }
-            return jogador;
+            } return jogador;
         });
+        localStorage.setItem('jogadoresStatus', JSON.stringify(jogadoresStatus));
 
         const humanoMordido = () => {
             const mordida = JSON.parse(localStorage.getItem('mordida'));
