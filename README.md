@@ -1,6 +1,6 @@
 <h1>We'reWolf</h1>
 <h3>Acesse:</h3>
-https://jhonnywobrito.github.io/werewolf/ <br>
+https://jhonnywobrito.github.io/werewolf/pages/ <br>
 
 **para jogar!**
 
