@@ -92,9 +92,8 @@ localStorage.removeItem('manhunt');
             botaoVoltar.textContent = "Voltar";
 
             botaoVoltar.addEventListener("click", () => {
-                window.location.href = "index.html";
-
                 localStorage.removeItem("contadorMestre");
+                window.location.href = "../index.html";
             });
 
             mensagem.appendChild(botaoVoltar);
