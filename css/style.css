@@ -1203,6 +1203,10 @@ label img {
     font-size: 32px;
     border-radius: 40px;
   }
+  #index {
+    padding-left: 22px;
+    padding-right: 22px;
+  }
 }
 
 .custom-alert-hidden,
