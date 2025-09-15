@@ -48,7 +48,6 @@ localStorage.removeItem('manhunt');
 
         carregarJogadores();
 
-
         document.getElementById('deletar-todos').addEventListener('click', () => {
             deletarJogadores();
         });

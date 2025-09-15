@@ -260,7 +260,6 @@ table thead th {
 
 table tbody {
   display: block;
-  max-height: 250px;
   overflow-y: auto;
 }
 
@@ -284,11 +283,6 @@ table td:last-child {
 .registros:hover {
   background-color: #333;
   transition: background-color 0.3s ease-in-out;
-}
-
-#toggle-all {
-  background: white;
-  color: #000000;
 }
 
 #form-papeis {
@@ -395,8 +389,8 @@ label img {
 
 #toggle-all {
   position: fixed;
-  top: 32px;
-  right: 4px;
+  top: 26px;
+  right: 2px;
   z-index: 1000;
   color: rgb(0, 0, 0);
   border: none;
@@ -405,6 +399,7 @@ label img {
   font-size: 20px;
   cursor: pointer;
   box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  background: white;
 }
 
 #comecar-jogo:hover {
@@ -435,15 +430,16 @@ label img {
   min-height: 100vh;
 }
 
-#pai-cadastro {
-  background-color: #000000;
+.pai-cadastro {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  margin: auto;
+  margin: 0px auto;
+  padding: 6rem 0px;
   width: 100%;
-  height: 100%;
+  max-height: fit-content;
+  max-width: 100%;
 }
 
 .pai-papeis {
@@ -482,6 +478,11 @@ label img {
   padding: 0;
   max-width: 100%;
   box-sizing: border-box;
+    width: 100%;
+    height: 100% ;
+    opacity: 1;
+    background-image: linear-gradient(45deg, #0d0d09 50%, #000000 50%);
+    background-size: 6px 6px;
 }
 
 #mestre-jogo {
@@ -804,7 +805,11 @@ label img {
   max-width: 100%;
   min-height: fit-content;
   box-sizing: border-box;
-  background-color: white;
+  width: 100%;
+  height: 100% ;
+  opacity: 1;
+  background-image: linear-gradient(45deg, #ffffff 50%, #eaeaea 50%);
+  background-size: 6px 6px;
 }
 
 #pai-mestre-jogo-vitoria {
@@ -1097,6 +1102,14 @@ label img {
   color: black;
 }
 
+#botoes-cadastro {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  margin-top: 12px;
+} 
+
 #tabela-registro {
   display: flex;
   background: #2c2c2c;
@@ -1165,10 +1178,7 @@ label img {
   }
 
   #tabela-registro {
-    padding: 12px;
-    border-radius: 40px;
-    margin-left: 4px;
-    margin-right: 4px;
+    border-radius: 0;
   }
 
   #adicionar {
@@ -1209,12 +1219,24 @@ label img {
   .logo {
     margin-bottom: 40px;
   }
- #topo-papeis {
+ #topo-papeis, #jogadores-titulo {
   position: fixed;
-  top: 20px;
+  top: 14px;
   z-index: 1000;
+  left: 2px;
  }
+
+ table tbody {
+  display: block;
+  overflow-y: auto;
 }
+}
+#cadastro, #pagina-mediador {
+    width: 100%;
+    height: 100% ;
+    opacity: 1;
+    background-image: linear-gradient(45deg, #0d0d09 50%, #000000 50%);
+    background-size: 6px 6px;  }
 
 .custom-alert-hidden,
 .modal-hidden {
@@ -1279,4 +1301,26 @@ label img {
   color: #ffffff;
 }
 
+#linha {
+  background-color: #ffffff;
+  margin: 12px;
+  color: #000;
+}
 
+.jogador-cadastrado {
+  display: flex;
+  flex-direction: column;
+  background: rgb(38, 38, 38);
+  padding: 10px;
+  border-style: solid;
+  border-width: 2px;
+  border-color: #434242;
+  border-radius: 10px;
+  margin: 5px;
+  font-size: 20px;
+}
+
+#deletar-todos button {
+  
+  background: rgb(64, 63, 63);
+}

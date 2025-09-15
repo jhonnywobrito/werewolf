@@ -77,7 +77,7 @@ localStorage.removeItem('manhunt');
                 papeisSelecionados.push(checkbox.value);
             });
 
-            if (jogadores.length < 4 && papeisSelecionados.length < 2) {
+            if (jogadores.length < 4 && papeisSelecionados.length < 2 || jogadores.length < 4) {
                 showAlert('Certifique-se de que há ao menos 4 jogadores e 2 papéis selecionados.');
             } else {
                 if (papeisSelecionados.length < 2) {

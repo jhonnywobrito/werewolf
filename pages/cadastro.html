@@ -11,11 +11,12 @@
     <link rel="shortcut icon" href="../img/mini-logo.png" type="image/x-icon">
     <script src="https://kit.fontawesome.com/8b0455432d.js" crossorigin="anonymous"></script>
 </head>
-<body data-page="cadastro">
+<body>
+
     <div id="loading-screen">
         <div class="loader"></div>
     </div>
-
+<div id="cadastro">
     <header>
         <nav>
             <a href="../index.html"><i class="fa-solid fa-house"></i></a>
@@ -23,28 +24,22 @@
             <a href="papeis.html"><i class="fa-solid fa-layer-group"></i></a>
         </nav>
     </header>
-    <div id="pai-cadastro">
+    <div class="pai-cadastro">
+        
+                    <h2 id="jogadores-titulo">Jogadores</h2>
             <div class="tabela-cadastro">
                 
-                <div id="tabela-registro">
-                    <h2>Jogadores</h2>
 
                     <table>
-                        <thead>
-                            <tr>
-                                <th>Nº</th>
-                                <th>Nome</th>
-                            </tr>
-                        </thead>
                         <tbody>
                         </tbody>
                     </table> 
+                <div id="botoes-cadastro"> 
                     
+            <a href="" id="deletar-todos"><button>Deletar todos</button></a>
             <button id="adicionar-jogador">Adicionar novo jogador</button>
             
-            <a href="" id="deletar-todos"><button>Deletar todos</button></a>
-                </div>
-                
+                </div>   
             </div>
             
             <div class="navegacao">
@@ -56,6 +51,7 @@
     
     <script src="../components/cadastro.js" type="module"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+</div>
 </body>
 
 </body>

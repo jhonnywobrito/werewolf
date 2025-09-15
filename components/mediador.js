@@ -390,7 +390,6 @@ gsap.fromTo('#modal',
                 outrosLobisomensDiv.style.position = 'fixed';
                 outrosLobisomensDiv.style.bottom = '10px';
                 outrosLobisomensDiv.style.right = '10px';
-                outrosLobisomensDiv.style.backgroundColor = 'rgba(0, 0, 0, 0.8)';
                 outrosLobisomensDiv.style.color = '#ffffff37';
                 outrosLobisomensDiv.style.padding = '10px';
                 outrosLobisomensDiv.style.borderRadius = '5px';

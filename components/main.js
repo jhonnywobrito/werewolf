@@ -618,17 +618,27 @@ fecharBtn.addEventListener('click', () => {
     export const carregarJogadores = () => {
         const jogadores = JSON.parse(localStorage.getItem('jogadores')) || [];
         tabelaCorpo.innerHTML = '';
-
-        jogadores.forEach((jogador, index) => {
-            const linha = document.createElement('tr');
+        if (jogadores.length === 0) {
+                const linha = document.createElement('tr');
             linha.innerHTML = `
-                <td>${index + 1}</td>
-                <td>${jogador}</td>
+                <td class="jogador-cadastrado">Nenhum jogador cadastrado</td>
             `;
             tabelaCorpo.appendChild(linha);
+            } else {
+jogadores.forEach((jogador, index) => {
+            
+            const linha = document.createElement('tr');
+            linha.innerHTML = `
+                <td class="jogador-cadastrado">${jogador}</td>
+            `;
+            tabelaCorpo.appendChild(linha);
+            
         });
 
         return jogadores;
+            }
+
+        
     };
 
     export const salvarJogadores = (jogadores) => {
