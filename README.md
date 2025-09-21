@@ -26,7 +26,8 @@ O jogo acaba quando:
 
 ### Bugs Conhecidos
 - Jogadores com o mesmo nome: se sorteado lobisomem, todos serão;
-- Lobo solitário perde para a vila automaticamente caso seja o único lobisomem vivo (lógica).
+- Lobo solitário perde para a vila automaticamente caso seja o único lobisomem vivo (lógica);
+- Humano leproso está armazenado na Local Storage (lógica).
 
 Obs: papéis com bugs de **lógica** não são recomendados para perfeito aproveitamento do jogo.
 
@@ -34,4 +35,4 @@ Obs: papéis com bugs de **lógica** não são recomendados para perfeito aprove
 - Foto de perfil para cada jogador;
 - Efeitos sonoros;
 - Personalizar mensagens de papéis no relatório;
-- Impedir nome de jogador repetido;
+- Impedir nome de jogador repetido.
